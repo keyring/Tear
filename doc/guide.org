@@ -1,0 +1,110 @@
+#+title: Toy Engine
+#+author: keyring
+#+options: num:nil
+
+* Build a project
+
+** why need an engine
+
+   为什么要专门开发游戏引擎？为什么要使用游戏引擎来开发游戏？游戏引擎的优势在哪？
+简言之：开发游戏不是绝对需要引擎的。但这建立在两个基础上，1）这个游戏很简单，2）你在过往的项目中积累了大量的代码。
+游戏引擎本质上就是一堆游戏开发库，用来节省游戏开发的时间。使用统一的引擎，利于团队在统一的标准上开发游戏，节约团队开发时间；引擎跨平台，节约游戏移植时间；游戏逻辑与基础功能分离，开发效率更高。
+
+** choice
+引擎只是一个框架，一个库，所以实现方式多样，技术选型也受多方面影响。比如语言方面，c,c++,c#,java,python等等都有，然后是硬件平台，PC，MAC，移动，主机等等，还有系统，windows，linux，macos，ios，android，xbox，ps4等等。
+这里，我的开发选择是用C++开发一个跨平台引擎，至少支持windows和linux。开发环境是ubuntu+emacs+GCC
+
+** create engine core lib
+
+*** install dependence
+
+**** glfw3(ubuntu)
+- install
+  1. sudo apt-get install cmake xorg-dev
+  2. git clone https://github.com/glfw/glfw.git 
+  3. cd glfw
+  4. mkdir build
+  5. cd build
+  6. cmake ../
+  7. make && sudo make install
+
+**** premake
+     为了管理不同平台的工程文件，我们采用premake构建工具，它与cmake类似，但用lua代码进行配置。
+  
+*** window framework  
+
+    游戏引擎为游戏服务。游戏运行于操作系统上，它首先是应用程序，然后才是游戏。所以，游戏首先需要的是用于展示内容的“窗口”。窗口在不同的操作系统上有不同的称呼，所以建立窗口的方式也是操作系统强相关的。
+这里我采用*GLFW*库来简化窗口的创建。
+
+
+** test engine
+
+*** test code
+    现在我们使用glfw，用最少的代码创建一个空窗口。
+#+BEGIN_SRC c++
+#include <GLFW/glfw3.h>
+
+#include <stdlib.h>
+#include <stdio.h>
+
+static void error_callback(int error, const char *description)
+{
+  fprintf(stderr, "TxxE Error: %s\n", description);
+}
+
+static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+  if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
+    glfwSetWindowShouldClose(window, GLFW_TRUE);
+  }
+
+}
+
+
+int main(void)
+{
+
+  glfwSetErrorCallback(error_callback);
+  if(!glfwInit()){
+    return -1;
+  }
+
+  GLFWwindow *window = glfwCreateWindow(800, 600, "Txx", NULL, NULL);
+  if(!window){
+    glfwTerminate();
+    return -1;
+  }
+
+  glfwSetKeyCallback(window, key_callback);
+
+    while(!glfwWindowShouldClose(window)){
+      glClear(GL_COLOR_BUFFER_BIT);
+
+      glfwSwapBuffers(window);
+
+      glfwPollEvents();
+    }
+
+    glfwDestroyWindow(window);
+    glfwTerminate();
+    return 0;
+}
+
+#+END_SRC
+
+
+*** build
+    快速编译一下，在ubuntu上
+#+BEGIN_SRC shell
+g++ main.cpp -lglfw3 -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -lpthread -ldl
+#+END_SRC
+
+稍微正常的人都不会愿意每次编译都写上这么一段，所以makefile文件是必须的。而为了跨平台，又需要一个能一键生成各个平台的工程文件。所以我们使用premake来生成各个平台的工程文件。
+
+
+
+
+
+
+
+
