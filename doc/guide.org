@@ -1,4 +1,4 @@
-#+title: Toy Engine
+#+title: Tear Engine
 #+author: keyring
 #+options: num:nil
 
@@ -11,7 +11,7 @@
 游戏引擎本质上就是一堆游戏开发库，用来节省游戏开发的时间。使用统一的引擎，利于团队在统一的标准上开发游戏，节约团队开发时间；引擎跨平台，节约游戏移植时间；游戏逻辑与基础功能分离，开发效率更高。
 
 ** choice
-引擎只是一个框架，一个库，所以实现方式多样，技术选型也受多方面影响。比如语言方面，c,c++,c#,java,python等等都有，然后是硬件平台，PC，MAC，移动，主机等等，还有系统，windows，linux，macos，ios，android，xbox，ps4等等。
+   引擎只是一个框架，一个库，所以实现方式多样，技术选型也受多方面影响。比如语言方面，c,c++,c#,java,python等等都有，然后是硬件平台，PC，MAC，移动，主机等等，还有系统，windows，linux，macos，ios，android，xbox，ps4等等。
 这里，我的开发选择是用C++开发一个跨平台引擎，至少支持windows和linux。开发环境是ubuntu+emacs+GCC
 
 ** create engine core lib
@@ -19,29 +19,26 @@
 *** install dependence
 
 **** glfw3(ubuntu)
-- install
-  1. sudo apt-get install cmake xorg-dev
-  2. git clone https://github.com/glfw/glfw.git 
-  3. cd glfw
-  4. mkdir build
-  5. cd build
-  6. cmake ../
-  7. make && sudo make install
+     - install
+       1. sudo apt-get install cmake xorg-dev
+       2. git clone https://github.com/glfw/glfw.git 
+       3. cd glfw
+       4. mkdir build
+       5. cd build
+       6. cmake ../
+       7. make && sudo make install
 
 **** premake
      为了管理不同平台的工程文件，我们采用premake构建工具，它与cmake类似，但用lua代码进行配置。
   
 *** window framework  
-
     游戏引擎为游戏服务。游戏运行于操作系统上，它首先是应用程序，然后才是游戏。所以，游戏首先需要的是用于展示内容的“窗口”。窗口在不同的操作系统上有不同的称呼，所以建立窗口的方式也是操作系统强相关的。
 这里我采用*GLFW*库来简化窗口的创建。
 
-
-** test engine
-
-*** test code
-    现在我们使用glfw，用最少的代码创建一个空窗口。
+**** create a window
+     现在我们使用glfw，用最少的代码创建一个空窗口。
 #+BEGIN_SRC c++
+
 #include <GLFW/glfw3.h>
 
 #include <stdlib.h>
@@ -57,7 +54,6 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action, 
   if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
     glfwSetWindowShouldClose(window, GLFW_TRUE);
   }
-
 }
 
 
@@ -92,19 +88,41 @@ int main(void)
 
 #+END_SRC
 
+**** build a application
+     在ubuntu上快速编译运行一下。
+     #+BEGIN_SRC shell
+     g++ main.cpp -lglfw3 -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -lpthread -ldl
+     #+END_SRC
 
-*** build
-    快速编译一下，在ubuntu上
-#+BEGIN_SRC shell
-g++ main.cpp -lglfw3 -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -lpthread -ldl
+     稍微正常的人都不会愿意每次编译都写上这么一段，所以makefile文件是必须的。而为了跨平台，又需要一个能一键生成各个平台的工程文件。所以我们使用premake来生成各个平台的工程文件。
+*** engine framework
+    游戏最基本的运行逻辑，*初始化*，*更新*，*结束*。我们的引擎会在必要的时候调用这三个操作来驱动游戏运行。
+    
+    #+BEGIN_SRC c++
+    extern bool game_init();
+    extern void game_update();
+    extern void game_end();
+    #+END_SRC
+
+    所有基于本引擎的游戏必须实现这三个函数。
+
+*** engine lib
+    现在我们来将引擎做成一个库，真正的游戏就建立在这个库之上。
+
+#+BEGIN_SRC c++
+// Tear.h
+
 #+END_SRC
 
-稍微正常的人都不会愿意每次编译都写上这么一段，所以makefile文件是必须的。而为了跨平台，又需要一个能一键生成各个平台的工程文件。所以我们使用premake来生成各个平台的工程文件。
+#+BEGIN_SRC c++
+// Tear.cpp
 
+#+END_SRC
 
+** test engine
+#+BEGIN_SRC c++
+// example_01.cpp
 
+#+END_SRC
 
-
-
-
-
+    
