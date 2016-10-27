@@ -27,5 +27,5 @@ namespace Tear{
 };
 
 // global engine object
-extern Tear::Engine *g_tear_engine
+extern Tear::Engine *g_tear_engine;
 #endif
