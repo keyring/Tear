@@ -4,24 +4,24 @@
 
 * Build a project
 
-** why need an engine
+** Why need an engine
 
    为什么要专门开发游戏引擎？为什么要使用游戏引擎来开发游戏？游戏引擎的优势在哪？
 简言之：开发游戏不是绝对需要引擎的。但这建立在两个基础上，1）这个游戏很简单，2）你在过往的项目中积累了大量的代码。
 游戏引擎本质上就是一堆游戏开发库，用来节省游戏开发的时间。使用统一的引擎，利于团队在统一的标准上开发游戏，节约团队开发时间；引擎跨平台，节约游戏移植时间；游戏逻辑与基础功能分离，开发效率更高。
 
-** choice
+** Choice
    引擎只是一个框架，一个库，所以实现方式多样，技术选型也受多方面影响。比如语言方面，c,c++,c#,java,python等等都有，然后是硬件平台，PC，MAC，移动，主机等等，还有系统，windows，linux，macos，ios，android，xbox，ps4等等。
 这里，我的开发选择是用C++开发一个跨平台引擎，至少支持windows和linux。开发环境是ubuntu+emacs+GCC
 
-** create engine core lib
+** Create engine core lib
 
 *** install dependence
 
 **** glfw3(ubuntu)
      - install
        1. sudo apt-get install cmake xorg-dev
-       2. git clone https://github.com/glfw/glfw.git 
+       2. git clone https://github.com/glfw/glfw.git
        3. cd glfw
        4. mkdir build
        5. cd build
@@ -29,10 +29,10 @@
        7. make && sudo make install
 
 **** premake
-     为了管理不同平台的工程文件，我们采用premake构建工具，它与cmake类似，但用lua代码进行配置。
-  
-*** window framework  
-    游戏引擎为游戏服务。游戏运行于操作系统上，它首先是应用程序，然后才是游戏。所以，游戏首先需要的是用于展示内容的“窗口”。窗口在不同的操作系统上有不同的称呼，所以建立窗口的方式也是操作系统强相关的。
+为了管理不同平台的工程文件，我们采用premake构建工具，它与cmake类似，但用lua代码进行配置。
+
+*** window framework
+游戏引擎为游戏服务。游戏运行于操作系统上，它首先是应用程序，然后才是游戏。所以，游戏首先需要的是用于展示内容的“窗口”。窗口在不同的操作系统上有不同的称呼，所以建立窗口的方式也是操作系统强相关的。
 这里我采用*GLFW*库来简化窗口的创建。
 
 **** create a window
@@ -96,9 +96,10 @@ int main(void)
 
      稍微正常的人都不会愿意每次编译都写上这么一段，所以makefile文件是必须的。而为了跨平台，又需要一个能一键生成各个平台的工程文件。所以我们使用premake来生成各个平台的工程文件。
 *** engine framework
-    游戏最基本的运行逻辑，*初始化*，*更新*，*结束*。我们的引擎会在必要的时候调用这三个操作来驱动游戏运行。
-    
+游戏最基本的运行逻辑，*初始化*，*更新*，*结束*。我们的引擎会在必要的时候调用这三个操作来驱动游戏运行。
+
     #+BEGIN_SRC c++
+    extern bool game_load();
     extern bool game_init();
     extern void game_update();
     extern void game_end();
@@ -111,18 +112,181 @@ int main(void)
 
 #+BEGIN_SRC c++
 // Tear.h
+#ifndef __TEAR_H__
+#define __TEAR_H__
+
+extern bool game_load();
+extern bool game_init();
+extern void game_update();
+extern void game_end();
+
+namespace Tear{
+    class Engine{
+        int m_window_width;
+        int m_window_height;
+
+    public:
+        Engine();
+        ~Engine();
+
+        int init(int width, int height);
+        void update();
+        void close();
+
+        int getWindowWidth(){ return this->m_window_width; }
+        void setWindowWidth(int value){ this->m_window_width = value; }
+        int getWindowHeight(){ return this->m_window_height; }
+        void setWindowHeight(int value){ this->m_window_height = value; }
+    };
+};
+
+// global engine object
+extern Tear::Engine *g_tear_engine;
+#endif
 
 #+END_SRC
 
 #+BEGIN_SRC c++
 // Tear.cpp
+#include "Tear.h"
+
+namespace Tear{
+    Engine::Engine():m_window_width(800),
+                     m_window_height(600)
+    {
+    }
+
+    Engine::~Engine()
+    {
+    }
+
+    int Engine::init(int width, int height)
+    {
+        if(!game_init()){
+            return 0;
+        }
+
+        return 1;
+    }
+
+    void Engine::update()
+    {
+        game_update();
+    }
+
+    void Engine::close()
+    {
+        game_end();
+    }
+}
 
 #+END_SRC
 
-** test engine
+#+BEGIN_SRC c++
+// main.cpp
+#include "Tear.h"
+
+#include <GLFW/glfw3.h>
+#include <cstdlib>
+#include <cstdio>
+
+static void error_callback(int error, const char *description)
+{
+    fprintf(stderr, "glfw Error: %s\n", description);
+}
+
+static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+    if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
+    }
+
+}
+
+Tear::Engine *g_tear_engine;
+
+int main(void)
+{
+    glfwSetErrorCallback(error_callback);
+    if(!glfwInit()){
+        return -1;
+    }
+
+    g_tear_engine = new Tear::Engine();
+
+    if(!game_load()){
+        fprintf(stderr, "game load fail\n");
+        return 0;
+    }
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+    GLFWwindow *window = glfwCreateWindow(g_tear_engine->getWindowWidth(), g_tear_engine->getWindowHeight(), "Tear Engine", nullptr, nullptr);
+    if(!window){
+        fprintf(stderr, "Failed to open GLFW window\n");
+        glfwTerminate();
+        return -1;
+    }
+
+    glfwSetKeyCallback(window, key_callback);
+
+    if(!g_tear_engine->init(g_tear_engine->getWindowWidth(), g_tear_engine->getWindowHeight())){
+        fprintf(stderr, "game engine init fail\n");
+        return 0;
+    }
+
+
+    while (!glfwWindowShouldClose(window)){
+
+        glfwPollEvents();
+
+        g_tear_engine->update();
+
+        glfwSwapBuffers(window);
+
+    }
+    g_tear_engine->close();
+    delete g_tear_engine;
+
+    glfwDestroyWindow(window);
+    glfwTerminate();
+
+    return 0;
+}
+
+#+END_SRC
+** Test
+   引擎已经弄好，现在来写一个游戏吧。
 #+BEGIN_SRC c++
 // example_01.cpp
+#include "Tear.h"
+
+bool game_load()
+{
+    g_tear_engine->setWindowWidth(640);
+    g_tear_engine->setWindowHeight(480);
+    return true;
+}
+
+bool game_init()
+{
+    return true;
+}
+
+void game_update()
+{
+
+}
+
+void game_end()
+{
+
+}
 
 #+END_SRC
 
-    
+
+运行成功后会出现一个黑色的窗口，这一次的窗口已经不再是纯粹的窗口了。它本质上已经变成了通过引擎驱动起来的游戏。通过在上述四个game_**函数里不断添加游戏逻辑，就能产生不同的游戏。
