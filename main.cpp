@@ -46,7 +46,6 @@ int main(void)
     }
 
     glfwSetKeyCallback(window, key_callback);
-    glfwMakeContextCurrent(window);
 
     if(!g_tear_engine->init(g_tear_engine->getWindowWidth(), g_tear_engine->getWindowHeight())){
         fprintf(stderr, "game engine init fail\n");
@@ -55,8 +54,7 @@ int main(void)
 
 
     while (!glfwWindowShouldClose(window)){
-        glClearColor(1.0f, 0.45f, 0.37f,1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+
         glfwPollEvents();
 
         g_tear_engine->update();
