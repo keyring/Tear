@@ -18,15 +18,21 @@
 
 *** install dependence
 
-**** glfw3(ubuntu)
-     - install
-       1. sudo apt-get install cmake xorg-dev
-       2. git clone https://github.com/glfw/glfw.git
-       3. cd glfw
-       4. mkdir build
-       5. cd build
-       6. cmake ../
-       7. make && sudo make install
+**** glfw3
+- linux/macos
+  1. sudo apt-get install cmake xorg-dev
+  2. git clone https://github.com/glfw/glfw.git
+  3. cd glfw
+  4. mkdir build
+  5. cd build
+  6. cmake ../
+  7. make && sudo make install
+
+- windows
+  1. go to http://www.glfw.org/download.html
+  2. download windows pre-compiled binary and unpack
+  3. go to your visual studio installed path, in VC folder
+  4. put /GLFW/ to include folder, /glfw3.lib glfw3dll.lib/ to lib folder, /glfw3.dll/ to bin folder
 
 **** premake
 为了管理不同平台的工程文件，我们采用premake构建工具，它与cmake类似，但用lua代码进行配置。
@@ -96,7 +102,7 @@ int main(void)
 
      稍微正常的人都不会愿意每次编译都写上这么一段，所以makefile文件是必须的。而为了跨平台，又需要一个能一键生成各个平台的工程文件。所以我们使用premake来生成各个平台的工程文件。
 *** engine framework
-游戏最基本的运行逻辑，*初始化*，*更新*，*结束*。我们的引擎会在必要的时候调用这三个操作来驱动游戏运行。
+游戏最基本的运行逻辑， *加载* ， *初始化* ， *更新* ， *结束* 。我们的引擎会在必要的时候调用这三个操作来驱动游戏运行。
 
     #+BEGIN_SRC c++
     extern bool game_load();
@@ -289,4 +295,4 @@ void game_end()
 #+END_SRC
 
 
-运行成功后会出现一个黑色的窗口，这一次的窗口已经不再是纯粹的窗口了。它本质上已经变成了通过引擎驱动起来的游戏。通过在上述四个game_**函数里不断添加游戏逻辑，就能产生不同的游戏。
+运行成功后会出现一个黑色的窗口，这一次的窗口已经不再是纯粹的窗口了。它本质上已经变成了通过引擎驱动起来的游戏。通过在上述四个game_xx函数里不断添加游戏逻辑，就能产生不同的游戏。
