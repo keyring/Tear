@@ -1,6 +1,9 @@
 #include "Tear.h"
 
+#include <GL/glew.h>
+
 #include <GLFW/glfw3.h>
+
 #include <cstdlib>
 #include <cstdio>
 
@@ -45,13 +48,19 @@ int main(void)
         return -1;
     }
 
+    glfwMakeContextCurrent(window);
     glfwSetKeyCallback(window, key_callback);
+
+    glewExperimental = GL_TRUE;
+
+    glewInit();
+
+    glViewport(0, 0, g_tear_engine->getWindowWidth(), g_tear_engine->getWindowHeight());
 
     if(!g_tear_engine->init(g_tear_engine->getWindowWidth(), g_tear_engine->getWindowHeight())){
         fprintf(stderr, "game engine init fail\n");
         return 0;
     }
-
 
     while (!glfwWindowShouldClose(window)){
 

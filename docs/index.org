@@ -15,7 +15,6 @@
 这里，我的开发选择是用C++开发一个跨平台引擎，至少支持windows和linux。使用emacs编辑，premake其他工程文件。
 
 ** Create engine core lib
-
 *** install dependence
 
 **** glfw3
@@ -296,3 +295,37 @@ void game_end()
 
 
 运行成功后会出现一个黑色的窗口，这一次的窗口已经不再是纯粹的窗口了。它本质上已经变成了通过引擎驱动起来的游戏。通过在上述四个game_xx函数里不断添加游戏逻辑，就能产生不同的游戏。
+
+* Rendering
+游戏最重要的元素当属视觉效果，毕竟人类70%的信息获取也是视觉提供的。游戏的画面在图形学中称为 *渲染（Rendering）* 。
+游戏引擎在窗口支持之后的第一要务就是图形渲染支持。
+
+** 图形API
+我们要在窗口上画图，做渲染，离不开硬件的支持。最简单的画图就是直接往显示器内存写像素值。而今，随着技术的发展，GPU的普及，绘图的工作
+基本由GPU负责。为了避免直接操作硬件，从而抽象出各类图形API，提高绘图的开发效率。下面是当前主流的几个图形API。
+ - OpenGL： 传承自SGI，最早的专用图形API，属于开放性标准。因为跨平台，多用于专业领域，游戏领域甚少使用。
+ - Direc3D： 微软私有标准，仅限于windows，XBOX,winphone平台。桌面图形API的霸主，设计精良，效率一流，桌面游戏开发的不二之选。
+ - OpenGL ES： 精简版 OpenGL，专为小型嵌入式设备设计。因移动平台崛起而风靡。
+ - Metal： 苹果自家最新私有标准，为改良OpenGL ES诞生。
+ - Vulkan： 下一代 OpenGL 标准，统一桌面移动两种 GL，降低驱动层消耗，最大化利用硬件能力。
+
+** 使用 OpenGL/OpenGL ES
+由于当前移动游戏崛起，以前不受游戏开发待见的OpenGL因为跨平台性焕发了第二春。所以，我们的游戏引擎的图形API支持就从OpenGL
+开始。
+*** glew（桌面）
+同前面所使用的glfw类似，glew是简化在桌面平台使用OpenGL的一个库。OpenGL当前版本已经到了4.x（终止开发，转向vulkan），但受操作系统限制，即使用上最牛比的显卡
+如果操作系统本身不支持高版本的API，你也就用不上。其中最狠的就是windows上，只支持最古老的OpenGL1.1。所以我们急需绕过操作系统，直接使用显卡提供的高版本API。这就是GLEW的用处。
+
+**** install
+     - linux
+       1. git clone https://github.com/nigels-com/glew.git glew
+       2. cd glew/auto
+       3. make
+       4. cd ..
+       5. sudo make install
+
+     - windows
+       1. download pre-binary
+
+
+

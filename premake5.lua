@@ -23,12 +23,14 @@ workspace "TearEngine"
 
         configuration "windows"
             links{
-                "glfw3",
+              "glfw3",
+              "glew",
                 "OpenGL32"
             }
         configuration "linux"
             links{
-                "glfw3", 
+              "glfw3",
+              "GLEW",
                 "X11",
                 "Xrandr",
                 "Xi", 
