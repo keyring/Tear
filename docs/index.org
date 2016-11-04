@@ -11,6 +11,9 @@
 游戏引擎本质上就是一堆游戏开发库，用来节省游戏开发的时间。使用统一的引擎，利于团队在统一的标准上开发游戏，节约团队开发时间；引擎跨平台，节约游戏移植时间；游戏逻辑与基础功能分离，开发效率更高。
 
 ** Choice
+
+[[./images/tear_1.png]]
+
    引擎只是一个框架，一个库，所以实现方式多样，技术选型也受多方面影响。比如语言方面，c,c++,c#,java,python等等都有，然后是硬件平台，PC，MAC，移动，主机等等，还有系统，windows，linux，macos，ios，android，xbox，ps4等等。
 这里，我的开发选择是用C++开发一个跨平台引擎，至少支持windows和linux。使用emacs编辑，premake其他工程文件。
 
@@ -137,6 +140,7 @@ namespace Tear{
         int init(int width, int height);
         void update();
         void close();
+        
 
         int getWindowWidth(){ return this->m_window_width; }
         void setWindowWidth(int value){ this->m_window_width = value; }
