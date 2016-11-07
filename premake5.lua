@@ -14,17 +14,17 @@ workspace "TearEngine"
         files { "**.h", "**.c", "**.cpp" }
 
         filter "configurations:Debug"
-        defines { "DEBUG" }
+        defines { "DEBUG","GLEW_STATIC" }
         flags { "Symbols" }
 
         filter "configurations:Release"
-        defines { "NDEBUG" }
+        defines { "NDEBUG", "GLEW_STATIC" }
         optimize "On"
 
         configuration "windows"
             links{
               "glfw3",
-              "glew",
+              "glew32s",
                 "OpenGL32"
             }
         configuration "linux"
@@ -33,11 +33,11 @@ workspace "TearEngine"
               "GLEW",
                 "X11",
                 "Xrandr",
-                "Xi", 
+                "Xi",
                 "Xinerama",
-                "Xxf86vm", 
-                "Xcursor", 
-                "GL", 
-                "pthread", 
+                "Xxf86vm",
+                "Xcursor",
+                "GL",
+                "pthread",
                 "dl"
             }
