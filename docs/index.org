@@ -312,7 +312,7 @@ void game_end()
 ** 使用 OpenGL/OpenGL ES
 由于当前移动游戏崛起，以前不受游戏开发待见的OpenGL因为跨平台性焕发了第二春。所以，我们的游戏引擎的图形API支持就从OpenGL
 开始。
-*** glew（桌面）
+*** GLEW（桌面）
 同前面所使用的glfw类似，glew是简化在桌面平台使用OpenGL的一个库。OpenGL当前版本已经到了4.x（终止开发，转向vulkan），但受操作系统限制，即使用上最牛比的显卡
 如果操作系统本身不支持高版本的API，你也就用不上。其中最狠的就是windows上，只支持最古老的OpenGL1.1。所以我们急需绕过操作系统，直接使用显卡提供的高版本API。这就是GLEW的用处。
 
@@ -329,3 +329,13 @@ void game_end()
 
 
 
+*** EGL（移动）
+我们在移动端使用OpenGLES，但GLES本身只是一个操作GPU的API，不具备与平台Native层交互的能力。所以EGL的
+因此而生——作为GLES与Native窗口的桥梁。
+EGL 是 OpenGL ES（嵌入式）和底层 Native 平台视窗系统之间的接口。
+EGL API 是独立于OpenGL ES各版本标准的独立API ，其主要作用是为OpenGL指令创
+建 Context 、绘制目标Surface 、配置Framebuffer属性、Swap提交绘制结果等。
+此外，EGL为GPU厂商和OS窗口系统之间提供了一个标准配置接口。
+
+** 绘制一个三角形
+使用OpenGL绘制一个三角形应该是“Hello World”级别的GL程序。
