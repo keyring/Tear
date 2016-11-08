@@ -1,12 +1,9 @@
 #include "Tear.h"
-
+#include <iostream>
 #include <GL/glew.h>
-
 #include <GLFW/glfw3.h>
 
-#include <cstdlib>
-#include <cstdio>
-#include <iostream>
+
 
 // Shaders
 const GLchar* vertexShaderSource = "#version 330 core\n"
@@ -27,7 +24,7 @@ const GLchar* fragmentShaderSource = "#version 330 core\n"
 
 static void error_callback(int error, const char *description)
 {
-    fprintf(stderr, "glfw Error: %s\n", description);
+    std::cout << "glfw Error: " << description << std::endl;
 }
 
 static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
@@ -50,7 +47,7 @@ int main(void)
     g_tear_engine = new Tear::Engine();
 
     if(!game_load()){
-        fprintf(stderr, "game load fail\n");
+        std::cout << "game load fail" << std::endl;
         return 0;
     }
 
@@ -61,7 +58,7 @@ int main(void)
 
     GLFWwindow *window = glfwCreateWindow(g_tear_engine->getWindowWidth(), g_tear_engine->getWindowHeight(), "Tear Engine", NULL, NULL);
     if(!window){
-        fprintf(stderr, "Failed to open GLFW window\n");
+        std::cout << "Failed to open GLFW window" << std::endl;
         glfwTerminate();
         return -1;
     }
@@ -159,12 +156,12 @@ int main(void)
 
 
     // Uncommenting this call will result in wireframe polygons.
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
 
     if(!g_tear_engine->init(g_tear_engine->getWindowWidth(), g_tear_engine->getWindowHeight())){
-        fprintf(stderr, "game engine init fail\n");
+        std::cout << "game engine init fail" << std::endl;
         return 0;
     }
 
