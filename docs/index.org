@@ -333,12 +333,48 @@ void game_end()
 
 
 *** EGL（移动）
-移动端使用OpenGLES，但GLES本身只是一个操作GPU的API，不具备与平台Native层交互的能力。所以EGL
-因此而生——作为GLES与Native窗口的桥梁。
-EGL 是 OpenGL ES（嵌入式）和底层 Native 平台视窗系统之间的接口。
-EGL API 是独立于OpenGL ES各版本标准的独立API ，其主要作用是为OpenGL指令创
-建 Context 、绘制目标Surface 、配置Framebuffer属性、Swap提交绘制结果等。
+移动端使用OpenGLES，但GLES本身只是一个操作GPU的API，不具备与平台Native层交互的能力。EGL因此而生——作为GLES与Native窗口的桥梁。EGL 是 OpenGL ES（嵌入式）和底层 Native 平台视窗系统之间的接口。EGL API 是独立于OpenGL ES各版本标准的独立API ，其主要作用是为OpenGL指令创建 Context 、绘制目标Surface 、配置Framebuffer属性、Swap提交绘制结果等。
 此外，EGL为GPU厂商和OS窗口系统之间提供了一个标准配置接口。一般移动操作系统对GLES的支持非常及时，所以GLEW就不是很必要了。
+对于android，可以使用SDK提供的GLSurfaceView简化开发。对于ios，为了适应cocoa框架，苹果做了一点修改，叫EAGL。具体使用参阅各自平台的文档。
 
 ** 绘制一个三角形
 使用OpenGL绘制一个三角形应该是“Hello World”级别的GL程序。
+
+*** Pipeline
+OpenGL是一个3D图形API，所以其中任何事物都位于2D空间中。而我们接受输出的对象（窗口、屏幕）却是2D的。所以整个OpenGL的大部分工作就是将3D世界转化为2D像素数组。这个流程叫 *图形流水线（Graphics Pipeline）* ，一堆原始的三维图形数据，经过流水线各个阶段的处理，最终输出显示在屏幕上。
+[[./images/pipeline.png]]
+就像工厂里的流水线一样，渲染流水线也分多个阶段，每个阶段接收上个阶段的输出作为输入，然后向后输出相应的数据。每一个阶段拆分的足够模块化，使得任务可以高度并行。同时，GPU本身是个多处理器架构，一个GPU可能同时包含上千的流处理器核心。每个核心运行 *shader（着色器）* ，处理传入的数据，互不干扰。
+流水线中的一部分允许开发者直接控制，意味着这些阶段GPU核心可以运行开发者自己写的shader。这样的好处在于，对于渲染结果，开发者可以进行更细致的控制。
+
+*** 可编程着色器
+可编程着色器指的就是可以由开发者自己编写的着色器，也就是平时说的写shader。与之对应的就是固定着色器，也叫默认着色器，开发者不能用自己的shader替换，只能通过API进行开关控制。
+现代图形API基本都要求开发者至少提供一个 *顶点着色器（vertex shader）* 和一个 *片段着色器（fragment shader）* 。（其他API可能名字不同，比如D3D里叫顶点着色器和像素着色器。）为什么要必须提供呢，因为图形API对这两个阶段没有提供默认shader了，所以需要开发者提供。下面提供两个最基础的着色器。
+#+BEGIN_SRC c++
+// vs
+#version 330 core
+
+layout (location = 0) in vec3 position;
+
+void main()
+{
+    gl_Position = vec4(position.x, position.y, position.z, 1.0);
+}
+
+#+END_SRC
+
+#+BEGIN_SRC c++
+// fs
+#version 330 core
+
+out vec4 color;
+
+void main()
+{
+    color = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+}
+
+#+END_SRC
+
+掌握渲染流水线和可编程着色器两个概念，然后配合OpenGL提供的API，就可以绘制出你的第一个一个三角形。对于移动端，可参阅网上的资料，搜索关键字 *EGL, OpenGLES, 三角形* 。
+
+** 纹理
