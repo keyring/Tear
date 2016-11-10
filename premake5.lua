@@ -11,7 +11,15 @@ workspace "TearEngine"
 
         targetdir "bin/%{cfg.buildcfg}"
 
-        files { "**.h", "**.c", "**.cpp" }
+        includedirs {
+          "3rdparty/stb
+        }
+        files {
+            "**.h",
+            "**.c",
+            "**.cpp",
+            "3rdparty/stb/*",
+        }
 
         filter "configurations:Debug"
         defines { "DEBUG" }
