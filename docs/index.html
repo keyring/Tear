@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-10-31 周一 10:12 -->
+<!-- 2016-11-11 周五 11:31 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Tear Engine</title>
@@ -163,6 +163,24 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline12">Test</a></li>
 </ul>
 </li>
+<li><a href="#orgheadline14">Rendering</a>
+<ul>
+<li><a href="#orgheadline15">图形API</a></li>
+<li><a href="#orgheadline16">使用 OpenGL/OpenGL ES</a>
+<ul>
+<li><a href="#orgheadline17">GLEW（桌面）</a></li>
+<li><a href="#orgheadline19">EGL（移动）</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline20">绘制一个三角形</a>
+<ul>
+<li><a href="#orgheadline21">Pipeline</a></li>
+<li><a href="#orgheadline22">可编程着色器</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline23">纹理</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -184,6 +202,12 @@ for the JavaScript code in this tag.
 <div id="outline-container-orgheadline2" class="outline-3">
 <h3 id="orgheadline2">Choice</h3>
 <div class="outline-text-3" id="text-orgheadline2">
+
+<div class="figure">
+<p><img src="./images/tear_1.png" alt="tear_1.png" />
+</p>
+</div>
+
 <p>
    引擎只是一个框架，一个库，所以实现方式多样，技术选型也受多方面影响。比如语言方面，c,c++,c#,java,python等等都有，然后是硬件平台，PC，MAC，移动，主机等等，还有系统，windows，linux，macos，ios，android，xbox，ps4等等。
 这里，我的开发选择是用C++开发一个跨平台引擎，至少支持windows和linux。使用emacs编辑，premake其他工程文件。
@@ -360,6 +384,7 @@ for the JavaScript code in this tag.
         <span style="color: #6434A3;">void</span> <span style="color: #006699;">update</span><span style="color: #909183;">()</span>;
         <span style="color: #6434A3;">void</span> <span style="color: #006699;">close</span><span style="color: #909183;">()</span>;
 
+
         <span style="color: #6434A3;">int</span> <span style="color: #006699;">getWindowWidth</span><span style="color: #909183;">(){</span> <span style="color: #0000FF;">return</span> <span style="color: #0000FF;">this</span>-&gt;m_window_width; <span style="color: #909183;">}</span>
         <span style="color: #6434A3;">void</span> <span style="color: #006699;">setWindowWidth</span><span style="color: #909183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">value</span><span style="color: #909183;">){</span> <span style="color: #0000FF;">this</span>-&gt;m_window_width = value; <span style="color: #909183;">}</span>
         <span style="color: #6434A3;">int</span> <span style="color: #006699;">getWindowHeight</span><span style="color: #909183;">(){</span> <span style="color: #0000FF;">return</span> <span style="color: #0000FF;">this</span>-&gt;m_window_height; <span style="color: #909183;">}</span>
@@ -532,10 +557,219 @@ for the JavaScript code in this tag.
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14">Rendering</h2>
+<div class="outline-text-2" id="text-orgheadline14">
+<p>
+游戏最重要的元素当属视觉效果，毕竟人类70%的信息获取也是视觉提供的。游戏的画面在图形学中称为 <b>渲染（Rendering）</b> 。
+游戏引擎在窗口支持之后的第一要务就是图形渲染支持。
+</p>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15">图形API</h3>
+<div class="outline-text-3" id="text-orgheadline15">
+<p>
+我们要在窗口上画图，做渲染，离不开硬件的支持。最简单的画图就是直接往显示器内存写像素值。而今，随着技术的发展，GPU的普及，绘图的工作
+基本由GPU负责。为了避免直接操作硬件，从而抽象出各类图形API，提高绘图的开发效率。下面是当前主流的几个图形API。
+</p>
+<ul class="org-ul">
+<li>OpenGL： 传承自SGI，最早的专用图形API，属于开放性标准。因为跨平台，多用于专业领域，游戏领域甚少使用。</li>
+<li>Direc3D： 微软私有标准，仅限于windows，XBOX,winphone平台。桌面图形API的霸主，设计精良，效率一流，桌面游戏开发的不二之选。</li>
+<li>OpenGL ES： 精简版 OpenGL，专为小型嵌入式设备设计。因移动平台崛起而风靡。</li>
+<li>Metal： 苹果自家最新私有标准，为改良OpenGL ES诞生。</li>
+<li>Vulkan： 下一代 OpenGL 标准，统一桌面移动两种 GL，降低驱动层消耗，最大化利用硬件能力。</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16">使用 OpenGL/OpenGL ES</h3>
+<div class="outline-text-3" id="text-orgheadline16">
+<p>
+由于当前移动游戏崛起，以前不受游戏开发待见的OpenGL因为跨平台性焕发了第二春。所以，我们的游戏引擎的图形API支持就从OpenGL
+开始。
+</p>
+</div>
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17">GLEW（桌面）</h4>
+<div class="outline-text-4" id="text-orgheadline17">
+<p>
+同前面所使用的glfw类似，glew是简化使用OpenGL的一个库。因为OpenGL只是一个标准/规范，具体的实现是由驱动开发商针对特定显卡实现的。由于OpenGL驱动版本众多，它大多数函数的位置都无法在编译时确定下来，需要在运行时查询。任务就落在了开发者身上，开发者需要在运行时获取函数地址并将其保存在一个函数指针中供以后使用。一般这步操作由操作系统实现。但OpenGL当前版本已经到了4.x（终止开发，转向vulkan），而部分操作系统没有及时支持高版本的API。其中最狠的就是windows上，只支持最古老的OpenGL1.1。所以我们需要绕过操作系统，在运行时查询函数地址直接使用显卡提供的高版本API。而取函数地址的方式因平台各异，所以GLEW封装了这层操作，向上提供纯粹的OpenGL接口，隐藏平台差异，版本差异，简化使用GL。
+</p>
+</div>
+
+<ul class="org-ul"><li><a id="orgheadline18"></a>install<br  /><div class="outline-text-5" id="text-orgheadline18">
+<ul class="org-ul">
+<li>linux
+<ol class="org-ol">
+<li>git clone <a href="https://github.com/nigels-com/glew.git">https://github.com/nigels-com/glew.git</a> glew</li>
+<li>cd glew/auto</li>
+<li>make</li>
+<li>cd ..</li>
+<li>sudo make install</li>
+</ol></li>
+
+<li>windows
+<ol class="org-ol">
+<li>download pre-binary</li>
+</ol></li>
+</ul>
+</div></li></ul>
+</div>
+
+
+
+<div id="outline-container-orgheadline19" class="outline-4">
+<h4 id="orgheadline19">EGL（移动）</h4>
+<div class="outline-text-4" id="text-orgheadline19">
+<p>
+移动端使用OpenGLES，但GLES本身只是一个操作GPU的API，不具备与平台Native层交互的能力。EGL因此而生——作为GLES与Native窗口的桥梁。EGL 是 OpenGL ES（嵌入式）和底层 Native 平台视窗系统之间的接口。EGL API 是独立于OpenGL ES各版本标准的独立API ，其主要作用是为OpenGL指令创建 Context 、绘制目标Surface 、配置Framebuffer属性、Swap提交绘制结果等。
+此外，EGL为GPU厂商和OS窗口系统之间提供了一个标准配置接口。一般移动操作系统对GLES的支持非常及时，所以GLEW就不是很必要了。
+对于android，可以使用SDK提供的GLSurfaceView简化开发。对于ios，为了适应cocoa框架，苹果做了一点修改，叫EAGL。具体使用参阅各自平台的文档。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20">绘制一个三角形</h3>
+<div class="outline-text-3" id="text-orgheadline20">
+<p>
+使用OpenGL绘制一个三角形应该是“Hello World”级别的GL程序。
+</p>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21">Pipeline</h4>
+<div class="outline-text-4" id="text-orgheadline21">
+<p>
+OpenGL是一个3D图形API，所以其中任何事物都位于2D空间中。而我们接受输出的对象（窗口、屏幕）却是2D的。所以整个OpenGL的大部分工作就是将3D世界转化为2D像素数组。这个流程叫 <b>图形流水线（Graphics Pipeline）</b> ，一堆原始的三维图形数据，经过流水线各个阶段的处理，最终输出显示在屏幕上。
+</p>
+
+
+<div class="figure">
+<p><img src="./images/pipeline.png" alt="pipeline.png" />
+</p>
+</div>
+
+<p>
+就像工厂里的流水线一样，渲染流水线也分多个阶段，每个阶段接收上个阶段的输出作为输入，然后向后输出相应的数据。每一个阶段拆分的足够模块化，使得任务可以高度并行。同时，GPU本身是个多处理器架构，一个GPU可能同时包含上千的流处理器核心。每个核心运行 <b>shader（着色器）</b> ，处理传入的数据，互不干扰。
+流水线中的一部分允许开发者直接控制，意味着这些阶段GPU核心可以运行开发者自己写的shader。这样的好处在于，对于渲染结果，开发者可以进行更细致的控制。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-4">
+<h4 id="orgheadline22">可编程着色器</h4>
+<div class="outline-text-4" id="text-orgheadline22">
+<p>
+可编程着色器指的就是可以由开发者自己编写的着色器，也就是平时说的写shader。与之对应的就是固定着色器，也叫默认着色器，开发者不能用自己的shader替换，只能通过API进行开关控制。
+现代图形API基本都要求开发者至少提供一个 <b>顶点着色器（vertex shader）</b> 和一个 <b>片段着色器（fragment shader）</b> 。（其他API可能名字不同，比如D3D里叫顶点着色器和像素着色器。）为什么要必须提供呢，因为图形API对这两个阶段没有提供默认shader了，所以需要开发者提供。下面提供两个最基础的着色器。
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">vs</span>
+<span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
+
+layout <span style="color: #707183;">(</span>location = <span style="color: #D0372D;">0</span><span style="color: #707183;">)</span> in <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">position</span>;
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    gl_Position = vec4<span style="color: #7388D6;">(</span>position.x, position.y, position.z, <span style="color: #D0372D;">1.0</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">fs</span>
+<span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
+
+out <span style="color: #6434A3;">vec4</span> <span style="color: #BA36A5;">color</span>;
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    color = vec4<span style="color: #7388D6;">(</span><span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">0.5f</span>, <span style="color: #D0372D;">0.2f</span>, <span style="color: #D0372D;">1.0f</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+掌握渲染流水线和可编程着色器两个概念，然后配合OpenGL提供的API，就可以绘制出你的第一个一个三角形。对于移动端，可参阅网上的资料，搜索关键字 <b>EGL, OpenGLES, 三角形</b> 。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23">纹理</h3>
+<div class="outline-text-3" id="text-orgheadline23">
+<p>
+图形由顶点构成，图形的颜色也由顶点的颜色决定。我们为每个顶点设置颜色之后，其他非顶点位置的颜色则是自动插值出来的。理论上，你可以设置足够密集的顶点（与像素点一样多），然后为每个顶点逐一设置一个颜色，就可以表现出足够细节的图形。但很明显，这种办法太麻烦，额外需求太高。
+ <b>纹理（Texture）</b> 应运而生。纹理一般作为2D图片出现（1D,3D的也有），用来映射到图形上添加图形的细节。只需指定有限的映射点，即可生成足够的细节。
+</p>
+
+
+<div class="figure">
+<p><img src="./images/tex_coords.png" alt="tex_coords.png" />
+</p>
+</div>
+
+<p>
+所谓映射（Map），需要指定三角形每个顶点各自对应纹理的哪个部分。每个顶点都会关联一个纹理坐标，用于标明从纹理采样点。纹理坐标起于左下角的(0,0)，终于右上角的(1,1)。设定之后，图形的其他位置会做对应的插值。
+图形硬件只认识纹理格式，而平时我们见的图片一般是png,jpg之类的图像格式。所以要使用纹理，首先要将图像文件加载，解析并生成纹理。针对图像文件的加载解析，可以参考开源的图像库，或者自己写。移动端可以直接使用系统提供的库。
+图像文件经过加载解析后变成原始的图像数据，然后通过OpenGL API将数据生成纹理。最终通过shader做纹理映射。（记得生成纹理之后，将加载进来的图像数据释放）
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">vs</span>
+<span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
+layout <span style="color: #707183;">(</span>location = <span style="color: #D0372D;">0</span><span style="color: #707183;">)</span> in <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">position</span>;
+layout <span style="color: #707183;">(</span>location = <span style="color: #D0372D;">1</span><span style="color: #707183;">)</span> in <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">color</span>;
+layout <span style="color: #707183;">(</span>location = <span style="color: #D0372D;">2</span><span style="color: #707183;">)</span> in <span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">texCoord</span>;
+
+out <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">ourColor</span>;
+out <span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">TexCoord</span>;
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    gl_Position = vec4<span style="color: #7388D6;">(</span>position, <span style="color: #D0372D;">1.0f</span><span style="color: #7388D6;">)</span>;
+    ourColor = color;
+    TexCoord = texCoord;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">fs</span>
+<span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
+in <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">ourColor</span>;
+in <span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">TexCoord</span>;
+
+out <span style="color: #6434A3;">vec4</span> <span style="color: #BA36A5;">color</span>;
+
+uniform <span style="color: #6434A3;">sampler2D</span> <span style="color: #BA36A5;">ourTexture</span>;
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    color = texture<span style="color: #7388D6;">(</span>ourTexture, TexCoord<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+OpenGL至少保证可同时使用16个纹理单元，每个纹理单元对应一张纹理，即使说可以同时使用至少16张纹理。这样在着色器中可以做常见的多纹理混合效果。
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: keyring</p>
-<p class="date">Created: 2016-10-31 周一 10:12</p>
+<p class="date">Created: 2016-11-11 周五 11:31</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
