@@ -12,7 +12,7 @@ workspace "TearEngine"
         targetdir "bin/%{cfg.buildcfg}"
 
         includedirs {
-          "3rdparty/stb
+          "3rdparty/stb"
         }
         files {
             "**.h",
