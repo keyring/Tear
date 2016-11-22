@@ -435,3 +435,63 @@ void main()
 #+END_SRC
 
 OpenGL至少保证可同时使用16个纹理单元，每个纹理单元对应一张纹理，即使说可以同时使用至少16张纹理。这样在着色器中可以做常见的多纹理混合效果。
+
+* Main Loop 
+*游戏循环* 应该是游戏程序与其他应用程序最大的区别。普通应用一般是事件驱动或者消息驱动，即接收到事件（消息）后才有反馈，而游戏循环是 *处理消息但不等待消息* ，始终运行。
+最基本的游戏循环包括 *游戏更新* 和 *游戏渲染* 。最直接的写法如下：
+
+#+BEGIN_SRC c++
+while(true){
+    game_update();
+    game_render();
+}
+
+#+END_SRC
+
+update负责让游戏逻辑（数据）向前计算一步（比如AI和物理计算），render负责将当前游戏状态渲染并展示给玩家。将游戏看作一个世界，update直接影响这个世界运行的快慢，而render出来的结果只不过是这个世界某一时刻的快照。
+
+上述写法表达的意思是， *有多快跑多快* 。而具体的快慢取决于update和render的复杂度加上目标机器的牛逼程度。表现出来的效果就是渣机在慢动作，神机快的看不清。这显然影响了正确性。
+
+理想的游戏循环应该是硬件无关的，硬件的能力不能影响游戏update的速率，最多影响render出来的流畅性。 就是所谓的 *定时update，变时render* 
+
+[[./images/update_render1.png]]
+
+
+
+#+BEGIN_SRC c++
+double previous = getCurrentTime();
+double lag = 0.0;
+while (true){
+    double current = getCurrentTime();
+    double elapsed = current - previous;
+    previous = current;
+    lag += elapsed;
+    processInput();
+    while (lag >= MS_PER_UPDATE){
+        update();
+        lag -= MS_PER_UPDATE;
+    }
+    render(lag / MS_PER_UPDATE);
+}
+#+END_SRC
+
+
+
+每一个循环开始，通过两次循环之间的差值，计算出游戏时间落后现实时间的差值lag。然后通过内部循环，以固定间隔做update，追上现实时间，然后渲染输出并进入下一个循环。上述的 *MS_PER_UPDATE* 即是所谓的 *固定update间隔* ，这个间隔越短，追赶次数越多；间隔越大，跳帧越明显。理论上这个值小于16ms（60FPS)，但要保证大于update函数本身执行的时间（否则永远追不上现实时间，所以为了保证不卡死，可以设一个内部循环最大值）。
+
+
+[[./images/update_render2.png]]
+
+我们以固定的频率进行update，render的时间点不总是和update同步的。此时，render要保证平滑流畅，就不能直接使用前后任意update下的状态值，而是应该取对应的差值。比如，一颗高速的子弹，上一个update下，位于（0,0），下一个update下将在（100,0），而在两者之间需要渲染一帧画面出来，那子弹应该在哪里呢？答案就是取两者之间的差值。虽然实际上子弹还未update到该位置，render出来的位置属于 *预测* 点，可能这个预测点是错误的，但为了平滑度与流畅度，这点“视觉错误”可以接受。 
+
+#+BEGIN_SRC c++
+
+render(lag / MS_PER_UPDATE)
+
+#+END_SRC
+
+这里我们将它除以MS_PER_UPDATE是为了将值标准化。这样传入render()的值将在0(恰好在前一帧)到1(恰好在后一帧)之间(忽略更新时间步长)。通过这一方法，渲染引擎无需担心帧率。它仅仅处理0-1值之间的情况。
+
+** Timer
+*计时器* 不光为游戏提供简单的计时功能，也用于引擎本身的帧率计算，从而控制游戏的更新。
+
