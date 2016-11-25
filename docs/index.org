@@ -492,6 +492,87 @@ render(lag / MS_PER_UPDATE)
 
 这里我们将它除以MS_PER_UPDATE是为了将值标准化。这样传入render()的值将在0(恰好在前一帧)到1(恰好在后一帧)之间(忽略更新时间步长)。通过这一方法，渲染引擎无需担心帧率。它仅仅处理0-1值之间的情况。
 
+下面给出unity的主循环流程图：感受下成熟引擎的做法。
+
+[[./images/monobehaviour_flowchart.png]]
+
+
+还可以看下ejoy2d的做法：
+
+#+BEGIN_SRC c
+  /* window.c */
+  /* Loop until the user closes the window */
+  while(!glfwWindowShouldClose(window)) {
+    // update frame
+    uint32_t current = _gettime();
+    if(current - timestamp >= UPDATE_INTERVAL) {
+      timestamp = current;
+      ejoy2d_win_update();
+      ejoy2d_win_frame();
+    }
+
+    /* Swap front and back buffers */
+    glfwSwapBuffers(window);
+
+    /* Poll for and process events */
+    glfwPollEvents();
+  }
+
+#+END_SRC
+
+
+#+BEGIN_SRC c
+/* winfw.c */
+void
+ejoy2d_win_update() {
+	ejoy2d_game_update(G->game, 0.01f);
+}
+
+void
+ejoy2d_win_frame() {
+	ejoy2d_game_drawframe(G->game);
+}
+
+
+#+END_SRC
+
+
+#+BEGIN_SRC c
+
+static void
+logic_frame(lua_State *L) {
+	lua_pushvalue(L, UPDATE_FUNCTION);
+	call(L, 0, 0);
+	lua_settop(L, TOP_FUNCTION);
+}
+
+void
+ejoy2d_game_update(struct game *G, float time) {
+	if (G->logic_time == 0) {
+		G->real_time = 1.0f/LOGIC_FRAME;
+	} else {
+		G->real_time += time;
+	}
+	while (G->logic_time < G->real_time) {
+		logic_frame(G->L);
+		G->logic_time += 1.0f/LOGIC_FRAME;
+	}
+}
+
+void
+ejoy2d_game_drawframe(struct game *G) {
+	reset_drawcall_count();
+	lua_pushvalue(G->L, DRAWFRAME_FUNCTION);
+	call(G->L, 0, 0);
+	lua_settop(G->L, TOP_FUNCTION);
+	shader_flush();
+	label_flush();
+	//int cnt = drawcall_count();
+	//printf("-> %d\n", cnt);
+}
+
+#+END_SRC
+
 ** Timer
 *计时器* 不光为游戏提供简单的计时功能，也用于引擎本身的帧率计算，从而控制游戏的更新。
 

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-11-18 周五 14:35 -->
+<!-- 2016-11-25 周五 15:20 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Tear Engine</title>
@@ -185,6 +185,11 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 <li><a href="#orgheadline23">纹理</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline24">Main Loop</a>
+<ul>
+<li><a href="#orgheadline25">Timer</a></li>
 </ul>
 </li>
 </ul>
@@ -777,10 +782,194 @@ OpenGL至少保证可同时使用16个纹理单元，每个纹理单元对应一
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgheadline24" class="outline-2">
+<h2 id="orgheadline24">Main Loop</h2>
+<div class="outline-text-2" id="text-orgheadline24">
+<p>
+<b>游戏循环</b> 应该是游戏程序与其他应用程序最大的区别。普通应用一般是事件驱动或者消息驱动，即接收到事件（消息）后才有反馈，而游戏循环是 <b>处理消息但不等待消息</b> ，始终运行。
+最基本的游戏循环包括 <b>游戏更新</b> 和 <b>游戏渲染</b> 。最直接的写法如下：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c++"><span style="color: #0000FF;">while</span><span style="color: #707183;">(</span><span style="color: #D0372D;">true</span><span style="color: #707183;">){</span>
+    game_update<span style="color: #7388D6;">()</span>;
+    game_render<span style="color: #7388D6;">()</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+update负责让游戏逻辑（数据）向前计算一步（比如AI和物理计算），render负责将当前游戏状态渲染并展示给玩家。将游戏看作一个世界，update直接影响这个世界运行的快慢，而render出来的结果只不过是这个世界某一时刻的快照。
+</p>
+
+<p>
+上述写法表达的意思是， <b>有多快跑多快</b> 。而具体的快慢取决于update和render的复杂度加上目标机器的牛逼程度。表现出来的效果就是渣机在慢动作，神机快的看不清。这显然影响了正确性。
+</p>
+
+<p>
+理想的游戏循环应该是硬件无关的，硬件的能力不能影响游戏update的速率，最多影响render出来的流畅性。 就是所谓的 <b>定时update，变时render</b> 
+</p>
+
+
+<div class="figure">
+<p><img src="./images/update_render1.png" alt="update_render1.png" />
+</p>
+</div>
+
+
+
+<div class="org-src-container">
+
+<pre class="src src-c++"><span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">previous</span> = getCurrentTime<span style="color: #707183;">()</span>;
+<span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">lag</span> = <span style="color: #D0372D;">0.0</span>;
+<span style="color: #0000FF;">while</span> <span style="color: #707183;">(</span><span style="color: #D0372D;">true</span><span style="color: #707183;">){</span>
+    <span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">current</span> = getCurrentTime<span style="color: #7388D6;">()</span>;
+    <span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">elapsed</span> = current - previous;
+    previous = current;
+    lag += elapsed;
+    processInput<span style="color: #7388D6;">()</span>;
+    <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span>lag &gt;= MS_PER_UPDATE<span style="color: #7388D6;">){</span>
+        update<span style="color: #909183;">()</span>;
+        lag -= MS_PER_UPDATE;
+    <span style="color: #7388D6;">}</span>
+    render<span style="color: #7388D6;">(</span>lag / MS_PER_UPDATE<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+
+
+<p>
+每一个循环开始，通过两次循环之间的差值，计算出游戏时间落后现实时间的差值lag。然后通过内部循环，以固定间隔做update，追上现实时间，然后渲染输出并进入下一个循环。上述的 <b>MS<sub>PER</sub><sub>UPDATE</sub></b> 即是所谓的 <b>固定update间隔</b> ，这个间隔越短，追赶次数越多；间隔越大，跳帧越明显。理论上这个值小于16ms（60FPS)，但要保证大于update函数本身执行的时间（否则永远追不上现实时间，所以为了保证不卡死，可以设一个内部循环最大值）。
+</p>
+
+
+
+<div class="figure">
+<p><img src="./images/update_render2.png" alt="update_render2.png" />
+</p>
+</div>
+
+<p>
+我们以固定的频率进行update，render的时间点不总是和update同步的。此时，render要保证平滑流畅，就不能直接使用前后任意update下的状态值，而是应该取对应的差值。比如，一颗高速的子弹，上一个update下，位于（0,0），下一个update下将在（100,0），而在两者之间需要渲染一帧画面出来，那子弹应该在哪里呢？答案就是取两者之间的差值。虽然实际上子弹还未update到该位置，render出来的位置属于 <b>预测</b> 点，可能这个预测点是错误的，但为了平滑度与流畅度，这点“视觉错误”可以接受。 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c++">render<span style="color: #707183;">(</span>lag / MS_PER_UPDATE<span style="color: #707183;">)</span>
+</pre>
+</div>
+
+<p>
+这里我们将它除以MS<sub>PER</sub><sub>UPDATE是为了将值标准化</sub>。这样传入render()的值将在0(恰好在前一帧)到1(恰好在后一帧)之间(忽略更新时间步长)。通过这一方法，渲染引擎无需担心帧率。它仅仅处理0-1值之间的情况。
+</p>
+
+<p>
+下面给出unity的主循环流程图：感受下成熟引擎的做法。
+</p>
+
+
+<div class="figure">
+<p><img src="./images/monobehaviour_flowchart.png" alt="monobehaviour_flowchart.png" />
+</p>
+</div>
+
+
+<p>
+还可以看下ejoy2d的做法：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">window.c </span><span style="color: #8D8D84;">*/</span>
+<span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">Loop until the user closes the window </span><span style="color: #8D8D84;">*/</span>
+<span style="color: #0000FF;">while</span><span style="color: #707183;">(</span>!glfwWindowShouldClose<span style="color: #7388D6;">(</span>window<span style="color: #7388D6;">)</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
+  <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">update frame</span>
+  <span style="color: #6434A3;">uint32_t</span> <span style="color: #BA36A5;">current</span> = _gettime<span style="color: #7388D6;">()</span>;
+  <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span>current - timestamp &gt;= UPDATE_INTERVAL<span style="color: #7388D6;">)</span> <span style="color: #7388D6;">{</span>
+    timestamp = current;
+    ejoy2d_win_update<span style="color: #909183;">()</span>;
+    ejoy2d_win_frame<span style="color: #909183;">()</span>;
+  <span style="color: #7388D6;">}</span>
+
+  <span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">Swap front and back buffers </span><span style="color: #8D8D84;">*/</span>
+  glfwSwapBuffers<span style="color: #7388D6;">(</span>window<span style="color: #7388D6;">)</span>;
+
+  <span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">Poll for and process events </span><span style="color: #8D8D84;">*/</span>
+  glfwPollEvents<span style="color: #7388D6;">()</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">winfw.c </span><span style="color: #8D8D84;">*/</span>
+<span style="color: #6434A3;">void</span>
+<span style="color: #006699;">ejoy2d_win_update</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
+    ejoy2d_game_update<span style="color: #7388D6;">(</span>G-&gt;game, <span style="color: #D0372D;">0.01f</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+
+<span style="color: #6434A3;">void</span>
+<span style="color: #006699;">ejoy2d_win_frame</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
+    ejoy2d_game_drawframe<span style="color: #7388D6;">(</span>G-&gt;game<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #0000FF;">static</span> <span style="color: #6434A3;">void</span>
+<span style="color: #006699;">logic_frame</span><span style="color: #707183;">(</span><span style="color: #6434A3;">lua_State</span> *<span style="color: #BA36A5;">L</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
+    lua_pushvalue<span style="color: #7388D6;">(</span>L, UPDATE_FUNCTION<span style="color: #7388D6;">)</span>;
+    call<span style="color: #7388D6;">(</span>L, <span style="color: #D0372D;">0</span>, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    lua_settop<span style="color: #7388D6;">(</span>L, TOP_FUNCTION<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+
+<span style="color: #6434A3;">void</span>
+<span style="color: #006699;">ejoy2d_game_update</span><span style="color: #707183;">(</span><span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">game</span> *<span style="color: #BA36A5;">G</span>, <span style="color: #6434A3;">float</span> <span style="color: #BA36A5;">time</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>G-&gt;logic_time == <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span> <span style="color: #7388D6;">{</span>
+        G-&gt;real_time = <span style="color: #D0372D;">1.0f</span>/LOGIC_FRAME;
+    <span style="color: #7388D6;">}</span> <span style="color: #0000FF;">else</span> <span style="color: #7388D6;">{</span>
+        G-&gt;real_time += time;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span>G-&gt;logic_time &lt; G-&gt;real_time<span style="color: #7388D6;">)</span> <span style="color: #7388D6;">{</span>
+        logic_frame<span style="color: #909183;">(</span>G-&gt;L<span style="color: #909183;">)</span>;
+        G-&gt;logic_time += <span style="color: #D0372D;">1.0f</span>/LOGIC_FRAME;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+
+<span style="color: #6434A3;">void</span>
+<span style="color: #006699;">ejoy2d_game_drawframe</span><span style="color: #707183;">(</span><span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">game</span> *<span style="color: #BA36A5;">G</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
+    reset_drawcall_count<span style="color: #7388D6;">()</span>;
+    lua_pushvalue<span style="color: #7388D6;">(</span>G-&gt;L, DRAWFRAME_FUNCTION<span style="color: #7388D6;">)</span>;
+    call<span style="color: #7388D6;">(</span>G-&gt;L, <span style="color: #D0372D;">0</span>, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    lua_settop<span style="color: #7388D6;">(</span>G-&gt;L, TOP_FUNCTION<span style="color: #7388D6;">)</span>;
+    shader_flush<span style="color: #7388D6;">()</span>;
+    label_flush<span style="color: #7388D6;">()</span>;
+    <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">int cnt = drawcall_count();</span>
+    <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">printf("-&gt; %d\n", cnt);</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25">Timer</h3>
+<div class="outline-text-3" id="text-orgheadline25">
+<p>
+<b>计时器</b> 不光为游戏提供简单的计时功能，也用于引擎本身的帧率计算，从而控制游戏的更新。
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: keyring</p>
-<p class="date">Created: 2016-11-18 周五 14:35</p>
+<p class="date">Created: 2016-11-25 周五 15:20</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
