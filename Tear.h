@@ -17,6 +17,7 @@ namespace Tear{
 
         int init(int width, int height);
         void update();
+        void render();
         void close();
 
         int getWindowWidth(){ return this->m_window_width; }

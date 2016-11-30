@@ -24,6 +24,10 @@ namespace Tear{
         game_update();
     }
 
+    void Engine::render()
+    {
+    }
+
     void Engine::close()
     {
         game_end();
