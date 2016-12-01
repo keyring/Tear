@@ -105,7 +105,7 @@ static GLuint _shader_create(const GLchar *vs, const GLchar *fs)
 static GLuint _texture_create(const char *filepath)
 {
     // Load image and create a texture 
-    GLuint texture1;
+    GLuint texture;
 
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
@@ -123,7 +123,7 @@ static GLuint _texture_create(const char *filepath)
     stbi_image_free(data);
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    return texture
+    return texture;
 }
 
 #define UPDATE_INTERVAL 0.01  // 10ms
@@ -221,7 +221,7 @@ int main(void)
 
     GLuint shaderProgram = _shader_create(vertexShaderSource, fragmentShaderSource);
     GLuint texture1 = _texture_create("../../meida/cat.png");
-    GLuint texture2 = _texture_create("../../media/logo.png")
+    GLuint texture2 = _texture_create("../../media/logo.png");
 
     double lastTime = glfwGetTime();
     double timestamp = 0.0;
