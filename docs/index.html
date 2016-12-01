@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-11-25 周五 15:20 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2016-12-01 周四 23:43 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Tear Engine</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="keyring" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="keyring" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,97 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -92,6 +176,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
@@ -154,65 +239,67 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline13">Build a project</a>
+<li><a href="#orge9d602c">Build a project</a>
 <ul>
-<li><a href="#orgheadline1">Why need an engine</a></li>
-<li><a href="#orgheadline2">Choice</a></li>
-<li><a href="#orgheadline11">Create engine core lib</a>
+<li><a href="#org2d2434b">Why need an engine</a></li>
+<li><a href="#orge8486b9">Choice</a></li>
+<li><a href="#orga127e91">Create engine core lib</a>
 <ul>
-<li><a href="#orgheadline5">install dependence</a></li>
-<li><a href="#orgheadline6">window framework</a></li>
-<li><a href="#orgheadline9">engine framework</a></li>
-<li><a href="#orgheadline10">engine lib</a></li>
+<li><a href="#org190310e">install dependence</a></li>
+<li><a href="#org6bedf53">window framework</a></li>
+<li><a href="#org4b27ac5">engine framework</a></li>
+<li><a href="#org24075a5">engine lib</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline12">Test</a></li>
+<li><a href="#orga8b2c9b">Test</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline14">Rendering</a>
+<li><a href="#org2185647">Rendering</a>
 <ul>
-<li><a href="#orgheadline15">图形API</a></li>
-<li><a href="#orgheadline16">使用 OpenGL/OpenGL ES</a>
+<li><a href="#org75200da">图形API</a></li>
+<li><a href="#orgb9f16f4">使用 OpenGL/OpenGL ES</a>
 <ul>
-<li><a href="#orgheadline17">GLEW（桌面）</a></li>
-<li><a href="#orgheadline19">EGL（移动）</a></li>
+<li><a href="#org48e8803">GLEW（桌面）</a></li>
+<li><a href="#org152fc3e">EGL（移动）</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline20">绘制一个三角形</a>
+<li><a href="#org6967dff">绘制一个三角形</a>
 <ul>
-<li><a href="#orgheadline21">Pipeline</a></li>
-<li><a href="#orgheadline22">可编程着色器</a></li>
+<li><a href="#orge7c4520">Pipeline</a></li>
+<li><a href="#orgd6564a5">可编程着色器</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline23">纹理</a></li>
+<li><a href="#orgf93db99">纹理</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline24">Main Loop</a>
+<li><a href="#orga23704a">Main Loop</a></li>
+<li><a href="#org71bf95a">Sprite</a>
 <ul>
-<li><a href="#orgheadline25">Timer</a></li>
+<li><a href="#org70977d7">2D投影</a></li>
+<li><a href="#orgb466068">SpriteRenderer</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline13" class="outline-2">
-<h2 id="orgheadline13">Build a project</h2>
-<div class="outline-text-2" id="text-orgheadline13">
-</div><div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1">Why need an engine</h3>
-<div class="outline-text-3" id="text-orgheadline1">
+<div id="outline-container-orge9d602c" class="outline-2">
+<h2 id="orge9d602c">Build a project</h2>
+<div class="outline-text-2" id="text-orge9d602c">
+</div><div id="outline-container-org2d2434b" class="outline-3">
+<h3 id="org2d2434b">Why need an engine</h3>
+<div class="outline-text-3" id="text-org2d2434b">
 <p>
-   为什么要专门开发游戏引擎？为什么要使用游戏引擎来开发游戏？游戏引擎的优势在哪？
+为什么要专门开发游戏引擎？为什么要使用游戏引擎来开发游戏？游戏引擎的优势在哪？
 简言之：开发游戏不是绝对需要引擎的。但这建立在两个基础上，1）这个游戏很简单，2）你在过往的项目中积累了大量的代码。
 游戏引擎本质上就是一堆游戏开发库，用来节省游戏开发的时间。使用统一的引擎，利于团队在统一的标准上开发游戏，节约团队开发时间；引擎跨平台，节约游戏移植时间；游戏逻辑与基础功能分离，开发效率更高。
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2">Choice</h3>
-<div class="outline-text-3" id="text-orgheadline2">
+<div id="outline-container-orge8486b9" class="outline-3">
+<h3 id="orge8486b9">Choice</h3>
+<div class="outline-text-3" id="text-orge8486b9">
 
 <div class="figure">
 <p><img src="./images/tear_1.png" alt="tear_1.png" />
@@ -220,19 +307,19 @@ for the JavaScript code in this tag.
 </div>
 
 <p>
-   引擎只是一个框架，一个库，所以实现方式多样，技术选型也受多方面影响。比如语言方面，c,c++,c#,java,python等等都有，然后是硬件平台，PC，MAC，移动，主机等等，还有系统，windows，linux，macos，ios，android，xbox，ps4等等。
+引擎只是一个框架，一个库，所以实现方式多样，技术选型也受多方面影响。比如语言方面，c,c++,c#,java,python等等都有，然后是硬件平台，PC，MAC，移动，主机等等，还有系统，windows，linux，macos，ios，android，xbox，ps4等等。
 这里，我的开发选择是用C++开发一个跨平台引擎，至少支持windows和linux。使用emacs编辑，premake其他工程文件。
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-3">
-<h3 id="orgheadline11">Create engine core lib</h3>
-<div class="outline-text-3" id="text-orgheadline11">
-</div><div id="outline-container-orgheadline5" class="outline-4">
-<h4 id="orgheadline5">install dependence</h4>
-<div class="outline-text-4" id="text-orgheadline5">
-</div><ul class="org-ul"><li><a id="orgheadline3"></a>glfw3<br  /><div class="outline-text-5" id="text-orgheadline3">
+<div id="outline-container-orga127e91" class="outline-3">
+<h3 id="orga127e91">Create engine core lib</h3>
+<div class="outline-text-3" id="text-orga127e91">
+</div><div id="outline-container-org190310e" class="outline-4">
+<h4 id="org190310e">install dependence</h4>
+<div class="outline-text-4" id="text-org190310e">
+</div><ul class="org-ul"><li><a id="org21ed278"></a>glfw3<br  /><div class="outline-text-5" id="text-org21ed278">
 <ul class="org-ul">
 <li>linux/macos
 <ol class="org-ol">
@@ -255,28 +342,27 @@ for the JavaScript code in this tag.
 </ul>
 </div></li>
 
-<li><a id="orgheadline4"></a>premake<br  /><div class="outline-text-5" id="text-orgheadline4">
+<li><a id="org6b19fb0"></a>premake<br  /><div class="outline-text-5" id="text-org6b19fb0">
 <p>
 为了管理不同平台的工程文件，我们采用premake构建工具，它与cmake类似，但用lua代码进行配置。
 </p>
 </div></li></ul>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-4">
-<h4 id="orgheadline6">window framework</h4>
-<div class="outline-text-4" id="text-orgheadline6">
+<div id="outline-container-org6bedf53" class="outline-4">
+<h4 id="org6bedf53">window framework</h4>
+<div class="outline-text-4" id="text-org6bedf53">
 <p>
 游戏引擎为游戏服务。游戏运行于操作系统上，它首先是应用程序，然后才是游戏。所以，游戏首先需要的是用于展示内容的“窗口”。窗口在不同的操作系统上有不同的称呼，所以建立窗口的方式也是操作系统强相关的。
 这里我采用 <b>GLFW</b> 库来简化窗口的创建。
 </p>
 </div>
 
-<ul class="org-ul"><li><a id="orgheadline7"></a>create a window<br  /><div class="outline-text-5" id="text-orgheadline7">
+<ul class="org-ul"><li><a id="org7a79804"></a>create a window<br  /><div class="outline-text-5" id="text-org7a79804">
 <p>
 现在我们使用glfw，用最少的代码创建一个空窗口。
 </p>
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #808080;">#include</span> <span style="color: #008000;">&lt;GLFW/glfw3.h&gt;</span>
 
 <span style="color: #808080;">#include</span> <span style="color: #008000;">&lt;stdlib.h&gt;</span>
@@ -327,12 +413,11 @@ for the JavaScript code in this tag.
 </div>
 </div></li>
 
-<li><a id="orgheadline8"></a>build a application<br  /><div class="outline-text-5" id="text-orgheadline8">
+<li><a id="orgba156b9"></a>build a application<br  /><div class="outline-text-5" id="text-orgba156b9">
 <p>
 在ubuntu上快速编译运行一下。
 </p>
 <div class="org-src-container">
-
 <pre class="src src-shell">g++ main.cpp -lglfw3 -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -lpthread -ldl
 </pre>
 </div>
@@ -342,15 +427,14 @@ for the JavaScript code in this tag.
 </p>
 </div></li></ul>
 </div>
-<div id="outline-container-orgheadline9" class="outline-4">
-<h4 id="orgheadline9">engine framework</h4>
-<div class="outline-text-4" id="text-orgheadline9">
+<div id="outline-container-org4b27ac5" class="outline-4">
+<h4 id="org4b27ac5">engine framework</h4>
+<div class="outline-text-4" id="text-org4b27ac5">
 <p>
 游戏最基本的运行逻辑， <b>加载</b> ， <b>初始化</b> ， <b>更新</b> ， <b>结束</b> 。我们的引擎会在必要的时候调用这四个操作来驱动游戏运行。
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #0000FF;">extern</span> <span style="color: #6434A3;">bool</span> <span style="color: #006699;">game_load</span><span style="color: #707183;">()</span>;
 <span style="color: #0000FF;">extern</span> <span style="color: #6434A3;">bool</span> <span style="color: #006699;">game_init</span><span style="color: #707183;">()</span>;
 <span style="color: #0000FF;">extern</span> <span style="color: #6434A3;">void</span> <span style="color: #006699;">game_update</span><span style="color: #707183;">()</span>;
@@ -364,15 +448,14 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-4">
-<h4 id="orgheadline10">engine lib</h4>
-<div class="outline-text-4" id="text-orgheadline10">
+<div id="outline-container-org24075a5" class="outline-4">
+<h4 id="org24075a5">engine lib</h4>
+<div class="outline-text-4" id="text-org24075a5">
 <p>
 现在我们来将引擎做成一个库，真正的游戏就建立在这个库之上。
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Tear.h</span>
 <span style="color: #808080;">#if</span><span style="color: #808080;">n</span><span style="color: #808080;">def</span> __TEAR_H__
 <span style="color: #808080;">#define</span> <span style="color: #BA36A5;">__TEAR_H__</span>
@@ -410,7 +493,6 @@ for the JavaScript code in this tag.
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Tear.cpp</span>
 <span style="color: #808080;">#include</span> <span style="color: #008000;">"Tear.h"</span>
 
@@ -447,7 +529,6 @@ for the JavaScript code in this tag.
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">main.cpp</span>
 <span style="color: #808080;">#include</span> <span style="color: #008000;">"Tear.h"</span>
 
@@ -526,14 +607,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12">Test</h3>
-<div class="outline-text-3" id="text-orgheadline12">
+<div id="outline-container-orga8b2c9b" class="outline-3">
+<h3 id="orga8b2c9b">Test</h3>
+<div class="outline-text-3" id="text-orga8b2c9b">
 <p>
 引擎已经弄好，现在来写一个游戏吧。
 </p>
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">example_01.cpp</span>
 <span style="color: #808080;">#include</span> <span style="color: #008000;">"Tear.h"</span>
 
@@ -569,18 +649,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-2">
-<h2 id="orgheadline14">Rendering</h2>
-<div class="outline-text-2" id="text-orgheadline14">
+<div id="outline-container-org2185647" class="outline-2">
+<h2 id="org2185647">Rendering</h2>
+<div class="outline-text-2" id="text-org2185647">
 <p>
 游戏最重要的元素当属视觉效果，毕竟人类70%的信息获取也是视觉提供的。游戏的画面在图形学中称为 <b>渲染（Rendering）</b> 。
 游戏引擎在窗口支持之后的第一要务就是图形渲染支持。
 </p>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-3">
-<h3 id="orgheadline15">图形API</h3>
-<div class="outline-text-3" id="text-orgheadline15">
+<div id="outline-container-org75200da" class="outline-3">
+<h3 id="org75200da">图形API</h3>
+<div class="outline-text-3" id="text-org75200da">
 <p>
 我们要在窗口上画图，做渲染，离不开硬件的支持。最简单的画图就是直接往显示器内存写像素值。而今，随着技术的发展，GPU的普及，绘图的工作
 基本由GPU负责。为了避免直接操作硬件，从而抽象出各类图形API，提高绘图的开发效率。下面是当前主流的几个图形API。
@@ -595,23 +675,23 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline16" class="outline-3">
-<h3 id="orgheadline16">使用 OpenGL/OpenGL ES</h3>
-<div class="outline-text-3" id="text-orgheadline16">
+<div id="outline-container-orgb9f16f4" class="outline-3">
+<h3 id="orgb9f16f4">使用 OpenGL/OpenGL ES</h3>
+<div class="outline-text-3" id="text-orgb9f16f4">
 <p>
 由于当前移动游戏崛起，以前不受游戏开发待见的OpenGL因为跨平台性焕发了第二春。所以，我们的游戏引擎的图形API支持就从OpenGL
 开始。
 </p>
 </div>
-<div id="outline-container-orgheadline17" class="outline-4">
-<h4 id="orgheadline17">GLEW（桌面）</h4>
-<div class="outline-text-4" id="text-orgheadline17">
+<div id="outline-container-org48e8803" class="outline-4">
+<h4 id="org48e8803">GLEW（桌面）</h4>
+<div class="outline-text-4" id="text-org48e8803">
 <p>
 同前面所使用的glfw类似，glew是简化使用OpenGL的一个库。因为OpenGL只是一个标准/规范，具体的实现是由驱动开发商针对特定显卡实现的。由于OpenGL驱动版本众多，它大多数函数的位置都无法在编译时确定下来，需要在运行时查询。任务就落在了开发者身上，开发者需要在运行时获取函数地址并将其保存在一个函数指针中供以后使用。一般这步操作由操作系统实现。但OpenGL当前版本已经到了4.x（终止开发，转向vulkan），而部分操作系统没有及时支持高版本的API。其中最狠的就是windows上，只支持最古老的OpenGL1.1。所以我们需要绕过操作系统，在运行时查询函数地址直接使用显卡提供的高版本API。而取函数地址的方式因平台各异，所以GLEW封装了这层操作，向上提供纯粹的OpenGL接口，隐藏平台差异，版本差异，简化使用GL。
 </p>
 </div>
 
-<ul class="org-ul"><li><a id="orgheadline18"></a>install<br  /><div class="outline-text-5" id="text-orgheadline18">
+<ul class="org-ul"><li><a id="org3891512"></a>install<br  /><div class="outline-text-5" id="text-org3891512">
 <ul class="org-ul">
 <li>linux
 <ol class="org-ol">
@@ -632,9 +712,9 @@ for the JavaScript code in this tag.
 
 
 
-<div id="outline-container-orgheadline19" class="outline-4">
-<h4 id="orgheadline19">EGL（移动）</h4>
-<div class="outline-text-4" id="text-orgheadline19">
+<div id="outline-container-org152fc3e" class="outline-4">
+<h4 id="org152fc3e">EGL（移动）</h4>
+<div class="outline-text-4" id="text-org152fc3e">
 <p>
 移动端使用OpenGLES，但GLES本身只是一个操作GPU的API，不具备与平台Native层交互的能力。EGL因此而生——作为GLES与Native窗口的桥梁。EGL 是 OpenGL ES（嵌入式）和底层 Native 平台视窗系统之间的接口。EGL API 是独立于OpenGL ES各版本标准的独立API ，其主要作用是为OpenGL指令创建 Context 、绘制目标Surface 、配置Framebuffer属性、Swap提交绘制结果等。
 此外，EGL为GPU厂商和OS窗口系统之间提供了一个标准配置接口。一般移动操作系统对GLES的支持非常及时，所以GLEW就不是很必要了。
@@ -644,17 +724,17 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline20" class="outline-3">
-<h3 id="orgheadline20">绘制一个三角形</h3>
-<div class="outline-text-3" id="text-orgheadline20">
+<div id="outline-container-org6967dff" class="outline-3">
+<h3 id="org6967dff">绘制一个三角形</h3>
+<div class="outline-text-3" id="text-org6967dff">
 <p>
 使用OpenGL绘制一个三角形应该是“Hello World”级别的GL程序。
 </p>
 </div>
 
-<div id="outline-container-orgheadline21" class="outline-4">
-<h4 id="orgheadline21">Pipeline</h4>
-<div class="outline-text-4" id="text-orgheadline21">
+<div id="outline-container-orge7c4520" class="outline-4">
+<h4 id="orge7c4520">Pipeline</h4>
+<div class="outline-text-4" id="text-orge7c4520">
 <p>
 OpenGL是一个3D图形API，所以其中任何事物都位于2D空间中。而我们接受输出的对象（窗口、屏幕）却是2D的。所以整个OpenGL的大部分工作就是将3D世界转化为2D像素数组。这个流程叫 <b>图形流水线（Graphics Pipeline）</b> ，一堆原始的三维图形数据，经过流水线各个阶段的处理，最终输出显示在屏幕上。
 </p>
@@ -672,15 +752,14 @@ OpenGL是一个3D图形API，所以其中任何事物都位于2D空间中。而�
 </div>
 </div>
 
-<div id="outline-container-orgheadline22" class="outline-4">
-<h4 id="orgheadline22">可编程着色器</h4>
-<div class="outline-text-4" id="text-orgheadline22">
+<div id="outline-container-orgd6564a5" class="outline-4">
+<h4 id="orgd6564a5">可编程着色器</h4>
+<div class="outline-text-4" id="text-orgd6564a5">
 <p>
 可编程着色器指的就是可以由开发者自己编写的着色器，也就是平时说的写shader。与之对应的就是固定着色器，也叫默认着色器，开发者不能用自己的shader替换，只能通过API进行开关控制。
 现代图形API基本都要求开发者至少提供一个 <b>顶点着色器（vertex shader）</b> 和一个 <b>片段着色器（fragment shader）</b> 。（其他API可能名字不同，比如D3D里叫顶点着色器和像素着色器。）为什么要必须提供呢，因为图形API对这两个阶段没有提供默认shader了，所以需要开发者提供。下面提供两个最基础的着色器。
 </p>
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">vs</span>
 <span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
 
@@ -694,7 +773,6 @@ layout <span style="color: #707183;">(</span>location = <span style="color: #D03
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">fs</span>
 <span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
 
@@ -714,9 +792,9 @@ out <span style="color: #6434A3;">vec4</span> <span style="color: #BA36A5;">colo
 </div>
 </div>
 
-<div id="outline-container-orgheadline23" class="outline-3">
-<h3 id="orgheadline23">纹理</h3>
-<div class="outline-text-3" id="text-orgheadline23">
+<div id="outline-container-orgf93db99" class="outline-3">
+<h3 id="orgf93db99">纹理</h3>
+<div class="outline-text-3" id="text-orgf93db99">
 <p>
 图形由顶点构成，图形的颜色也由顶点的颜色决定。我们为每个顶点设置颜色之后，其他非顶点位置的颜色则是自动插值出来的。理论上，你可以设置足够密集的顶点（与像素点一样多），然后为每个顶点逐一设置一个颜色，就可以表现出足够细节的图形。但很明显，这种办法太麻烦，额外需求太高。
  <b>纹理（Texture）</b> 应运而生。纹理一般作为2D图片出现（1D,3D的也有），用来映射到图形上添加图形的细节。只需指定有限的映射点，即可生成足够的细节。
@@ -739,7 +817,6 @@ OpenGL中主要的纹理相关API有 <code>glGenTextures</code>, <code>glBindTex
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">vs</span>
 <span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
 layout <span style="color: #707183;">(</span>location = <span style="color: #D0372D;">0</span><span style="color: #707183;">)</span> in <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">position</span>;
@@ -759,7 +836,6 @@ out <span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">TexC
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">fs</span>
 <span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
 in <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">ourColor</span>;
@@ -783,16 +859,15 @@ OpenGL至少保证可同时使用16个纹理单元，每个纹理单元对应一
 </div>
 </div>
 
-<div id="outline-container-orgheadline24" class="outline-2">
-<h2 id="orgheadline24">Main Loop</h2>
-<div class="outline-text-2" id="text-orgheadline24">
+<div id="outline-container-orga23704a" class="outline-2">
+<h2 id="orga23704a">Main Loop</h2>
+<div class="outline-text-2" id="text-orga23704a">
 <p>
 <b>游戏循环</b> 应该是游戏程序与其他应用程序最大的区别。普通应用一般是事件驱动或者消息驱动，即接收到事件（消息）后才有反馈，而游戏循环是 <b>处理消息但不等待消息</b> ，始终运行。
 最基本的游戏循环包括 <b>游戏更新</b> 和 <b>游戏渲染</b> 。最直接的写法如下：
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #0000FF;">while</span><span style="color: #707183;">(</span><span style="color: #D0372D;">true</span><span style="color: #707183;">){</span>
     game_update<span style="color: #7388D6;">()</span>;
     game_render<span style="color: #7388D6;">()</span>;
@@ -821,7 +896,6 @@ update负责让游戏逻辑（数据）向前计算一步（比如AI和物理计
 
 
 <div class="org-src-container">
-
 <pre class="src src-c++"><span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">previous</span> = getCurrentTime<span style="color: #707183;">()</span>;
 <span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">lag</span> = <span style="color: #D0372D;">0.0</span>;
 <span style="color: #0000FF;">while</span> <span style="color: #707183;">(</span><span style="color: #D0372D;">true</span><span style="color: #707183;">){</span>
@@ -857,7 +931,6 @@ update负责让游戏逻辑（数据）向前计算一步（比如AI和物理计
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c++">render<span style="color: #707183;">(</span>lag / MS_PER_UPDATE<span style="color: #707183;">)</span>
 </pre>
 </div>
@@ -882,7 +955,6 @@ update负责让游戏逻辑（数据）向前计算一步（比如AI和物理计
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">window.c </span><span style="color: #8D8D84;">*/</span>
 <span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">Loop until the user closes the window </span><span style="color: #8D8D84;">*/</span>
 <span style="color: #0000FF;">while</span><span style="color: #707183;">(</span>!glfwWindowShouldClose<span style="color: #7388D6;">(</span>window<span style="color: #7388D6;">)</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
@@ -905,71 +977,323 @@ update负责让游戏逻辑（数据）向前计算一步（比如AI和物理计
 
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">winfw.c </span><span style="color: #8D8D84;">*/</span>
 <span style="color: #6434A3;">void</span>
 <span style="color: #006699;">ejoy2d_win_update</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
-    ejoy2d_game_update<span style="color: #7388D6;">(</span>G-&gt;game, <span style="color: #D0372D;">0.01f</span><span style="color: #7388D6;">)</span>;
+  ejoy2d_game_update<span style="color: #7388D6;">(</span>G-&gt;game, <span style="color: #D0372D;">0.01f</span><span style="color: #7388D6;">)</span>;
 <span style="color: #707183;">}</span>
 
 <span style="color: #6434A3;">void</span>
 <span style="color: #006699;">ejoy2d_win_frame</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
-    ejoy2d_game_drawframe<span style="color: #7388D6;">(</span>G-&gt;game<span style="color: #7388D6;">)</span>;
+  ejoy2d_game_drawframe<span style="color: #7388D6;">(</span>G-&gt;game<span style="color: #7388D6;">)</span>;
 <span style="color: #707183;">}</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #0000FF;">static</span> <span style="color: #6434A3;">void</span>
 <span style="color: #006699;">logic_frame</span><span style="color: #707183;">(</span><span style="color: #6434A3;">lua_State</span> *<span style="color: #BA36A5;">L</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
-    lua_pushvalue<span style="color: #7388D6;">(</span>L, UPDATE_FUNCTION<span style="color: #7388D6;">)</span>;
-    call<span style="color: #7388D6;">(</span>L, <span style="color: #D0372D;">0</span>, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
-    lua_settop<span style="color: #7388D6;">(</span>L, TOP_FUNCTION<span style="color: #7388D6;">)</span>;
+  lua_pushvalue<span style="color: #7388D6;">(</span>L, UPDATE_FUNCTION<span style="color: #7388D6;">)</span>;
+  call<span style="color: #7388D6;">(</span>L, <span style="color: #D0372D;">0</span>, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+  lua_settop<span style="color: #7388D6;">(</span>L, TOP_FUNCTION<span style="color: #7388D6;">)</span>;
 <span style="color: #707183;">}</span>
 
 <span style="color: #6434A3;">void</span>
 <span style="color: #006699;">ejoy2d_game_update</span><span style="color: #707183;">(</span><span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">game</span> *<span style="color: #BA36A5;">G</span>, <span style="color: #6434A3;">float</span> <span style="color: #BA36A5;">time</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
-    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>G-&gt;logic_time == <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span> <span style="color: #7388D6;">{</span>
-        G-&gt;real_time = <span style="color: #D0372D;">1.0f</span>/LOGIC_FRAME;
-    <span style="color: #7388D6;">}</span> <span style="color: #0000FF;">else</span> <span style="color: #7388D6;">{</span>
-        G-&gt;real_time += time;
-    <span style="color: #7388D6;">}</span>
-    <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span>G-&gt;logic_time &lt; G-&gt;real_time<span style="color: #7388D6;">)</span> <span style="color: #7388D6;">{</span>
-        logic_frame<span style="color: #909183;">(</span>G-&gt;L<span style="color: #909183;">)</span>;
-        G-&gt;logic_time += <span style="color: #D0372D;">1.0f</span>/LOGIC_FRAME;
-    <span style="color: #7388D6;">}</span>
+  <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>G-&gt;logic_time == <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span> <span style="color: #7388D6;">{</span>
+    G-&gt;real_time = <span style="color: #D0372D;">1.0f</span>/LOGIC_FRAME;
+  <span style="color: #7388D6;">}</span> <span style="color: #0000FF;">else</span> <span style="color: #7388D6;">{</span>
+    G-&gt;real_time += time;
+  <span style="color: #7388D6;">}</span>
+  <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span>G-&gt;logic_time &lt; G-&gt;real_time<span style="color: #7388D6;">)</span> <span style="color: #7388D6;">{</span>
+    logic_frame<span style="color: #909183;">(</span>G-&gt;L<span style="color: #909183;">)</span>;
+    G-&gt;logic_time += <span style="color: #D0372D;">1.0f</span>/LOGIC_FRAME;
+  <span style="color: #7388D6;">}</span>
 <span style="color: #707183;">}</span>
 
 <span style="color: #6434A3;">void</span>
 <span style="color: #006699;">ejoy2d_game_drawframe</span><span style="color: #707183;">(</span><span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">game</span> *<span style="color: #BA36A5;">G</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
-    reset_drawcall_count<span style="color: #7388D6;">()</span>;
-    lua_pushvalue<span style="color: #7388D6;">(</span>G-&gt;L, DRAWFRAME_FUNCTION<span style="color: #7388D6;">)</span>;
-    call<span style="color: #7388D6;">(</span>G-&gt;L, <span style="color: #D0372D;">0</span>, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
-    lua_settop<span style="color: #7388D6;">(</span>G-&gt;L, TOP_FUNCTION<span style="color: #7388D6;">)</span>;
-    shader_flush<span style="color: #7388D6;">()</span>;
-    label_flush<span style="color: #7388D6;">()</span>;
-    <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">int cnt = drawcall_count();</span>
-    <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">printf("-&gt; %d\n", cnt);</span>
+  reset_drawcall_count<span style="color: #7388D6;">()</span>;
+  lua_pushvalue<span style="color: #7388D6;">(</span>G-&gt;L, DRAWFRAME_FUNCTION<span style="color: #7388D6;">)</span>;
+  call<span style="color: #7388D6;">(</span>G-&gt;L, <span style="color: #D0372D;">0</span>, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+  lua_settop<span style="color: #7388D6;">(</span>G-&gt;L, TOP_FUNCTION<span style="color: #7388D6;">)</span>;
+  shader_flush<span style="color: #7388D6;">()</span>;
+  label_flush<span style="color: #7388D6;">()</span>;
+  <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">int cnt = drawcall_count();</span>
+  <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">printf("-&gt; %d\n", cnt);</span>
 <span style="color: #707183;">}</span>
 </pre>
 </div>
 </div>
-
-<div id="outline-container-orgheadline25" class="outline-3">
-<h3 id="orgheadline25">Timer</h3>
-<div class="outline-text-3" id="text-orgheadline25">
+</div>
+<div id="outline-container-org71bf95a" class="outline-2">
+<h2 id="org71bf95a">Sprite</h2>
+<div class="outline-text-2" id="text-org71bf95a">
 <p>
-<b>计时器</b> 不光为游戏提供简单的计时功能，也用于引擎本身的帧率计算，从而控制游戏的更新。
+我们使用 <b>Sprite</b> 来表示一个2D渲染对象。特意注明2D，是因为渲染Sprite不需要像3D渲染那样根据摄像机的视角计算出透视坐标和光照来展现三维物体的表面。Sprite只需要最基本的 <code>position</code> <code>scale</code> <code>rotation</code> <code>shader</code> 即可渲染在屏幕上（就像之前我们做的所有渲染尝试）。
 </p>
+</div>
+
+<div id="outline-container-org70977d7" class="outline-3">
+<h3 id="org70977d7">2D投影</h3>
+<div class="outline-text-3" id="text-org70977d7">
+<p>
+OpenGL本身是个3D图形API，其所有的概念都是针对三维世界的。但我们能接收到的图像输出目前只有二维（比如显示器）。所以要展现我们在三维世界创建的游戏世界就需要投影到二维平面上面。（局部空间-&gt;世界空间-&gt;观察空间-&gt;裁剪空间(标准化设备坐标)-&gt;屏幕空间）这些坐标系的变换都是通过矩阵变换而来。
+针对二维渲染，我们不需要透视处理，所以使用正交投影（没有近大远小的视觉感受）。
+</p>
+
+<p>
+<img src="./images/orthographic_frustum.png" alt="orthographic_frustum.png" />  <img src="./images/perspective_frustum.png" alt="perspective_frustum.png" />
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-c++"><span style="color: #8D8D84;">/*</span>
+<span style="color: #8D8D84; font-style: italic;">*&#21069;&#20004;&#20010;&#21442;&#25968;&#25351;&#23450;&#20102;&#24179;&#25130;&#22836;&#20307;&#30340;&#24038;&#21491;&#22352;&#26631;&#65292;&#31532;&#19977;&#21644;&#31532;&#22235;&#21442;&#25968;&#25351;&#23450;&#20102;&#24179;&#25130;&#22836;&#20307;&#30340;&#24213;&#37096;&#21644;&#39030;&#37096;&#12290;</span>
+<span style="color: #8D8D84; font-style: italic;">*&#36890;&#36807;&#36825;&#22235;&#20010;&#21442;&#25968;&#25105;&#20204;&#23450;&#20041;&#20102;&#36817;&#24179;&#38754;&#21644;&#36828;&#24179;&#38754;&#30340;&#22823;&#23567;&#65292;&#28982;&#21518;&#31532;&#20116;&#21644;&#31532;&#20845;&#20010;&#21442;&#25968;&#21017;&#23450;&#20041;&#20102;&#36817;&#24179;&#38754;&#21644;&#36828;&#24179;&#38754;&#30340;&#36317;&#31163;&#12290;</span>
+<span style="color: #8D8D84; font-style: italic;">*&#36825;&#20010;&#25237;&#24433;&#30697;&#38453;&#20250;&#23558;&#22788;&#20110;&#36825;&#20123;x&#65292;y&#65292;z&#20540;&#33539;&#22260;&#20869;&#30340;&#22352;&#26631;&#21464;&#25442;&#20026;&#26631;&#20934;&#21270;&#35774;&#22791;&#22352;&#26631;&#12290;</span>
+<span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">mat4</span> <span style="color: #BA36A5;">projection</span> = <span style="color: #D0372D;">glm</span>::ortho<span style="color: #707183;">(</span><span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">800.0f</span>, <span style="color: #D0372D;">600.0f</span>, <span style="color: #D0372D;">0.0f</span>, -<span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">1.0f</span><span style="color: #707183;">)</span>;
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/projection.png" alt="projection.png" />
+</p>
+</div>
+
+<p>
+设定这样的正交投影矩阵后，世界空间坐标就直接与最终的屏幕空间坐标对应。这样我们在开发2D游戏时，直接指定顶点坐标为屏幕上的像素坐标，相对来讲就直观许多。同时，我们所使用的顶点着色器也要做相应的改变，每一个顶点的位置都要经过投影矩阵变换一下。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c++">gl_Position = projection * mv * vec4<span style="color: #707183;">(</span>vertex.xy, <span style="color: #D0372D;">0.0</span>, <span style="color: #D0372D;">1.0</span><span style="color: #707183;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb466068" class="outline-3">
+<h3 id="orgb466068">SpriteRenderer</h3>
+<div class="outline-text-3" id="text-orgb466068">
+<p>
+我们定义一个 <b>SpriteRenderer</b> 类来表示2D渲染对象。一般来讲，一个具备渲染能力的2D对象需要的属性有 <code>position</code> <code>size</code> <code>rotate</code> <code>color</code> <code>shader</code>, <code>texture</code> 可选（没有纹理的sprite），定义如下：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c++"><span style="color: #0000FF;">class</span> <span style="color: #6434A3;">SpriteRenderer</span> <span style="color: #707183;">{</span>
+    <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">position</span>;
+    <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">size</span>;
+    <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">color</span>;
+    <span style="color: #6434A3;">GLfloat</span> <span style="color: #BA36A5;">rotate</span>;
+
+    <span style="color: #6434A3;">GLuint</span> <span style="color: #BA36A5;">vao</span>;
+    <span style="color: #6434A3;">GLuint</span> <span style="color: #BA36A5;">shader</span>;
+    <span style="color: #6434A3;">GLuint</span> <span style="color: #BA36A5;">texture2d</span>;
+
+<span style="color: #0000FF;">public</span>:
+    <span style="color: #006699;">SpriteRenderer</span><span style="color: #7388D6;">(</span><span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">p</span> = <span style="color: #D0372D;">glm</span>::<span style="color: #BA36A5;">vec2</span><span style="color: #909183;">(</span><span style="color: #D0372D;">0</span>,<span style="color: #D0372D;">0</span><span style="color: #909183;">)</span>,
+                   <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">s</span> = <span style="color: #D0372D;">glm</span>::<span style="color: #BA36A5;">vec2</span><span style="color: #909183;">(</span><span style="color: #D0372D;">10</span>,<span style="color: #D0372D;">10</span><span style="color: #909183;">)</span>,
+                   <span style="color: #BA36A5;">GLfloat</span> r = <span style="color: #D0372D;">0.0f</span>,
+                   <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">c</span> = <span style="color: #D0372D;">glm</span>::<span style="color: #BA36A5;">vec3</span><span style="color: #909183;">(</span><span style="color: #D0372D;">1.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    ~<span style="color: #006699;">SpriteRenderer</span><span style="color: #7388D6;">()</span>;
+    <span style="color: #6434A3;">void</span> <span style="color: #006699;">draw</span><span style="color: #7388D6;">()</span>;
+
+    <span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">other method */</span>
+
+<span style="color: #707183;">}</span>;
+</pre>
+</div>
+
+
+<p>
+SpriteRenderer本质上就是由两个三角形构成的矩形块。所以回想前面我们做过的渲染实验。一个sprite的构造与渲染其实就是把之前我们写过的代码好好封装一下。同时，为了更好的表示物体的空间属性和转换，采用了 <b>向量（vector</b> 和 <b>矩阵（matrix）</b> 。简言之，向量与矩阵都是多维的，向量用来表示位置与方向，矩阵用来表示转换。这里，我直接用了 <code>glm</code> 这个数学库，自己实现一下也很简单。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c++"><span style="color: #D0372D;">SpriteRenderer</span>::<span style="color: #006699;">SpriteRenderer</span><span style="color: #707183;">(</span><span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">p</span>, <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">s</span>, <span style="color: #BA36A5;">GLfloat</span> r, <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">c</span><span style="color: #707183;">)</span>:
+    position<span style="color: #707183;">(</span>p<span style="color: #707183;">)</span>,
+    size<span style="color: #707183;">(</span>s<span style="color: #707183;">)</span>,
+    rotate<span style="color: #707183;">(</span>r<span style="color: #707183;">)</span>,
+    color<span style="color: #707183;">(</span>c<span style="color: #707183;">)</span>,
+    vao<span style="color: #707183;">(</span><span style="color: #D0372D;">0</span><span style="color: #707183;">)</span>,
+    shader<span style="color: #707183;">(</span><span style="color: #D0372D;">0</span><span style="color: #707183;">)</span>,
+    texture2d<span style="color: #707183;">(</span><span style="color: #D0372D;">0</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">GLuint</span> <span style="color: #BA36A5;">vbo</span>;
+    <span style="color: #6434A3;">GLfloat</span> <span style="color: #BA36A5;">vertices</span><span style="color: #7388D6;">[]</span> = <span style="color: #7388D6;">{</span>
+        <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">pos        //texture</span>
+        <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">1.0f</span>,  <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">1.0f</span>,
+        <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">0.0f</span>,  <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">0.0f</span>,
+        <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">0.0f</span>,  <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">0.0f</span>,
+
+        <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">1.0f</span>,  <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">1.0f</span>,
+        <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">1.0f</span>,  <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">1.0f</span>,
+        <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">0.0f</span>,  <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">0.0f</span>,
+    <span style="color: #7388D6;">}</span>;
+
+    glGenVertexArrays<span style="color: #7388D6;">(</span><span style="color: #D0372D;">1</span>, &amp;<span style="color: #0000FF;">this</span>-&gt;vao<span style="color: #7388D6;">)</span>;
+    glGenBuffers<span style="color: #7388D6;">(</span><span style="color: #D0372D;">1</span>, &amp;vbo<span style="color: #7388D6;">)</span>;
+
+    glBindBuffer<span style="color: #7388D6;">(</span>GL_ARRAY_BUFFER, vbo<span style="color: #7388D6;">)</span>;
+    glBufferData<span style="color: #7388D6;">(</span>GL_ARRAY_BUFFER, <span style="color: #0000FF;">sizeof</span><span style="color: #909183;">(</span>vertices<span style="color: #909183;">)</span>, vertices, GL_STATIC_DRAW<span style="color: #7388D6;">)</span>;
+
+    glBindVertexArray<span style="color: #7388D6;">(</span><span style="color: #0000FF;">this</span>-&gt;vao<span style="color: #7388D6;">)</span>;
+    glEnableVertexAttribArray<span style="color: #7388D6;">(</span><span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    glVertexAttribPointer<span style="color: #7388D6;">(</span><span style="color: #D0372D;">0</span>, <span style="color: #D0372D;">4</span>, GL_FLOAT, GL_FALSE, <span style="color: #D0372D;">4</span>*<span style="color: #0000FF;">sizeof</span><span style="color: #909183;">(</span>GLfloat<span style="color: #909183;">)</span>, <span style="color: #909183;">(</span><span style="color: #6434A3;">GLfloat</span>*<span style="color: #909183;">)</span><span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    glBindBuffer<span style="color: #7388D6;">(</span>GL_ARRAY_BUFFER, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    glBindVertexArray<span style="color: #7388D6;">(</span><span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+这里顶点数据里面，我们根据2D图形的特殊性，pos只要了2个分量，丢弃了顶点color，保留了纹理坐标。这样我们可以将一个顶点的数据塞进一个 vector4 里面，节约内存。（为什么丢弃顶点颜色呢？因为2D图形很少做光照计算，其颜色值基本取自对应的纹素值；再者，即使有需要顶点颜色的时候，也可以在通过直接给shader传值来间接实现）
+</p>
+
+<p>
+同理，sprite的渲染也是将之前零散的代码聚合封装一下。我们设置的pos，size和rotate实质上就是在变换sprite。比如设置pos为（10,10），实际上是将sprite从（0,0）移动到（10,10），设置size则等同于缩放。如此，每一次sprite的绘制，都会经历坐标变换，着色渲染（跑一遍渲染流水线）。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c++"><span style="color: #6434A3;">void</span> <span style="color: #D0372D;">SpriteRenderer</span>::<span style="color: #006699;">draw</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">create model-view matrix</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">(transformations are: scale happens first, then rotation and then finall translation happens; reversed order)</span>
+    <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">mat4</span> <span style="color: #BA36A5;">mv</span>;
+    mv = <span style="color: #D0372D;">glm</span>::translate<span style="color: #7388D6;">(</span>mv, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;position, <span style="color: #D0372D;">0.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+
+    mv = <span style="color: #D0372D;">glm</span>::translate<span style="color: #7388D6;">(</span>mv, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.x, <span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.y, <span style="color: #D0372D;">0.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    mv = <span style="color: #D0372D;">glm</span>::rotate<span style="color: #7388D6;">(</span>mv, <span style="color: #0000FF;">this</span>-&gt;rotate, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">1.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    mv = <span style="color: #D0372D;">glm</span>::translate<span style="color: #7388D6;">(</span>mv, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span>-<span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.x,  -<span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.y, <span style="color: #D0372D;">0.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+
+    mv = <span style="color: #D0372D;">glm</span>::scale<span style="color: #7388D6;">(</span>mv, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;size, <span style="color: #D0372D;">1.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+
+    glUseProgram<span style="color: #7388D6;">(</span><span style="color: #0000FF;">this</span>-&gt;shader<span style="color: #7388D6;">)</span>;
+    glUniformMatrix4fv<span style="color: #7388D6;">(</span>glGetUniformLocation<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;shader, <span style="color: #008000;">"mv"</span><span style="color: #909183;">)</span>, <span style="color: #D0372D;">1</span>, GL_FALSE, <span style="color: #D0372D;">glm</span>::value_ptr<span style="color: #909183;">(</span>mv<span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    glUniform3f<span style="color: #7388D6;">(</span>glGetUniformLocation<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;shader, <span style="color: #008000;">"scolor"</span><span style="color: #909183;">)</span>, <span style="color: #0000FF;">this</span>-&gt;color.x, <span style="color: #0000FF;">this</span>-&gt;color.y, <span style="color: #0000FF;">this</span>-&gt;color.z<span style="color: #7388D6;">)</span>;
+
+    <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span><span style="color: #0000FF;">this</span>-&gt;texture2d != <span style="color: #D0372D;">0</span><span style="color: #7388D6;">){</span>
+        glActiveTexture<span style="color: #909183;">(</span>GL_TEXTURE0<span style="color: #909183;">)</span>;
+        glBindTexture<span style="color: #909183;">(</span>GL_TEXTURE_2D, <span style="color: #0000FF;">this</span>-&gt;texture2d<span style="color: #909183;">)</span>;
+        glUniform1i<span style="color: #909183;">(</span>glGetUniformLocation<span style="color: #709870;">(</span><span style="color: #0000FF;">this</span>-&gt;shader, <span style="color: #008000;">"image"</span><span style="color: #709870;">)</span>, <span style="color: #D0372D;">0</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+
+    glBindVertexArray<span style="color: #7388D6;">(</span><span style="color: #0000FF;">this</span>-&gt;vao<span style="color: #7388D6;">)</span>;
+    glDrawElements<span style="color: #7388D6;">(</span>GL_TRIANGLES, <span style="color: #D0372D;">6</span>, GL_UNSIGNED_INT, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    glBindVertexArray<span style="color: #7388D6;">(</span><span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+
+<p>
+针对三维空间中物体的变换，变换的轴都是固定的。而矩阵乘法不满足交换律（变换顺序不同，结果不同），所以符合期望的变换顺序 <b>缩放、旋转、平移</b> 。（由于矩阵乘法是从右往左的，所以写代码的时候又要反过来写）
+</p>
+
+
+
+<div class="figure">
+<p><img src="./images/transform.png" alt="transform.png" />
+</p>
+</div>
+
+
+<p>
+针对二维旋转，我们默认是以左上角为原点的，旋转操作可能不是一般想要的那种旋转，所以这里做了一点额外的操作，在旋转前将origin移到四边形的中心，再进行旋转，之后再移回去。
+</p>
+
+
+<div class="figure">
+<p><img src="./images/rotation-origin.png" alt="rotation-origin.png" />
+</p>
+</div>
+
+
+<p>
+如此，SpriteRenderer的绘制代码就差不多写出来了：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c++"><span style="color: #6434A3;">void</span> <span style="color: #D0372D;">SpriteRenderer</span>::<span style="color: #006699;">draw</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">create model-view matrix</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">(transformations are: scale happens first, then rotation and then finall translation happens; reversed order)</span>
+    <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">mat4</span> <span style="color: #BA36A5;">mv</span>;
+    mv = <span style="color: #D0372D;">glm</span>::translate<span style="color: #7388D6;">(</span>mv, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;position, <span style="color: #D0372D;">0.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+
+    mv = <span style="color: #D0372D;">glm</span>::translate<span style="color: #7388D6;">(</span>mv, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.x, <span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.y, <span style="color: #D0372D;">0.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    mv = <span style="color: #D0372D;">glm</span>::rotate<span style="color: #7388D6;">(</span>mv, <span style="color: #0000FF;">this</span>-&gt;rotate, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">1.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    mv = <span style="color: #D0372D;">glm</span>::translate<span style="color: #7388D6;">(</span>mv, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span>-<span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.x,  -<span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.y, <span style="color: #D0372D;">0.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+
+    mv = <span style="color: #D0372D;">glm</span>::scale<span style="color: #7388D6;">(</span>mv, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;size, <span style="color: #D0372D;">1.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+
+    glUseProgram<span style="color: #7388D6;">(</span><span style="color: #0000FF;">this</span>-&gt;shader<span style="color: #7388D6;">)</span>;
+    glUniformMatrix4fv<span style="color: #7388D6;">(</span>glGetUniformLocation<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;shader, <span style="color: #008000;">"mv"</span><span style="color: #909183;">)</span>, <span style="color: #D0372D;">1</span>, GL_FALSE, <span style="color: #D0372D;">glm</span>::value_ptr<span style="color: #909183;">(</span>mv<span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    glUniform3f<span style="color: #7388D6;">(</span>glGetUniformLocation<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;shader, <span style="color: #008000;">"scolor"</span><span style="color: #909183;">)</span>, <span style="color: #0000FF;">this</span>-&gt;color.x, <span style="color: #0000FF;">this</span>-&gt;color.y, <span style="color: #0000FF;">this</span>-&gt;color.z<span style="color: #7388D6;">)</span>;
+
+    <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span><span style="color: #0000FF;">this</span>-&gt;texture2d != <span style="color: #D0372D;">0</span><span style="color: #7388D6;">){</span>
+        glActiveTexture<span style="color: #909183;">(</span>GL_TEXTURE0<span style="color: #909183;">)</span>;
+        glBindTexture<span style="color: #909183;">(</span>GL_TEXTURE_2D, <span style="color: #0000FF;">this</span>-&gt;texture2d<span style="color: #909183;">)</span>;
+        glUniform1i<span style="color: #909183;">(</span>glGetUniformLocation<span style="color: #709870;">(</span><span style="color: #0000FF;">this</span>-&gt;shader, <span style="color: #008000;">"image"</span><span style="color: #709870;">)</span>, <span style="color: #D0372D;">0</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+
+    glBindVertexArray<span style="color: #7388D6;">(</span><span style="color: #0000FF;">this</span>-&gt;vao<span style="color: #7388D6;">)</span>;
+    glDrawElements<span style="color: #7388D6;">(</span>GL_TRIANGLES, <span style="color: #D0372D;">6</span>, GL_UNSIGNED_INT, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    glBindVertexArray<span style="color: #7388D6;">(</span><span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+然后，模型变换完毕，最终送到shader中，通过投影矩阵将三维投影成二维。
+</p>
+
+<p>
+因此，相应的shader也要做些改变。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c++"><span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
+layout <span style="color: #707183;">(</span>location = <span style="color: #D0372D;">0</span><span style="color: #707183;">)</span> in <span style="color: #6434A3;">vec4</span> <span style="color: #BA36A5;">vertex</span>; <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">&lt;vec2 position, vec2 texCoords&gt;</span>
+
+out <span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">TexCoords</span>;
+
+uniform <span style="color: #6434A3;">mat4</span> <span style="color: #BA36A5;">mc</span>;
+uniform <span style="color: #6434A3;">mat4</span> <span style="color: #BA36A5;">projection</span>;
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    TexCoords = vertex.zw;
+    gl_Position = projection * mc * vec4<span style="color: #7388D6;">(</span>vertex.xy, <span style="color: #D0372D;">0.0</span>, <span style="color: #D0372D;">1.0</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-c++"><span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
+in <span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">TexCoords</span>;
+out <span style="color: #6434A3;">vec4</span> <span style="color: #BA36A5;">color</span>;
+
+uniform <span style="color: #6434A3;">sampler2D</span> <span style="color: #BA36A5;">image</span>;
+uniform <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">scolor</span>;
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    color = vec4<span style="color: #7388D6;">(</span>scolor, <span style="color: #D0372D;">1.0</span><span style="color: #7388D6;">)</span> * texture<span style="color: #7388D6;">(</span>image, TexCoords<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: keyring</p>
-<p class="date">Created: 2016-11-25 周五 15:20</p>
+<p class="date">Created: 2016-12-01 周四 23:43</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

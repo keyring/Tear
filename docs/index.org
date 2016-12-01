@@ -579,12 +579,14 @@ ejoy2d_game_drawframe(struct game *G) {
    OpenGL本身是个3D图形API，其所有的概念都是针对三维世界的。但我们能接收到的图像输出目前只有二维（比如显示器）。所以要展现我们在三维世界创建的游戏世界就需要投影到二维平面上面。（局部空间->世界空间->观察空间->裁剪空间(标准化设备坐标)->屏幕空间）这些坐标系的变换都是通过矩阵变换而来。
    针对二维渲染，我们不需要透视处理，所以使用正交投影（没有近大远小的视觉感受）。
 
-[[./images/orthographic_frustum.png]]                 [[./images/perspective_frustum.png]]
+[[./images/orthographic_frustum.png]]  [[./images/perspective_frustum.png]]
 
 
 #+BEGIN_SRC c++
 /*
-*前两个参数指定了平截头体的左右坐标，第三和第四参数指定了平截头体的底部和顶部。通过这四个参数我们定义了近平面和远平面的大小，然后第五和第六个参数则定义了近平面和远平面的距离。这个投影矩阵会将处于这些x，y，z值范围内的坐标变换为标准化设备坐标。
+*前两个参数指定了平截头体的左右坐标，第三和第四参数指定了平截头体的底部和顶部。
+*通过这四个参数我们定义了近平面和远平面的大小，然后第五和第六个参数则定义了近平面和远平面的距离。
+*这个投影矩阵会将处于这些x，y，z值范围内的坐标变换为标准化设备坐标。
 */
 glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
 
@@ -598,8 +600,197 @@ glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
 
 #+BEGIN_SRC c++
 
-gl_Position = projection * model * vec4(vertex.xy, 0.0, 1.0);
+gl_Position = projection * mv * vec4(vertex.xy, 0.0, 1.0);
 
 #+END_SRC
    
 ** SpriteRenderer
+   我们定义一个 *SpriteRenderer* 类来表示2D渲染对象。一般来讲，一个具备渲染能力的2D对象需要的属性有 ~position~ ~size~ ~rotate~ ~color~ ~shader~, ~texture~ 可选（没有纹理的sprite），定义如下：
+
+#+BEGIN_SRC c++
+
+    class SpriteRenderer {
+        glm::vec2 position;
+        glm::vec2 size;
+        glm::vec3 color;
+        GLfloat rotate;
+
+        GLuint vao;
+        GLuint shader;
+        GLuint texture2d;
+
+    public:
+        SpriteRenderer(glm::vec2 p = glm::vec2(0,0),
+                       glm::vec2 s = glm::vec2(10,10),
+                       GLfloat r = 0.0f,
+                       glm::vec3 c = glm::vec3(1.0f));
+        ~SpriteRenderer();
+        void draw();
+
+        /* other method */
+
+    };
+
+#+END_SRC
+
+
+SpriteRenderer本质上就是由两个三角形构成的矩形块。所以回想前面我们做过的渲染实验。一个sprite的构造与渲染其实就是把之前我们写过的代码好好封装一下。同时，为了更好的表示物体的空间属性和转换，采用了 *向量（vector* 和 *矩阵（matrix）* 。简言之，向量与矩阵都是多维的，向量用来表示位置与方向，矩阵用来表示转换。这里，我直接用了 ~glm~ 这个数学库，自己实现一下也很简单。
+
+#+BEGIN_SRC c++
+
+    SpriteRenderer::SpriteRenderer(glm::vec2 p, glm::vec2 s, GLfloat r, glm::vec3 c):
+        position(p),
+        size(s),
+        rotate(r),
+        color(c),
+        vao(0),
+        shader(0),
+        texture2d(0)
+    {
+        GLuint vbo;
+        GLfloat vertices[] = {
+            //pos        //texture
+            0.0f, 1.0f,  0.0f, 1.0f,
+            1.0f, 0.0f,  1.0f, 0.0f,
+            0.0f, 0.0f,  0.0f, 0.0f,
+
+            0.0f, 1.0f,  0.0f, 1.0f,
+            1.0f, 1.0f,  1.0f, 1.0f,
+            1.0f, 0.0f,  1.0f, 0.0f,
+        };
+
+        glGenVertexArrays(1, &this->vao);
+        glGenBuffers(1, &vbo);
+
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+        glBindVertexArray(this->vao);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), (GLfloat*)0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
+    }
+
+#+END_SRC
+
+这里顶点数据里面，我们根据2D图形的特殊性，pos只要了2个分量，丢弃了顶点color，保留了纹理坐标。这样我们可以将一个顶点的数据塞进一个 vector4 里面，节约内存。（为什么丢弃顶点颜色呢？因为2D图形很少做光照计算，其颜色值基本取自对应的纹素值；再者，即使有需要顶点颜色的时候，也可以在通过直接给shader传值来间接实现）
+
+同理，sprite的渲染也是将之前零散的代码聚合封装一下。我们设置的pos，size和rotate实质上就是在变换sprite。比如设置pos为（10,10），实际上是将sprite从（0,0）移动到（10,10），设置size则等同于缩放。如此，每一次sprite的绘制，都会经历坐标变换，着色渲染（跑一遍渲染流水线）。
+
+#+BEGIN_SRC c++
+
+    void SpriteRenderer::draw()
+    {
+        // create model-view matrix
+        // (transformations are: scale happens first, then rotation and then finall translation happens; reversed order)
+        glm::mat4 mv;
+        mv = glm::translate(mv, glm::vec3(this->position, 0.0f));
+
+        mv = glm::translate(mv, glm::vec3(0.5f*this->size.x, 0.5f*this->size.y, 0.0f));
+        mv = glm::rotate(mv, this->rotate, glm::vec3(0.0f, 0.0f, 1.0f));
+        mv = glm::translate(mv, glm::vec3(-0.5f*this->size.x,  -0.5f*this->size.y, 0.0f));
+
+        mv = glm::scale(mv, glm::vec3(this->size, 1.0f));
+
+        glUseProgram(this->shader);
+        glUniformMatrix4fv(glGetUniformLocation(this->shader, "mv"), 1, GL_FALSE, glm::value_ptr(mv));
+        glUniform3f(glGetUniformLocation(this->shader, "scolor"), this->color.x, this->color.y, this->color.z);
+
+        if(this->texture2d != 0){
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, this->texture2d);
+            glUniform1i(glGetUniformLocation(this->shader, "image"), 0);
+        }
+
+        glBindVertexArray(this->vao);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+    }
+
+#+END_SRC
+
+
+针对三维空间中物体的变换，变换的轴都是固定的。而矩阵乘法不满足交换律（变换顺序不同，结果不同），所以符合期望的变换顺序 *缩放、旋转、平移* 。（由于矩阵乘法是从右往左的，所以写代码的时候又要反过来写）
+
+
+[[./images/transform.png]]
+
+
+针对二维旋转，我们默认是以左上角为原点的，旋转操作可能不是一般想要的那种旋转，所以这里做了一点额外的操作，在旋转前将origin移到四边形的中心，再进行旋转，之后再移回去。
+
+[[./images/rotation-origin.png]]
+
+
+如此，SpriteRenderer的绘制代码就差不多写出来了：
+
+#+BEGIN_SRC c++
+
+    void SpriteRenderer::draw()
+    {
+        // create model-view matrix
+        // (transformations are: scale happens first, then rotation and then finall translation happens; reversed order)
+        glm::mat4 mv;
+        mv = glm::translate(mv, glm::vec3(this->position, 0.0f));
+
+        mv = glm::translate(mv, glm::vec3(0.5f*this->size.x, 0.5f*this->size.y, 0.0f));
+        mv = glm::rotate(mv, this->rotate, glm::vec3(0.0f, 0.0f, 1.0f));
+        mv = glm::translate(mv, glm::vec3(-0.5f*this->size.x,  -0.5f*this->size.y, 0.0f));
+
+        mv = glm::scale(mv, glm::vec3(this->size, 1.0f));
+
+        glUseProgram(this->shader);
+        glUniformMatrix4fv(glGetUniformLocation(this->shader, "mv"), 1, GL_FALSE, glm::value_ptr(mv));
+        glUniform3f(glGetUniformLocation(this->shader, "scolor"), this->color.x, this->color.y, this->color.z);
+
+        if(this->texture2d != 0){
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, this->texture2d);
+            glUniform1i(glGetUniformLocation(this->shader, "image"), 0);
+        }
+
+        glBindVertexArray(this->vao);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+    }
+
+#+END_SRC
+
+然后，模型变换完毕，最终送到shader中，通过投影矩阵将三维投影成二维。
+
+因此，相应的shader也要做些改变。
+
+#+BEGIN_SRC c++
+
+#version 330 core
+layout (location = 0) in vec4 vertex; // <vec2 position, vec2 texCoords>
+
+out vec2 TexCoords;
+
+uniform mat4 mc;
+uniform mat4 projection;
+
+void main()
+{
+    TexCoords = vertex.zw;
+    gl_Position = projection * mc * vec4(vertex.xy, 0.0, 1.0);
+}
+
+#+END_SRC
+
+
+#+BEGIN_SRC c++
+
+#version 330 core
+in vec2 TexCoords;
+out vec4 color;
+
+uniform sampler2D image;
+uniform vec3 scolor;
+
+void main()
+{
+    color = vec4(scolor, 1.0) * texture(image, TexCoords);
+}
+
+#+END_SRC
