@@ -12,13 +12,14 @@ workspace "TearEngine"
         targetdir "bin/%{cfg.buildcfg}"
 
         includedirs {
-          "3rdparty/stb"
+          "3rdparty",
+          "3rdparty/glm",
         }
         files {
             "**.h",
             "**.c",
             "**.cpp",
-            "3rdparty/stb/*",
+            "**.inl",
         }
 
         filter "configurations:Debug"
@@ -33,19 +34,19 @@ workspace "TearEngine"
             links{
               "glfw3",
               "glew32",
-                "OpenGL32"
+              "OpenGL32"
             }
         configuration "linux"
             links{
               "glfw3",
               "GLEW",
-                "X11",
-                "Xrandr",
-                "Xi",
-                "Xinerama",
-                "Xxf86vm",
-                "Xcursor",
-                "GL",
-                "pthread",
-                "dl"
+              "X11",
+              "Xrandr",
+              "Xi",
+              "Xinerama",
+              "Xxf86vm",
+              "Xcursor",
+              "GL",
+              "pthread",
+              "dl"
             }

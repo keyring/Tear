@@ -1,48 +1,40 @@
-#include "Tear.h"
+
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "stb/stb_image.h"
+
+#include "Tear.h"
+#include "SpriteRenderer.h"
+
+
+#define UPDATE_INTERVAL 10  // 10ms
+
+Tear::Engine *g_tear_engine;
 
 
 // Shaders
 const GLchar* vertexShaderSource = "#version 330 core\n"
-     "layout (location = 0) in vec3 position;\n"
-     "layout (location = 1) in vec3 color;\n"
-     "layout (location = 2) in vec2 texCoord;\n"
-     "\n"
-     "out vec3 ourColor;\n"
-     "out vec2 TexCoord;\n"
-     "\n"
-     "void main()\n"
-     "{\n"
-     "	gl_Position = vec4(position, 1.0f);\n"
-     "	ourColor = color;\n"
-     "	// We swap the y-axis by substracing our coordinates from 1. This is done because most images have the top y-axis inversed with OpenGL's top y-axis.\n"
-     "	// TexCoord = texCoord;\n"
-     "	TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);\n"
-     "}\n";
+"layout (location = 0) in vec4 vertex; // <vec2 position, vec2 texCoords>\n"
+"out vec2 TexCoords;\n"
+"uniform mat4 mv;\n"
+"uniform mat4 projection;\n"
+"void main()\n"
+"{\n"
+"    TexCoords = vertex.zw;\n"
+"    gl_Position = projection * mv * vec4(vertex.xy, 0.0, 1.0);\n"
+"}";
 const GLchar* fragmentShaderSource = "#version 330 core\n"
-    "in vec3 ourColor;\n"
-    "in vec2 TexCoord;\n"
-    "\n"
-    "out vec4 color;\n"
-    "\n"
-    "// Texture samplers\n"
-    "uniform sampler2D ourTexture1;\n"
-    "uniform sampler2D ourTexture2;\n"
-    "\n"
-    "void main()\n"
-    "{\n"
-    "	// Linearly interpolate between both textures (second texture is only slightly combined)\n"
-    "	// color = vec4(ourColor, 1.0);\n"
-    "	// color = texture(ourTexture1, TexCoord);\n"
-    "	// color = texture(ourTexture2, TexCoord);\n"
-    "	// color = texture(ourTexture2, TexCoord) * vec4(ourColor, 1.0);\n"
-    "	 color = mix(texture(ourTexture1, TexCoord), texture(ourTexture2, TexCoord), 0.5);\n"
-    "}\n";
+"in vec2 TexCoords;\n"
+"out vec4 color;\n"
+"uniform sampler2D image;\n"
+"uniform vec3 scolor;\n"
+"void main()\n"
+"{\n"
+"    color = vec4(scolor, 1.0) * texture(image, TexCoords);\n"
+"}";
 
 
 static void _glfw_error_callback(int error, const char *description)
@@ -55,7 +47,6 @@ static void _glfw_key_callback(GLFWwindow *window, int key, int scancode, int ac
     if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
-
 }
 
 static GLuint _shader_create(const GLchar *vs, const GLchar *fs)
@@ -126,11 +117,6 @@ static GLuint _texture_create(const char *filepath)
     return texture;
 }
 
-#define UPDATE_INTERVAL 10  // 10ms
-
-Tear::Engine *g_tear_engine;
-
-
 int main(void)
 {
     glfwSetErrorCallback(_glfw_error_callback);
@@ -169,42 +155,42 @@ int main(void)
 
     glViewport(0, 0, window_width, window_height);
 
-    // Set up vertex data (and buffer(s)) and attribute pointers
-    GLfloat vertices[] = {
-        // Positions          // Colors           // Texture Coords
-        0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top Right
-        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // Bottom Right
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // Bottom Left
-        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // Top Left 
-    };
-    GLuint indices[] = {  // Note that we start from 0!
-        0, 1, 3, // First Triangle
-        1, 2, 3  // Second Triangle
-    };
-    GLuint VBO, VAO, EBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+    // // Set up vertex data (and buffer(s)) and attribute pointers
+    // GLfloat vertices[] = {
+    //     // Positions          // Colors           // Texture Coords
+    //     0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top Right
+    //     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // Bottom Right
+    //     -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // Bottom Left
+    //     -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // Top Left 
+    // };
+    // GLuint indices[] = {  // Note that we start from 0!
+    //     0, 1, 3, // First Triangle
+    //     1, 2, 3  // Second Triangle
+    // };
+    // GLuint VBO, VAO, EBO;
+    // glGenVertexArrays(1, &VAO);
+    // glGenBuffers(1, &VBO);
+    // glGenBuffers(1, &EBO);
 
-    glBindVertexArray(VAO);
+    // glBindVertexArray(VAO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    // glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    // Position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
-    glEnableVertexAttribArray(0);
-    // Color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(1);
-    // TexCoord attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(2);
+    // // Position attribute
+    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+    // glEnableVertexAttribArray(0);
+    // // Color attribute
+    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+    // glEnableVertexAttribArray(1);
+    // // TexCoord attribute
+    // glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+    // glEnableVertexAttribArray(2);
 
-    glBindVertexArray(0); // Unbind VAO
+    // glBindVertexArray(0); // Unbind VAO
 
 
  //   glEnable(GL_CULL_FACE);
@@ -223,6 +209,14 @@ int main(void)
     GLuint texture1 = _texture_create("../../media/cat.png");
     GLuint texture2 = _texture_create("../../media/logo.png");
 
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(window_width), static_cast<GLfloat>(window_height), 0.0f, -1.0f, 1.0f);
+    
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, &projection[0][0]);
+
+    Tear::SpriteRenderer *sprite = new Tear::SpriteRenderer();
+    sprite->setShader(shaderProgram);
+    sprite->setTexture(texture1);
+
     double lastTime = glfwGetTime();
     double timestamp = 0.0;
 
@@ -240,37 +234,40 @@ int main(void)
             timestamp -= UPDATE_INTERVAL;
         }
 
-        g_tear_engine->render();
-
         // Render
         // Clear the colorbuffer
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        g_tear_engine->render();
+
+        sprite->draw();
+
         // Draw our first triangle
-        glUseProgram(shaderProgram);
+        // glUseProgram(shaderProgram);
 
-        // Bind Textures using texture units
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture1);
-        glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture1"), 0);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texture2);
-        glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture2"), 1);
+        // // Bind Textures using texture units
+        // glActiveTexture(GL_TEXTURE0);
+        // glBindTexture(GL_TEXTURE_2D, texture1);
+        // glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture1"), 0);
+        // glActiveTexture(GL_TEXTURE1);
+        // glBindTexture(GL_TEXTURE_2D, texture2);
+        // glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture2"), 1);
 
-        glBindVertexArray(VAO);
-        //glDrawArrays(GL_TRIANGLES, 0, 6);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
+        // glBindVertexArray(VAO);
+        // //glDrawArrays(GL_TRIANGLES, 0, 6);
+        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        // glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
 
     }
 
+    delete sprite;
     // Properly de-allocate all resources once they've outlived their purpose
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    // glDeleteVertexArrays(1, &VAO);
+    // glDeleteBuffers(1, &VBO);
+    // glDeleteBuffers(1, &EBO);
 
     g_tear_engine->close();
     delete g_tear_engine;

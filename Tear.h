@@ -8,6 +8,7 @@ extern void game_end();
 
 namespace Tear{
     class Engine{
+        
         int m_window_width;
         int m_window_height;
 
