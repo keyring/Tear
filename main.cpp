@@ -39,9 +39,9 @@ const GLchar* fragmentShaderSource = "#version 330 core\n"
     "	// Linearly interpolate between both textures (second texture is only slightly combined)\n"
     "	// color = vec4(ourColor, 1.0);\n"
     "	// color = texture(ourTexture1, TexCoord);\n"
-    "	 color = texture(ourTexture2, TexCoord);\n"
+    "	// color = texture(ourTexture2, TexCoord);\n"
     "	// color = texture(ourTexture2, TexCoord) * vec4(ourColor, 1.0);\n"
-    "	// color = mix(texture(ourTexture1, TexCoord), texture(ourTexture2, TexCoord), 0.5);\n"
+    "	 color = mix(texture(ourTexture1, TexCoord), texture(ourTexture2, TexCoord), 0.5);\n"
     "}\n";
 
 
@@ -126,7 +126,7 @@ static GLuint _texture_create(const char *filepath)
     return texture;
 }
 
-#define UPDATE_INTERVAL 0.01  // 10ms
+#define UPDATE_INTERVAL 10  // 10ms
 
 Tear::Engine *g_tear_engine;
 
@@ -207,7 +207,7 @@ int main(void)
     glBindVertexArray(0); // Unbind VAO
 
 
-    glEnable(GL_CULL_FACE);
+ //   glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -220,7 +220,7 @@ int main(void)
     }
 
     GLuint shaderProgram = _shader_create(vertexShaderSource, fragmentShaderSource);
-    GLuint texture1 = _texture_create("../../meida/cat.png");
+    GLuint texture1 = _texture_create("../../media/cat.png");
     GLuint texture2 = _texture_create("../../media/logo.png");
 
     double lastTime = glfwGetTime();
@@ -263,9 +263,7 @@ int main(void)
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
-
-
-        glfwSwapBuffers(window);
+		glfwSwapBuffers(window);
 
     }
 
