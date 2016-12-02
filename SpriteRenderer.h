@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace Tear {
     class SpriteRenderer {
@@ -18,8 +19,8 @@ namespace Tear {
         GLuint texture2d;
 
     public:
-        SpriteRenderer(glm::vec2 p = glm::vec2(0,0),
-                       glm::vec2 s = glm::vec2(10,10),
+        SpriteRenderer(glm::vec2 p = glm::vec2(0.0f),
+                       glm::vec2 s = glm::vec2(1.0f),
                        GLfloat r = 0.0f,
                        glm::vec3 c = glm::vec3(1.0f));
         ~SpriteRenderer();
@@ -28,7 +29,8 @@ namespace Tear {
         void setPos(glm::vec2 p);
         void setSize(glm::vec2 s);
         void setColor(glm::vec3 c);
-        void setTotate(GLfloat r);
+		void setRotate(GLfloat r);
+		void setVao(GLuint v);
         void setShader(GLuint s);
         void setTexture(GLuint t);
         

@@ -3,8 +3,8 @@
 
 bool game_load()
 {
-    g_tear_engine->setWindowWidth(640);
-    g_tear_engine->setWindowHeight(480);
+    g_tear_engine->setWindowWidth(800);
+    g_tear_engine->setWindowHeight(600);
     return true;
 }
 

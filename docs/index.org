@@ -600,7 +600,7 @@ glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
 
 #+BEGIN_SRC c++
 
-gl_Position = projection * mv * vec4(vertex.xy, 0.0, 1.0);
+gl_Position = projection * model * vec4(vertex.xy, 0.0, 1.0);
 
 #+END_SRC
    
@@ -620,8 +620,8 @@ gl_Position = projection * mv * vec4(vertex.xy, 0.0, 1.0);
         GLuint texture2d;
 
     public:
-        SpriteRenderer(glm::vec2 p = glm::vec2(0,0),
-                       glm::vec2 s = glm::vec2(10,10),
+        SpriteRenderer(glm::vec2 p = glm::vec2(0.0f),
+                       glm::vec2 s = glm::vec2(1.0f),
                        GLfloat r = 0.0f,
                        glm::vec3 c = glm::vec3(1.0f));
         ~SpriteRenderer();
@@ -678,39 +678,6 @@ SpriteRenderer本质上就是由两个三角形构成的矩形块。所以回想
 
 同理，sprite的渲染也是将之前零散的代码聚合封装一下。我们设置的pos，size和rotate实质上就是在变换sprite。比如设置pos为（10,10），实际上是将sprite从（0,0）移动到（10,10），设置size则等同于缩放。如此，每一次sprite的绘制，都会经历坐标变换，着色渲染（跑一遍渲染流水线）。
 
-#+BEGIN_SRC c++
-
-    void SpriteRenderer::draw()
-    {
-        // create model-view matrix
-        // (transformations are: scale happens first, then rotation and then finall translation happens; reversed order)
-        glm::mat4 mv;
-        mv = glm::translate(mv, glm::vec3(this->position, 0.0f));
-
-        mv = glm::translate(mv, glm::vec3(0.5f*this->size.x, 0.5f*this->size.y, 0.0f));
-        mv = glm::rotate(mv, this->rotate, glm::vec3(0.0f, 0.0f, 1.0f));
-        mv = glm::translate(mv, glm::vec3(-0.5f*this->size.x,  -0.5f*this->size.y, 0.0f));
-
-        mv = glm::scale(mv, glm::vec3(this->size, 1.0f));
-
-        glUseProgram(this->shader);
-        glUniformMatrix4fv(glGetUniformLocation(this->shader, "mv"), 1, GL_FALSE, glm::value_ptr(mv));
-        glUniform3f(glGetUniformLocation(this->shader, "scolor"), this->color.x, this->color.y, this->color.z);
-
-        if(this->texture2d != 0){
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, this->texture2d);
-            glUniform1i(glGetUniformLocation(this->shader, "image"), 0);
-        }
-
-        glBindVertexArray(this->vao);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
-    }
-
-#+END_SRC
-
-
 针对三维空间中物体的变换，变换的轴都是固定的。而矩阵乘法不满足交换律（变换顺序不同，结果不同），所以符合期望的变换顺序 *缩放、旋转、平移* 。（由于矩阵乘法是从右往左的，所以写代码的时候又要反过来写）
 
 
@@ -730,17 +697,17 @@ SpriteRenderer本质上就是由两个三角形构成的矩形块。所以回想
     {
         // create model-view matrix
         // (transformations are: scale happens first, then rotation and then finall translation happens; reversed order)
-        glm::mat4 mv;
-        mv = glm::translate(mv, glm::vec3(this->position, 0.0f));
+        glm::mat4 model;
+        model = glm::translate(model, glm::vec3(this->position, 0.0f));
 
-        mv = glm::translate(mv, glm::vec3(0.5f*this->size.x, 0.5f*this->size.y, 0.0f));
-        mv = glm::rotate(mv, this->rotate, glm::vec3(0.0f, 0.0f, 1.0f));
-        mv = glm::translate(mv, glm::vec3(-0.5f*this->size.x,  -0.5f*this->size.y, 0.0f));
+        model = glm::translate(model, glm::vec3(0.5f*this->size.x, 0.5f*this->size.y, 0.0f));
+        model = glm::rotate(model, this->rotate, glm::vec3(0.0f, 0.0f, 1.0f));
+        model = glm::translate(model, glm::vec3(-0.5f*this->size.x,  -0.5f*this->size.y, 0.0f));
 
-        mv = glm::scale(mv, glm::vec3(this->size, 1.0f));
+        model = glm::scale(model, glm::vec3(this->size, 1.0f));
 
         glUseProgram(this->shader);
-        glUniformMatrix4fv(glGetUniformLocation(this->shader, "mv"), 1, GL_FALSE, glm::value_ptr(mv));
+        glUniformMatrix4fv(glGetUniformLocation(this->shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
         glUniform3f(glGetUniformLocation(this->shader, "scolor"), this->color.x, this->color.y, this->color.z);
 
         if(this->texture2d != 0){
@@ -750,7 +717,7 @@ SpriteRenderer本质上就是由两个三角形构成的矩形块。所以回想
         }
 
         glBindVertexArray(this->vao);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);
     }
 
@@ -767,13 +734,13 @@ layout (location = 0) in vec4 vertex; // <vec2 position, vec2 texCoords>
 
 out vec2 TexCoords;
 
-uniform mat4 mc;
+uniform mat4 model;
 uniform mat4 projection;
 
 void main()
 {
     TexCoords = vertex.zw;
-    gl_Position = projection * mc * vec4(vertex.xy, 0.0, 1.0);
+    gl_Position = projection * model * vec4(vertex.xy, 0.0, 1.0);
 }
 
 #+END_SRC
@@ -794,3 +761,5 @@ void main()
 }
 
 #+END_SRC
+
+

@@ -10,7 +10,7 @@
 #include "SpriteRenderer.h"
 
 
-#define UPDATE_INTERVAL 10  // 10ms
+#define UPDATE_INTERVAL 0.01  // 10ms
 
 Tear::Engine *g_tear_engine;
 
@@ -19,12 +19,12 @@ Tear::Engine *g_tear_engine;
 const GLchar* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec4 vertex; // <vec2 position, vec2 texCoords>\n"
 "out vec2 TexCoords;\n"
-"uniform mat4 mv;\n"
+"uniform mat4 model;\n"
 "uniform mat4 projection;\n"
 "void main()\n"
 "{\n"
 "    TexCoords = vertex.zw;\n"
-"    gl_Position = projection * mv * vec4(vertex.xy, 0.0, 1.0);\n"
+"    gl_Position = projection * model * vec4(vertex.xy, 0.0, 1.0);\n"
 "}";
 const GLchar* fragmentShaderSource = "#version 330 core\n"
 "in vec2 TexCoords;\n"
@@ -155,45 +155,7 @@ int main(void)
 
     glViewport(0, 0, window_width, window_height);
 
-    // // Set up vertex data (and buffer(s)) and attribute pointers
-    // GLfloat vertices[] = {
-    //     // Positions          // Colors           // Texture Coords
-    //     0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top Right
-    //     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // Bottom Right
-    //     -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // Bottom Left
-    //     -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // Top Left 
-    // };
-    // GLuint indices[] = {  // Note that we start from 0!
-    //     0, 1, 3, // First Triangle
-    //     1, 2, 3  // Second Triangle
-    // };
-    // GLuint VBO, VAO, EBO;
-    // glGenVertexArrays(1, &VAO);
-    // glGenBuffers(1, &VBO);
-    // glGenBuffers(1, &EBO);
-
-    // glBindVertexArray(VAO);
-
-    // glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // // Position attribute
-    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
-    // glEnableVertexAttribArray(0);
-    // // Color attribute
-    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-    // glEnableVertexAttribArray(1);
-    // // TexCoord attribute
-    // glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-    // glEnableVertexAttribArray(2);
-
-    // glBindVertexArray(0); // Unbind VAO
-
-
- //   glEnable(GL_CULL_FACE);
+    //glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -209,13 +171,17 @@ int main(void)
     GLuint texture1 = _texture_create("../../media/cat.png");
     GLuint texture2 = _texture_create("../../media/logo.png");
 
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(window_width), static_cast<GLfloat>(window_height), 0.0f, -1.0f, 1.0f);
-    
-    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, &projection[0][0]);
+	glUseProgram(shaderProgram);
+	glm::mat4 projection = glm::ortho(0.f, 1.f*window_width, 1.f*window_height, 0.f, -1.0f, 1.0f);
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
     Tear::SpriteRenderer *sprite = new Tear::SpriteRenderer();
     sprite->setShader(shaderProgram);
-    sprite->setTexture(texture1);
+	sprite->setTexture(texture1);
+	sprite->setPos(glm::vec2(100, 100));
+	sprite->setSize(glm::vec2(180.0f, 180.0f));
+	sprite->setColor(glm::vec3(1.0f, 0.0f, 0.0f));
+
 
     double lastTime = glfwGetTime();
     double timestamp = 0.0;
@@ -236,28 +202,12 @@ int main(void)
 
         // Render
         // Clear the colorbuffer
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(0.2f, 0.5f, 0.8f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         g_tear_engine->render();
 
         sprite->draw();
-
-        // Draw our first triangle
-        // glUseProgram(shaderProgram);
-
-        // // Bind Textures using texture units
-        // glActiveTexture(GL_TEXTURE0);
-        // glBindTexture(GL_TEXTURE_2D, texture1);
-        // glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture1"), 0);
-        // glActiveTexture(GL_TEXTURE1);
-        // glBindTexture(GL_TEXTURE_2D, texture2);
-        // glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture2"), 1);
-
-        // glBindVertexArray(VAO);
-        // //glDrawArrays(GL_TRIANGLES, 0, 6);
-        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        // glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
 

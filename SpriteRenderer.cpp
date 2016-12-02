@@ -12,29 +12,37 @@ namespace Tear {
         shader(0),
         texture2d(0)
     {
-        GLuint vbo;
-        GLfloat vertices[] = {
-            //pos        //texture
-            0.0f, 1.0f,  0.0f, 1.0f,
-            1.0f, 0.0f,  1.0f, 0.0f,
-            0.0f, 0.0f,  0.0f, 0.0f,
 
-            0.0f, 1.0f,  0.0f, 1.0f,
-            1.0f, 1.0f,  1.0f, 1.0f,
-            1.0f, 0.0f,  1.0f, 0.0f,
-        };
+		GLuint vbo;
+		GLfloat vertices[] = {
+			//pos        //texture
+			//-0.5f, 0.5f, 0.0f, 1.0f,
+			//0.5f, -0.5f, 1.0f, 0.0f,
+			//-0.5f, -0.5f, 0.0f, 0.0f,
 
-        glGenVertexArrays(1, &this->vao);
-        glGenBuffers(1, &vbo);
+			//-0.5f, 0.5f, 0.0f, 1.0f,
+			//0.5f, 0.5f, 1.0f, 1.0f,
+			//0.5f, -0.5f, 1.0f, 0.0f,
+			0.0f, 1.0f, 0.0f, 1.0f,
+			1.0f, 0.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 0.0f,
 
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+			0.0f, 1.0f, 0.0f, 1.0f,
+			1.0f, 1.0f, 1.0f, 1.0f,
+			1.0f, 0.0f, 1.0f, 0.0f,
+		};
 
-        glBindVertexArray(this->vao);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), (GLfloat*)0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
+		glGenVertexArrays(1, &this->vao);
+		glGenBuffers(1, &vbo);
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glBindVertexArray(this->vao);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLfloat*)0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
     }
 
     SpriteRenderer::~SpriteRenderer()
@@ -57,10 +65,15 @@ namespace Tear {
         this->color = c;
     }
 
-    void SpriteRenderer::setTotate(GLfloat r)
+    void SpriteRenderer::setRotate(GLfloat r)
     {
         this->rotate = r;
     }
+
+	void SpriteRenderer::setVao(GLuint v)
+	{
+		this->vao = v;
+	}
 
     void SpriteRenderer::setShader(GLuint s)
     {
@@ -76,17 +89,17 @@ namespace Tear {
     {
         // create model-view matrix
         // (transformations are: scale happens first, then rotation and then finall translation happens; reversed order)
-        glm::mat4 mv;
-        mv = glm::translate(mv, glm::vec3(this->position, 0.0f));
+        glm::mat4 model;
+		model = glm::translate(model, glm::vec3(this->position, 0.0f));
 
-        mv = glm::translate(mv, glm::vec3(0.5f*this->size.x, 0.5f*this->size.y, 0.0f));
-        mv = glm::rotate(mv, this->rotate, glm::vec3(0.0f, 0.0f, 1.0f));
-        mv = glm::translate(mv, glm::vec3(-0.5f*this->size.x,  -0.5f*this->size.y, 0.0f));
+		model = glm::translate(model, glm::vec3(0.5f*this->size.x, 0.5f*this->size.y, 0.0f));
+		model = glm::rotate(model, this->rotate, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-0.5f*this->size.x, -0.5f*this->size.y, 0.0f));
 
-        mv = glm::scale(mv, glm::vec3(this->size, 1.0f));
+		model = glm::scale(model, glm::vec3(this->size, 1.0f));
 
         glUseProgram(this->shader);
-        glUniformMatrix4fv(glGetUniformLocation(this->shader, "mv"), 1, GL_FALSE, &mv[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(this->shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
         glUniform3f(glGetUniformLocation(this->shader, "scolor"), this->color.x, this->color.y, this->color.z);
 
         if(this->texture2d != 0){
@@ -96,7 +109,8 @@ namespace Tear {
         }
 
         glBindVertexArray(this->vao);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+        //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);  // no index buffer
         glBindVertexArray(0);
     }
 }

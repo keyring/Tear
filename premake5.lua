@@ -20,6 +20,7 @@ workspace "TearEngine"
             "**.c",
             "**.cpp",
             "**.inl",
+            "**.hpp",
         }
 
         filter "configurations:Debug"
