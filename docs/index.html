@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-12-02 周五 14:51 -->
+<!-- 2016-12-02 周五 14:55 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Tear Engine</title>
@@ -279,52 +279,52 @@ for the JavaScript code in this tag.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">&lt;GLFW/glfw3.h&gt;</span>
+<pre class="src src-c++"><span style="color: #808080;">#include</span> <span style="color: #008000;">&lt;GLFW/glfw3.h&gt;</span>
 
-<span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">&lt;stdlib.h&gt;</span>
-<span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">&lt;stdio.h&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #008000;">&lt;stdlib.h&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #008000;">&lt;stdio.h&gt;</span>
 
-<span style="color: #4f97d7; font-weight: bold;">static</span> <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">error_callback</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">error</span>, <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">description</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
-  fprintf<span style="color: #bc6ec5;">(</span>stderr, <span style="color: #2d9574;">"TxxE Error: %s\n"</span>, description<span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #0000FF;">static</span> <span style="color: #6434A3;">void</span> <span style="color: #006699;">error_callback</span><span style="color: #707183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">error</span>, <span style="color: #0000FF;">const</span> <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">description</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+  fprintf<span style="color: #7388D6;">(</span>stderr, <span style="color: #008000;">"TxxE Error: %s\n"</span>, description<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 
-<span style="color: #4f97d7; font-weight: bold;">static</span> <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">key_callback</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">GLFWwindow</span> *<span style="color: #7590db;">window</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">key</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">scancode</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">action</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">mods</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
-  <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span>key == GLFW_KEY_ESCAPE &amp;&amp; action == GLFW_PRESS<span style="color: #bc6ec5;">){</span>
-    glfwSetWindowShouldClose<span style="color: #2d9574;">(</span>window, GLFW_TRUE<span style="color: #2d9574;">)</span>;
-  <span style="color: #bc6ec5;">}</span>
-<span style="color: #4f97d7;">}</span>
+<span style="color: #0000FF;">static</span> <span style="color: #6434A3;">void</span> <span style="color: #006699;">key_callback</span><span style="color: #707183;">(</span><span style="color: #6434A3;">GLFWwindow</span> *<span style="color: #BA36A5;">window</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">key</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">scancode</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">action</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">mods</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+  <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span>key == GLFW_KEY_ESCAPE &amp;&amp; action == GLFW_PRESS<span style="color: #7388D6;">){</span>
+    glfwSetWindowShouldClose<span style="color: #909183;">(</span>window, GLFW_TRUE<span style="color: #909183;">)</span>;
+  <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
 
 
-<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">void</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
 
-  glfwSetErrorCallback<span style="color: #bc6ec5;">(</span>error_callback<span style="color: #bc6ec5;">)</span>;
-  <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">!</span>glfwInit<span style="color: #2d9574;">()</span><span style="color: #bc6ec5;">){</span>
-    <span style="color: #4f97d7; font-weight: bold;">return</span> -<span style="color: #a45bad;">1</span>;
-  <span style="color: #bc6ec5;">}</span>
+  glfwSetErrorCallback<span style="color: #7388D6;">(</span>error_callback<span style="color: #7388D6;">)</span>;
+  <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span>!glfwInit<span style="color: #909183;">()</span><span style="color: #7388D6;">){</span>
+    <span style="color: #0000FF;">return</span> -<span style="color: #D0372D;">1</span>;
+  <span style="color: #7388D6;">}</span>
 
-  <span style="color: #ce537a; font-weight: bold;">GLFWwindow</span> *<span style="color: #7590db;">window</span> = glfwCreateWindow<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">800</span>, <span style="color: #a45bad;">600</span>, <span style="color: #2d9574;">"Txx"</span>, <span style="color: #a45bad;">NULL</span>, <span style="color: #a45bad;">NULL</span><span style="color: #bc6ec5;">)</span>;
-  <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">!</span>window<span style="color: #bc6ec5;">){</span>
-    glfwTerminate<span style="color: #2d9574;">()</span>;
-    <span style="color: #4f97d7; font-weight: bold;">return</span> -<span style="color: #a45bad;">1</span>;
-  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #6434A3;">GLFWwindow</span> *<span style="color: #BA36A5;">window</span> = glfwCreateWindow<span style="color: #7388D6;">(</span><span style="color: #D0372D;">800</span>, <span style="color: #D0372D;">600</span>, <span style="color: #008000;">"Txx"</span>, <span style="color: #D0372D;">NULL</span>, <span style="color: #D0372D;">NULL</span><span style="color: #7388D6;">)</span>;
+  <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span>!window<span style="color: #7388D6;">){</span>
+    glfwTerminate<span style="color: #909183;">()</span>;
+    <span style="color: #0000FF;">return</span> -<span style="color: #D0372D;">1</span>;
+  <span style="color: #7388D6;">}</span>
 
-  glfwSetKeyCallback<span style="color: #bc6ec5;">(</span>window, key_callback<span style="color: #bc6ec5;">)</span>;
+  glfwSetKeyCallback<span style="color: #7388D6;">(</span>window, key_callback<span style="color: #7388D6;">)</span>;
 
-    <span style="color: #4f97d7; font-weight: bold;">while</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">!</span>glfwWindowShouldClose<span style="color: #2d9574;">(</span>window<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">){</span>
-      glClear<span style="color: #2d9574;">(</span>GL_COLOR_BUFFER_BIT<span style="color: #2d9574;">)</span>;
+    <span style="color: #0000FF;">while</span><span style="color: #7388D6;">(</span>!glfwWindowShouldClose<span style="color: #909183;">(</span>window<span style="color: #909183;">)</span><span style="color: #7388D6;">){</span>
+      glClear<span style="color: #909183;">(</span>GL_COLOR_BUFFER_BIT<span style="color: #909183;">)</span>;
 
-      glfwSwapBuffers<span style="color: #2d9574;">(</span>window<span style="color: #2d9574;">)</span>;
+      glfwSwapBuffers<span style="color: #909183;">(</span>window<span style="color: #909183;">)</span>;
 
-      glfwPollEvents<span style="color: #2d9574;">()</span>;
-    <span style="color: #bc6ec5;">}</span>
+      glfwPollEvents<span style="color: #909183;">()</span>;
+    <span style="color: #7388D6;">}</span>
 
-    glfwDestroyWindow<span style="color: #bc6ec5;">(</span>window<span style="color: #bc6ec5;">)</span>;
-    glfwTerminate<span style="color: #bc6ec5;">()</span>;
-    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-<span style="color: #4f97d7;">}</span>
+    glfwDestroyWindow<span style="color: #7388D6;">(</span>window<span style="color: #7388D6;">)</span>;
+    glfwTerminate<span style="color: #7388D6;">()</span>;
+    <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">0</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 </div></li>
@@ -353,10 +353,10 @@ for the JavaScript code in this tag.
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #4f97d7; font-weight: bold;">extern</span> <span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">game_load</span><span style="color: #4f97d7;">()</span>;
-<span style="color: #4f97d7; font-weight: bold;">extern</span> <span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">game_init</span><span style="color: #4f97d7;">()</span>;
-<span style="color: #4f97d7; font-weight: bold;">extern</span> <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">game_update</span><span style="color: #4f97d7;">()</span>;
-<span style="color: #4f97d7; font-weight: bold;">extern</span> <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">game_end</span><span style="color: #4f97d7;">()</span>;
+<pre class="src src-c++"><span style="color: #0000FF;">extern</span> <span style="color: #6434A3;">bool</span> <span style="color: #006699;">game_load</span><span style="color: #707183;">()</span>;
+<span style="color: #0000FF;">extern</span> <span style="color: #6434A3;">bool</span> <span style="color: #006699;">game_init</span><span style="color: #707183;">()</span>;
+<span style="color: #0000FF;">extern</span> <span style="color: #6434A3;">void</span> <span style="color: #006699;">game_update</span><span style="color: #707183;">()</span>;
+<span style="color: #0000FF;">extern</span> <span style="color: #6434A3;">void</span> <span style="color: #006699;">game_end</span><span style="color: #707183;">()</span>;
 </pre>
 </div>
 
@@ -375,154 +375,154 @@ for the JavaScript code in this tag.
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">Tear.h</span>
-<span style="color: #bc6ec5;">#if</span><span style="color: #bc6ec5;">n</span><span style="color: #bc6ec5;">def</span> __TEAR_H__
-<span style="color: #bc6ec5;">#define</span> <span style="color: #7590db;">__TEAR_H__</span>
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Tear.h</span>
+<span style="color: #808080;">#if</span><span style="color: #808080;">n</span><span style="color: #808080;">def</span> __TEAR_H__
+<span style="color: #808080;">#define</span> <span style="color: #BA36A5;">__TEAR_H__</span>
 
-<span style="color: #4f97d7; font-weight: bold;">extern</span> <span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">game_load</span><span style="color: #4f97d7;">()</span>;
-<span style="color: #4f97d7; font-weight: bold;">extern</span> <span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">game_init</span><span style="color: #4f97d7;">()</span>;
-<span style="color: #4f97d7; font-weight: bold;">extern</span> <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">game_update</span><span style="color: #4f97d7;">()</span>;
-<span style="color: #4f97d7; font-weight: bold;">extern</span> <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">game_end</span><span style="color: #4f97d7;">()</span>;
+<span style="color: #0000FF;">extern</span> <span style="color: #6434A3;">bool</span> <span style="color: #006699;">game_load</span><span style="color: #707183;">()</span>;
+<span style="color: #0000FF;">extern</span> <span style="color: #6434A3;">bool</span> <span style="color: #006699;">game_init</span><span style="color: #707183;">()</span>;
+<span style="color: #0000FF;">extern</span> <span style="color: #6434A3;">void</span> <span style="color: #006699;">game_update</span><span style="color: #707183;">()</span>;
+<span style="color: #0000FF;">extern</span> <span style="color: #6434A3;">void</span> <span style="color: #006699;">game_end</span><span style="color: #707183;">()</span>;
 
-<span style="color: #4f97d7; font-weight: bold;">namespace</span> <span style="color: #a45bad;">Tear</span><span style="color: #4f97d7;">{</span>
-    <span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">Engine</span><span style="color: #bc6ec5;">{</span>
-        <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">m_window_width</span>;
-        <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">m_window_height</span>;
+<span style="color: #0000FF;">namespace</span> <span style="color: #D0372D;">Tear</span><span style="color: #707183;">{</span>
+    <span style="color: #0000FF;">class</span> <span style="color: #6434A3;">Engine</span><span style="color: #7388D6;">{</span>
+        <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">m_window_width</span>;
+        <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">m_window_height</span>;
 
-    <span style="color: #4f97d7; font-weight: bold;">public</span>:
-        <span style="color: #bc6ec5; font-weight: bold;">Engine</span><span style="color: #2d9574;">()</span>;
-        ~<span style="color: #bc6ec5; font-weight: bold;">Engine</span><span style="color: #2d9574;">()</span>;
+    <span style="color: #0000FF;">public</span>:
+        <span style="color: #006699;">Engine</span><span style="color: #909183;">()</span>;
+        ~<span style="color: #006699;">Engine</span><span style="color: #909183;">()</span>;
 
-        <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">init</span><span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">width</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">height</span><span style="color: #2d9574;">)</span>;
-        <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">update</span><span style="color: #2d9574;">()</span>;
-        <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">close</span><span style="color: #2d9574;">()</span>;
+        <span style="color: #6434A3;">int</span> <span style="color: #006699;">init</span><span style="color: #909183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">width</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">height</span><span style="color: #909183;">)</span>;
+        <span style="color: #6434A3;">void</span> <span style="color: #006699;">update</span><span style="color: #909183;">()</span>;
+        <span style="color: #6434A3;">void</span> <span style="color: #006699;">close</span><span style="color: #909183;">()</span>;
 
 
-        <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">getWindowWidth</span><span style="color: #2d9574;">(){</span> <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;m_window_width; <span style="color: #2d9574;">}</span>
-        <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">setWindowWidth</span><span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">value</span><span style="color: #2d9574;">){</span> <span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;m_window_width = value; <span style="color: #2d9574;">}</span>
-        <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">getWindowHeight</span><span style="color: #2d9574;">(){</span> <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;m_window_height; <span style="color: #2d9574;">}</span>
-        <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">setWindowHeight</span><span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">value</span><span style="color: #2d9574;">){</span> <span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;m_window_height = value; <span style="color: #2d9574;">}</span>
-    <span style="color: #bc6ec5;">}</span>;
-<span style="color: #4f97d7;">}</span>;
+        <span style="color: #6434A3;">int</span> <span style="color: #006699;">getWindowWidth</span><span style="color: #909183;">(){</span> <span style="color: #0000FF;">return</span> <span style="color: #0000FF;">this</span>-&gt;m_window_width; <span style="color: #909183;">}</span>
+        <span style="color: #6434A3;">void</span> <span style="color: #006699;">setWindowWidth</span><span style="color: #909183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">value</span><span style="color: #909183;">){</span> <span style="color: #0000FF;">this</span>-&gt;m_window_width = value; <span style="color: #909183;">}</span>
+        <span style="color: #6434A3;">int</span> <span style="color: #006699;">getWindowHeight</span><span style="color: #909183;">(){</span> <span style="color: #0000FF;">return</span> <span style="color: #0000FF;">this</span>-&gt;m_window_height; <span style="color: #909183;">}</span>
+        <span style="color: #6434A3;">void</span> <span style="color: #006699;">setWindowHeight</span><span style="color: #909183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">value</span><span style="color: #909183;">){</span> <span style="color: #0000FF;">this</span>-&gt;m_window_height = value; <span style="color: #909183;">}</span>
+    <span style="color: #7388D6;">}</span>;
+<span style="color: #707183;">}</span>;
 
-<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">global engine object</span>
-<span style="color: #4f97d7; font-weight: bold;">extern</span> <span style="color: #a45bad;">Tear</span>::<span style="color: #ce537a; font-weight: bold;">Engine</span> *<span style="color: #7590db;">g_tear_engine</span>;
-<span style="color: #bc6ec5;">#endif</span>
+<span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">global engine object</span>
+<span style="color: #0000FF;">extern</span> <span style="color: #D0372D;">Tear</span>::<span style="color: #6434A3;">Engine</span> *<span style="color: #BA36A5;">g_tear_engine</span>;
+<span style="color: #808080;">#endif</span>
 </pre>
 </div>
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">Tear.cpp</span>
-<span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">"Tear.h"</span>
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Tear.cpp</span>
+<span style="color: #808080;">#include</span> <span style="color: #008000;">"Tear.h"</span>
 
-<span style="color: #4f97d7; font-weight: bold;">namespace</span> <span style="color: #a45bad;">Tear</span><span style="color: #4f97d7;">{</span>
-    <span style="color: #a45bad;">Engine</span>::<span style="color: #bc6ec5; font-weight: bold;">Engine</span><span style="color: #bc6ec5;">()</span>:m_window_width<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">800</span><span style="color: #bc6ec5;">)</span>,
-                     m_window_height<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">600</span><span style="color: #bc6ec5;">)</span>
-    <span style="color: #bc6ec5;">{</span>
-    <span style="color: #bc6ec5;">}</span>
+<span style="color: #0000FF;">namespace</span> <span style="color: #D0372D;">Tear</span><span style="color: #707183;">{</span>
+    <span style="color: #D0372D;">Engine</span>::<span style="color: #006699;">Engine</span><span style="color: #7388D6;">()</span>:m_window_width<span style="color: #7388D6;">(</span><span style="color: #D0372D;">800</span><span style="color: #7388D6;">)</span>,
+                     m_window_height<span style="color: #7388D6;">(</span><span style="color: #D0372D;">600</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+    <span style="color: #7388D6;">}</span>
 
-    <span style="color: #a45bad;">Engine</span>::~<span style="color: #bc6ec5; font-weight: bold;">Engine</span><span style="color: #bc6ec5;">()</span>
-    <span style="color: #bc6ec5;">{</span>
-    <span style="color: #bc6ec5;">}</span>
+    <span style="color: #D0372D;">Engine</span>::~<span style="color: #006699;">Engine</span><span style="color: #7388D6;">()</span>
+    <span style="color: #7388D6;">{</span>
+    <span style="color: #7388D6;">}</span>
 
-    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #a45bad;">Engine</span>::<span style="color: #bc6ec5; font-weight: bold;">init</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">width</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">height</span><span style="color: #bc6ec5;">)</span>
-    <span style="color: #bc6ec5;">{</span>
-        <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span><span style="color: #a45bad;">!</span>game_init<span style="color: #67b11d;">()</span><span style="color: #2d9574;">){</span>
-            <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-        <span style="color: #2d9574;">}</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #D0372D;">Engine</span>::<span style="color: #006699;">init</span><span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">width</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">height</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #0000FF;">if</span><span style="color: #909183;">(</span>!game_init<span style="color: #709870;">()</span><span style="color: #909183;">){</span>
+            <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">0</span>;
+        <span style="color: #909183;">}</span>
 
-        <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">1</span>;
-    <span style="color: #bc6ec5;">}</span>
+        <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">1</span>;
+    <span style="color: #7388D6;">}</span>
 
-    <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #a45bad;">Engine</span>::<span style="color: #bc6ec5; font-weight: bold;">update</span><span style="color: #bc6ec5;">()</span>
-    <span style="color: #bc6ec5;">{</span>
-        game_update<span style="color: #2d9574;">()</span>;
-    <span style="color: #bc6ec5;">}</span>
+    <span style="color: #6434A3;">void</span> <span style="color: #D0372D;">Engine</span>::<span style="color: #006699;">update</span><span style="color: #7388D6;">()</span>
+    <span style="color: #7388D6;">{</span>
+        game_update<span style="color: #909183;">()</span>;
+    <span style="color: #7388D6;">}</span>
 
-    <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #a45bad;">Engine</span>::<span style="color: #bc6ec5; font-weight: bold;">close</span><span style="color: #bc6ec5;">()</span>
-    <span style="color: #bc6ec5;">{</span>
-        game_end<span style="color: #2d9574;">()</span>;
-    <span style="color: #bc6ec5;">}</span>
-<span style="color: #4f97d7;">}</span>
+    <span style="color: #6434A3;">void</span> <span style="color: #D0372D;">Engine</span>::<span style="color: #006699;">close</span><span style="color: #7388D6;">()</span>
+    <span style="color: #7388D6;">{</span>
+        game_end<span style="color: #909183;">()</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">main.cpp</span>
-<span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">"Tear.h"</span>
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">main.cpp</span>
+<span style="color: #808080;">#include</span> <span style="color: #008000;">"Tear.h"</span>
 
-<span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">&lt;GLFW/glfw3.h&gt;</span>
-<span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">&lt;cstdlib&gt;</span>
-<span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">&lt;cstdio&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #008000;">&lt;GLFW/glfw3.h&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #008000;">&lt;cstdlib&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #008000;">&lt;cstdio&gt;</span>
 
-<span style="color: #4f97d7; font-weight: bold;">static</span> <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">error_callback</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">error</span>, <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">description</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
-    fprintf<span style="color: #bc6ec5;">(</span>stderr, <span style="color: #2d9574;">"glfw Error: %s\n"</span>, description<span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #0000FF;">static</span> <span style="color: #6434A3;">void</span> <span style="color: #006699;">error_callback</span><span style="color: #707183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">error</span>, <span style="color: #0000FF;">const</span> <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">description</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    fprintf<span style="color: #7388D6;">(</span>stderr, <span style="color: #008000;">"glfw Error: %s\n"</span>, description<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 
-<span style="color: #4f97d7; font-weight: bold;">static</span> <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">key_callback</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">GLFWwindow</span> *<span style="color: #7590db;">window</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">key</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">scancode</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">action</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">mods</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
-    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span>key == GLFW_KEY_ESCAPE &amp;&amp; action == GLFW_PRESS<span style="color: #bc6ec5;">){</span>
-        glfwSetWindowShouldClose<span style="color: #2d9574;">(</span>window, GLFW_TRUE<span style="color: #2d9574;">)</span>;
-    <span style="color: #bc6ec5;">}</span>
+<span style="color: #0000FF;">static</span> <span style="color: #6434A3;">void</span> <span style="color: #006699;">key_callback</span><span style="color: #707183;">(</span><span style="color: #6434A3;">GLFWwindow</span> *<span style="color: #BA36A5;">window</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">key</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">scancode</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">action</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">mods</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span>key == GLFW_KEY_ESCAPE &amp;&amp; action == GLFW_PRESS<span style="color: #7388D6;">){</span>
+        glfwSetWindowShouldClose<span style="color: #909183;">(</span>window, GLFW_TRUE<span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
 
-<span style="color: #4f97d7;">}</span>
+<span style="color: #707183;">}</span>
 
-<span style="color: #a45bad;">Tear</span>::<span style="color: #ce537a; font-weight: bold;">Engine</span> *<span style="color: #7590db;">g_tear_engine</span>;
+<span style="color: #D0372D;">Tear</span>::<span style="color: #6434A3;">Engine</span> *<span style="color: #BA36A5;">g_tear_engine</span>;
 
-<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">void</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
-    glfwSetErrorCallback<span style="color: #bc6ec5;">(</span>error_callback<span style="color: #bc6ec5;">)</span>;
-    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">!</span>glfwInit<span style="color: #2d9574;">()</span><span style="color: #bc6ec5;">){</span>
-        <span style="color: #4f97d7; font-weight: bold;">return</span> -<span style="color: #a45bad;">1</span>;
-    <span style="color: #bc6ec5;">}</span>
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    glfwSetErrorCallback<span style="color: #7388D6;">(</span>error_callback<span style="color: #7388D6;">)</span>;
+    <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span>!glfwInit<span style="color: #909183;">()</span><span style="color: #7388D6;">){</span>
+        <span style="color: #0000FF;">return</span> -<span style="color: #D0372D;">1</span>;
+    <span style="color: #7388D6;">}</span>
 
-    g_tear_engine = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #a45bad;">Tear</span>::<span style="color: #ce537a; font-weight: bold;">Engine</span><span style="color: #bc6ec5;">()</span>;
+    g_tear_engine = <span style="color: #0000FF;">new</span> <span style="color: #D0372D;">Tear</span>::<span style="color: #6434A3;">Engine</span><span style="color: #7388D6;">()</span>;
 
-    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">!</span>game_load<span style="color: #2d9574;">()</span><span style="color: #bc6ec5;">){</span>
-        fprintf<span style="color: #2d9574;">(</span>stderr, <span style="color: #2d9574;">"game load fail\n"</span><span style="color: #2d9574;">)</span>;
-        <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-    <span style="color: #bc6ec5;">}</span>
+    <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span>!game_load<span style="color: #909183;">()</span><span style="color: #7388D6;">){</span>
+        fprintf<span style="color: #909183;">(</span>stderr, <span style="color: #008000;">"game load fail\n"</span><span style="color: #909183;">)</span>;
+        <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">0</span>;
+    <span style="color: #7388D6;">}</span>
 
-    glfwWindowHint<span style="color: #bc6ec5;">(</span>GLFW_CONTEXT_VERSION_MAJOR, <span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">)</span>;
-    glfwWindowHint<span style="color: #bc6ec5;">(</span>GLFW_CONTEXT_VERSION_MINOR, <span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">)</span>;
-    glfwWindowHint<span style="color: #bc6ec5;">(</span>GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE<span style="color: #bc6ec5;">)</span>;
-    glfwWindowHint<span style="color: #bc6ec5;">(</span>GLFW_RESIZABLE, GL_FALSE<span style="color: #bc6ec5;">)</span>;
+    glfwWindowHint<span style="color: #7388D6;">(</span>GLFW_CONTEXT_VERSION_MAJOR, <span style="color: #D0372D;">3</span><span style="color: #7388D6;">)</span>;
+    glfwWindowHint<span style="color: #7388D6;">(</span>GLFW_CONTEXT_VERSION_MINOR, <span style="color: #D0372D;">3</span><span style="color: #7388D6;">)</span>;
+    glfwWindowHint<span style="color: #7388D6;">(</span>GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE<span style="color: #7388D6;">)</span>;
+    glfwWindowHint<span style="color: #7388D6;">(</span>GLFW_RESIZABLE, GL_FALSE<span style="color: #7388D6;">)</span>;
 
-    <span style="color: #ce537a; font-weight: bold;">GLFWwindow</span> *<span style="color: #7590db;">window</span> = glfwCreateWindow<span style="color: #bc6ec5;">(</span>g_tear_engine-&gt;getWindowWidth<span style="color: #2d9574;">()</span>, g_tear_engine-&gt;getWindowHeight<span style="color: #2d9574;">()</span>, <span style="color: #2d9574;">"Tear Engine"</span>, nullptr, nullptr<span style="color: #bc6ec5;">)</span>;
-    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">!</span>window<span style="color: #bc6ec5;">){</span>
-        fprintf<span style="color: #2d9574;">(</span>stderr, <span style="color: #2d9574;">"Failed to open GLFW window\n"</span><span style="color: #2d9574;">)</span>;
-        glfwTerminate<span style="color: #2d9574;">()</span>;
-        <span style="color: #4f97d7; font-weight: bold;">return</span> -<span style="color: #a45bad;">1</span>;
-    <span style="color: #bc6ec5;">}</span>
+    <span style="color: #6434A3;">GLFWwindow</span> *<span style="color: #BA36A5;">window</span> = glfwCreateWindow<span style="color: #7388D6;">(</span>g_tear_engine-&gt;getWindowWidth<span style="color: #909183;">()</span>, g_tear_engine-&gt;getWindowHeight<span style="color: #909183;">()</span>, <span style="color: #008000;">"Tear Engine"</span>, nullptr, nullptr<span style="color: #7388D6;">)</span>;
+    <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span>!window<span style="color: #7388D6;">){</span>
+        fprintf<span style="color: #909183;">(</span>stderr, <span style="color: #008000;">"Failed to open GLFW window\n"</span><span style="color: #909183;">)</span>;
+        glfwTerminate<span style="color: #909183;">()</span>;
+        <span style="color: #0000FF;">return</span> -<span style="color: #D0372D;">1</span>;
+    <span style="color: #7388D6;">}</span>
 
-    glfwSetKeyCallback<span style="color: #bc6ec5;">(</span>window, key_callback<span style="color: #bc6ec5;">)</span>;
+    glfwSetKeyCallback<span style="color: #7388D6;">(</span>window, key_callback<span style="color: #7388D6;">)</span>;
 
-    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">!</span>g_tear_engine-&gt;init<span style="color: #2d9574;">(</span>g_tear_engine-&gt;getWindowWidth<span style="color: #67b11d;">()</span>, g_tear_engine-&gt;getWindowHeight<span style="color: #67b11d;">()</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">){</span>
-        fprintf<span style="color: #2d9574;">(</span>stderr, <span style="color: #2d9574;">"game engine init fail\n"</span><span style="color: #2d9574;">)</span>;
-        <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-    <span style="color: #bc6ec5;">}</span>
+    <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span>!g_tear_engine-&gt;init<span style="color: #909183;">(</span>g_tear_engine-&gt;getWindowWidth<span style="color: #709870;">()</span>, g_tear_engine-&gt;getWindowHeight<span style="color: #709870;">()</span><span style="color: #909183;">)</span><span style="color: #7388D6;">){</span>
+        fprintf<span style="color: #909183;">(</span>stderr, <span style="color: #008000;">"game engine init fail\n"</span><span style="color: #909183;">)</span>;
+        <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">0</span>;
+    <span style="color: #7388D6;">}</span>
 
 
-    <span style="color: #4f97d7; font-weight: bold;">while</span> <span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">!</span>glfwWindowShouldClose<span style="color: #2d9574;">(</span>window<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">){</span>
+    <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span>!glfwWindowShouldClose<span style="color: #909183;">(</span>window<span style="color: #909183;">)</span><span style="color: #7388D6;">){</span>
 
-        glfwPollEvents<span style="color: #2d9574;">()</span>;
+        glfwPollEvents<span style="color: #909183;">()</span>;
 
-        g_tear_engine-&gt;update<span style="color: #2d9574;">()</span>;
+        g_tear_engine-&gt;update<span style="color: #909183;">()</span>;
 
-        glfwSwapBuffers<span style="color: #2d9574;">(</span>window<span style="color: #2d9574;">)</span>;
+        glfwSwapBuffers<span style="color: #909183;">(</span>window<span style="color: #909183;">)</span>;
 
-    <span style="color: #bc6ec5;">}</span>
-    g_tear_engine-&gt;close<span style="color: #bc6ec5;">()</span>;
-    <span style="color: #4f97d7; font-weight: bold;">delete</span> g_tear_engine;
+    <span style="color: #7388D6;">}</span>
+    g_tear_engine-&gt;close<span style="color: #7388D6;">()</span>;
+    <span style="color: #0000FF;">delete</span> g_tear_engine;
 
-    glfwDestroyWindow<span style="color: #bc6ec5;">(</span>window<span style="color: #bc6ec5;">)</span>;
-    glfwTerminate<span style="color: #bc6ec5;">()</span>;
+    glfwDestroyWindow<span style="color: #7388D6;">(</span>window<span style="color: #7388D6;">)</span>;
+    glfwTerminate<span style="color: #7388D6;">()</span>;
 
-    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-<span style="color: #4f97d7;">}</span>
+    <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">0</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 </div>
@@ -536,30 +536,30 @@ for the JavaScript code in this tag.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">example_01.cpp</span>
-<span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">"Tear.h"</span>
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">example_01.cpp</span>
+<span style="color: #808080;">#include</span> <span style="color: #008000;">"Tear.h"</span>
 
-<span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">game_load</span><span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
-    g_tear_engine-&gt;setWindowWidth<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">640</span><span style="color: #bc6ec5;">)</span>;
-    g_tear_engine-&gt;setWindowHeight<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">480</span><span style="color: #bc6ec5;">)</span>;
-    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">true</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #6434A3;">bool</span> <span style="color: #006699;">game_load</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    g_tear_engine-&gt;setWindowWidth<span style="color: #7388D6;">(</span><span style="color: #D0372D;">640</span><span style="color: #7388D6;">)</span>;
+    g_tear_engine-&gt;setWindowHeight<span style="color: #7388D6;">(</span><span style="color: #D0372D;">480</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">true</span>;
+<span style="color: #707183;">}</span>
 
-<span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">game_init</span><span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
-    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">true</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #6434A3;">bool</span> <span style="color: #006699;">game_init</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">true</span>;
+<span style="color: #707183;">}</span>
 
-<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">game_update</span><span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">game_update</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
 
-<span style="color: #4f97d7;">}</span>
+<span style="color: #707183;">}</span>
 
-<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">game_end</span><span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">game_end</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
 
-<span style="color: #4f97d7;">}</span>
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
@@ -683,29 +683,29 @@ OpenGL是一个3D图形API，所以其中任何事物都位于2D空间中。而�
 </p>
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">vs</span>
-<span style="color: #bc6ec5;">#version</span> <span style="color: #a45bad;">330</span> core
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">vs</span>
+<span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
 
-layout <span style="color: #4f97d7;">(</span>location = <span style="color: #a45bad;">0</span><span style="color: #4f97d7;">)</span> in <span style="color: #ce537a; font-weight: bold;">vec3</span> <span style="color: #7590db;">position</span>;
+layout <span style="color: #707183;">(</span>location = <span style="color: #D0372D;">0</span><span style="color: #707183;">)</span> in <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">position</span>;
 
-<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
-    gl_Position = vec4<span style="color: #bc6ec5;">(</span>position.x, position.y, position.z, <span style="color: #a45bad;">1.0</span><span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    gl_Position = vec4<span style="color: #7388D6;">(</span>position.x, position.y, position.z, <span style="color: #D0372D;">1.0</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">fs</span>
-<span style="color: #bc6ec5;">#version</span> <span style="color: #a45bad;">330</span> core
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">fs</span>
+<span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
 
-out <span style="color: #ce537a; font-weight: bold;">vec4</span> <span style="color: #7590db;">color</span>;
+out <span style="color: #6434A3;">vec4</span> <span style="color: #BA36A5;">color</span>;
 
-<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
-    color = vec4<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">1.0f</span>, <span style="color: #a45bad;">0.5f</span>, <span style="color: #a45bad;">0.2f</span>, <span style="color: #a45bad;">1.0f</span><span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    color = vec4<span style="color: #7388D6;">(</span><span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">0.5f</span>, <span style="color: #D0372D;">0.2f</span>, <span style="color: #D0372D;">1.0f</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
@@ -742,39 +742,39 @@ OpenGL中主要的纹理相关API有 <code>glGenTextures</code>, <code>glBindTex
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">vs</span>
-<span style="color: #bc6ec5;">#version</span> <span style="color: #a45bad;">330</span> core
-layout <span style="color: #4f97d7;">(</span>location = <span style="color: #a45bad;">0</span><span style="color: #4f97d7;">)</span> in <span style="color: #ce537a; font-weight: bold;">vec3</span> <span style="color: #7590db;">position</span>;
-layout <span style="color: #4f97d7;">(</span>location = <span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span> in <span style="color: #ce537a; font-weight: bold;">vec3</span> <span style="color: #7590db;">color</span>;
-layout <span style="color: #4f97d7;">(</span>location = <span style="color: #a45bad;">2</span><span style="color: #4f97d7;">)</span> in <span style="color: #ce537a; font-weight: bold;">vec2</span> <span style="color: #7590db;">texCoord</span>;
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">vs</span>
+<span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
+layout <span style="color: #707183;">(</span>location = <span style="color: #D0372D;">0</span><span style="color: #707183;">)</span> in <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">position</span>;
+layout <span style="color: #707183;">(</span>location = <span style="color: #D0372D;">1</span><span style="color: #707183;">)</span> in <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">color</span>;
+layout <span style="color: #707183;">(</span>location = <span style="color: #D0372D;">2</span><span style="color: #707183;">)</span> in <span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">texCoord</span>;
 
-out <span style="color: #ce537a; font-weight: bold;">vec3</span> <span style="color: #7590db;">ourColor</span>;
-out <span style="color: #ce537a; font-weight: bold;">vec2</span> <span style="color: #7590db;">TexCoord</span>;
+out <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">ourColor</span>;
+out <span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">TexCoord</span>;
 
-<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
-    gl_Position = vec4<span style="color: #bc6ec5;">(</span>position, <span style="color: #a45bad;">1.0f</span><span style="color: #bc6ec5;">)</span>;
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    gl_Position = vec4<span style="color: #7388D6;">(</span>position, <span style="color: #D0372D;">1.0f</span><span style="color: #7388D6;">)</span>;
     ourColor = color;
     TexCoord = texCoord;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">fs</span>
-<span style="color: #bc6ec5;">#version</span> <span style="color: #a45bad;">330</span> core
-in <span style="color: #ce537a; font-weight: bold;">vec3</span> <span style="color: #7590db;">ourColor</span>;
-in <span style="color: #ce537a; font-weight: bold;">vec2</span> <span style="color: #7590db;">TexCoord</span>;
+<pre class="src src-c++"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">fs</span>
+<span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
+in <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">ourColor</span>;
+in <span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">TexCoord</span>;
 
-out <span style="color: #ce537a; font-weight: bold;">vec4</span> <span style="color: #7590db;">color</span>;
+out <span style="color: #6434A3;">vec4</span> <span style="color: #BA36A5;">color</span>;
 
-uniform <span style="color: #ce537a; font-weight: bold;">sampler2D</span> <span style="color: #7590db;">ourTexture</span>;
+uniform <span style="color: #6434A3;">sampler2D</span> <span style="color: #BA36A5;">ourTexture</span>;
 
-<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
-    color = texture<span style="color: #bc6ec5;">(</span>ourTexture, TexCoord<span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    color = texture<span style="color: #7388D6;">(</span>ourTexture, TexCoord<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
@@ -795,10 +795,10 @@ OpenGL至少保证可同时使用16个纹理单元，每个纹理单元对应一
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #4f97d7; font-weight: bold;">while</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">true</span><span style="color: #4f97d7;">){</span>
-    game_update<span style="color: #bc6ec5;">()</span>;
-    game_render<span style="color: #bc6ec5;">()</span>;
-<span style="color: #4f97d7;">}</span>
+<pre class="src src-c++"><span style="color: #0000FF;">while</span><span style="color: #707183;">(</span><span style="color: #D0372D;">true</span><span style="color: #707183;">){</span>
+    game_update<span style="color: #7388D6;">()</span>;
+    game_render<span style="color: #7388D6;">()</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
@@ -824,20 +824,20 @@ update负责让游戏逻辑（数据）向前计算一步（比如AI和物理计
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">previous</span> = getCurrentTime<span style="color: #4f97d7;">()</span>;
-<span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">lag</span> = <span style="color: #a45bad;">0.0</span>;
-<span style="color: #4f97d7; font-weight: bold;">while</span> <span style="color: #4f97d7;">(</span><span style="color: #a45bad;">true</span><span style="color: #4f97d7;">){</span>
-    <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">current</span> = getCurrentTime<span style="color: #bc6ec5;">()</span>;
-    <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">elapsed</span> = current - previous;
+<pre class="src src-c++"><span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">previous</span> = getCurrentTime<span style="color: #707183;">()</span>;
+<span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">lag</span> = <span style="color: #D0372D;">0.0</span>;
+<span style="color: #0000FF;">while</span> <span style="color: #707183;">(</span><span style="color: #D0372D;">true</span><span style="color: #707183;">){</span>
+    <span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">current</span> = getCurrentTime<span style="color: #7388D6;">()</span>;
+    <span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">elapsed</span> = current - previous;
     previous = current;
     lag += elapsed;
-    processInput<span style="color: #bc6ec5;">()</span>;
-    <span style="color: #4f97d7; font-weight: bold;">while</span> <span style="color: #bc6ec5;">(</span>lag &gt;= MS_PER_UPDATE<span style="color: #bc6ec5;">){</span>
-        update<span style="color: #2d9574;">()</span>;
+    processInput<span style="color: #7388D6;">()</span>;
+    <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span>lag &gt;= MS_PER_UPDATE<span style="color: #7388D6;">){</span>
+        update<span style="color: #909183;">()</span>;
         lag -= MS_PER_UPDATE;
-    <span style="color: #bc6ec5;">}</span>
-    render<span style="color: #bc6ec5;">(</span>lag / MS_PER_UPDATE<span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+    <span style="color: #7388D6;">}</span>
+    render<span style="color: #7388D6;">(</span>lag / MS_PER_UPDATE<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
@@ -860,7 +860,7 @@ update负责让游戏逻辑（数据）向前计算一步（比如AI和物理计
 
 <div class="org-src-container">
 
-<pre class="src src-c++">render<span style="color: #4f97d7;">(</span>lag / MS_PER_UPDATE<span style="color: #4f97d7;">)</span>
+<pre class="src src-c++">render<span style="color: #707183;">(</span>lag / MS_PER_UPDATE<span style="color: #707183;">)</span>
 </pre>
 </div>
 
@@ -885,76 +885,76 @@ update负责让游戏逻辑（数据）向前计算一步（比如AI和物理计
 
 <div class="org-src-container">
 
-<pre class="src src-c"><span style="color: #2aa1ae; background-color: #292e34;">/* </span><span style="color: #2aa1ae; background-color: #292e34;">window.c </span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
-<span style="color: #2aa1ae; background-color: #292e34;">/* </span><span style="color: #2aa1ae; background-color: #292e34;">Loop until the user closes the window </span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
-<span style="color: #4f97d7; font-weight: bold;">while</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">!</span>glfwWindowShouldClose<span style="color: #bc6ec5;">(</span>window<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
-  <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">update frame</span>
-  <span style="color: #ce537a; font-weight: bold;">uint32_t</span> <span style="color: #7590db;">current</span> = _gettime<span style="color: #bc6ec5;">()</span>;
-  <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span>current - timestamp &gt;= UPDATE_INTERVAL<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+<pre class="src src-c"><span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">window.c </span><span style="color: #8D8D84;">*/</span>
+<span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">Loop until the user closes the window </span><span style="color: #8D8D84;">*/</span>
+<span style="color: #0000FF;">while</span><span style="color: #707183;">(</span>!glfwWindowShouldClose<span style="color: #7388D6;">(</span>window<span style="color: #7388D6;">)</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
+  <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">update frame</span>
+  <span style="color: #6434A3;">uint32_t</span> <span style="color: #BA36A5;">current</span> = _gettime<span style="color: #7388D6;">()</span>;
+  <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span>current - timestamp &gt;= UPDATE_INTERVAL<span style="color: #7388D6;">)</span> <span style="color: #7388D6;">{</span>
     timestamp = current;
-    ejoy2d_win_update<span style="color: #2d9574;">()</span>;
-    ejoy2d_win_frame<span style="color: #2d9574;">()</span>;
-  <span style="color: #bc6ec5;">}</span>
+    ejoy2d_win_update<span style="color: #909183;">()</span>;
+    ejoy2d_win_frame<span style="color: #909183;">()</span>;
+  <span style="color: #7388D6;">}</span>
 
-  <span style="color: #2aa1ae; background-color: #292e34;">/* </span><span style="color: #2aa1ae; background-color: #292e34;">Swap front and back buffers </span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
-  glfwSwapBuffers<span style="color: #bc6ec5;">(</span>window<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">Swap front and back buffers </span><span style="color: #8D8D84;">*/</span>
+  glfwSwapBuffers<span style="color: #7388D6;">(</span>window<span style="color: #7388D6;">)</span>;
 
-  <span style="color: #2aa1ae; background-color: #292e34;">/* </span><span style="color: #2aa1ae; background-color: #292e34;">Poll for and process events </span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
-  glfwPollEvents<span style="color: #bc6ec5;">()</span>;
-<span style="color: #4f97d7;">}</span>
+  <span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">Poll for and process events </span><span style="color: #8D8D84;">*/</span>
+  glfwPollEvents<span style="color: #7388D6;">()</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
 
-<pre class="src src-c"><span style="color: #2aa1ae; background-color: #292e34;">/* </span><span style="color: #2aa1ae; background-color: #292e34;">winfw.c </span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
-<span style="color: #ce537a; font-weight: bold;">void</span>
-<span style="color: #bc6ec5; font-weight: bold;">ejoy2d_win_update</span><span style="color: #4f97d7;">()</span> <span style="color: #4f97d7;">{</span>
-    ejoy2d_game_update<span style="color: #bc6ec5;">(</span>G-&gt;game, <span style="color: #a45bad;">0.01f</span><span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+<pre class="src src-c"><span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">winfw.c </span><span style="color: #8D8D84;">*/</span>
+<span style="color: #6434A3;">void</span>
+<span style="color: #006699;">ejoy2d_win_update</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
+    ejoy2d_game_update<span style="color: #7388D6;">(</span>G-&gt;game, <span style="color: #D0372D;">0.01f</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 
-<span style="color: #ce537a; font-weight: bold;">void</span>
-<span style="color: #bc6ec5; font-weight: bold;">ejoy2d_win_frame</span><span style="color: #4f97d7;">()</span> <span style="color: #4f97d7;">{</span>
-    ejoy2d_game_drawframe<span style="color: #bc6ec5;">(</span>G-&gt;game<span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #6434A3;">void</span>
+<span style="color: #006699;">ejoy2d_win_frame</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
+    ejoy2d_game_drawframe<span style="color: #7388D6;">(</span>G-&gt;game<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
 
-<pre class="src src-c"><span style="color: #4f97d7; font-weight: bold;">static</span> <span style="color: #ce537a; font-weight: bold;">void</span>
-<span style="color: #bc6ec5; font-weight: bold;">logic_frame</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">lua_State</span> *<span style="color: #7590db;">L</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
-    lua_pushvalue<span style="color: #bc6ec5;">(</span>L, UPDATE_FUNCTION<span style="color: #bc6ec5;">)</span>;
-    call<span style="color: #bc6ec5;">(</span>L, <span style="color: #a45bad;">0</span>, <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
-    lua_settop<span style="color: #bc6ec5;">(</span>L, TOP_FUNCTION<span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+<pre class="src src-c"><span style="color: #0000FF;">static</span> <span style="color: #6434A3;">void</span>
+<span style="color: #006699;">logic_frame</span><span style="color: #707183;">(</span><span style="color: #6434A3;">lua_State</span> *<span style="color: #BA36A5;">L</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
+    lua_pushvalue<span style="color: #7388D6;">(</span>L, UPDATE_FUNCTION<span style="color: #7388D6;">)</span>;
+    call<span style="color: #7388D6;">(</span>L, <span style="color: #D0372D;">0</span>, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    lua_settop<span style="color: #7388D6;">(</span>L, TOP_FUNCTION<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 
-<span style="color: #ce537a; font-weight: bold;">void</span>
-<span style="color: #bc6ec5; font-weight: bold;">ejoy2d_game_update</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">struct</span> <span style="color: #ce537a; font-weight: bold;">game</span> *<span style="color: #7590db;">G</span>, <span style="color: #ce537a; font-weight: bold;">float</span> <span style="color: #7590db;">time</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
-    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>G-&gt;logic_time == <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
-        G-&gt;real_time = <span style="color: #a45bad;">1.0f</span>/LOGIC_FRAME;
-    <span style="color: #bc6ec5;">}</span> <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span>
+<span style="color: #6434A3;">void</span>
+<span style="color: #006699;">ejoy2d_game_update</span><span style="color: #707183;">(</span><span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">game</span> *<span style="color: #BA36A5;">G</span>, <span style="color: #6434A3;">float</span> <span style="color: #BA36A5;">time</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>G-&gt;logic_time == <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span> <span style="color: #7388D6;">{</span>
+        G-&gt;real_time = <span style="color: #D0372D;">1.0f</span>/LOGIC_FRAME;
+    <span style="color: #7388D6;">}</span> <span style="color: #0000FF;">else</span> <span style="color: #7388D6;">{</span>
         G-&gt;real_time += time;
-    <span style="color: #bc6ec5;">}</span>
-    <span style="color: #4f97d7; font-weight: bold;">while</span> <span style="color: #bc6ec5;">(</span>G-&gt;logic_time &lt; G-&gt;real_time<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
-        logic_frame<span style="color: #2d9574;">(</span>G-&gt;L<span style="color: #2d9574;">)</span>;
-        G-&gt;logic_time += <span style="color: #a45bad;">1.0f</span>/LOGIC_FRAME;
-    <span style="color: #bc6ec5;">}</span>
-<span style="color: #4f97d7;">}</span>
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span>G-&gt;logic_time &lt; G-&gt;real_time<span style="color: #7388D6;">)</span> <span style="color: #7388D6;">{</span>
+        logic_frame<span style="color: #909183;">(</span>G-&gt;L<span style="color: #909183;">)</span>;
+        G-&gt;logic_time += <span style="color: #D0372D;">1.0f</span>/LOGIC_FRAME;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
 
-<span style="color: #ce537a; font-weight: bold;">void</span>
-<span style="color: #bc6ec5; font-weight: bold;">ejoy2d_game_drawframe</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">struct</span> <span style="color: #ce537a; font-weight: bold;">game</span> *<span style="color: #7590db;">G</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
-    reset_drawcall_count<span style="color: #bc6ec5;">()</span>;
-    lua_pushvalue<span style="color: #bc6ec5;">(</span>G-&gt;L, DRAWFRAME_FUNCTION<span style="color: #bc6ec5;">)</span>;
-    call<span style="color: #bc6ec5;">(</span>G-&gt;L, <span style="color: #a45bad;">0</span>, <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
-    lua_settop<span style="color: #bc6ec5;">(</span>G-&gt;L, TOP_FUNCTION<span style="color: #bc6ec5;">)</span>;
-    shader_flush<span style="color: #bc6ec5;">()</span>;
-    label_flush<span style="color: #bc6ec5;">()</span>;
-    <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">int cnt = drawcall_count();</span>
-    <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">printf("-&gt; %d\n", cnt);</span>
-<span style="color: #4f97d7;">}</span>
+<span style="color: #6434A3;">void</span>
+<span style="color: #006699;">ejoy2d_game_drawframe</span><span style="color: #707183;">(</span><span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">game</span> *<span style="color: #BA36A5;">G</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
+    reset_drawcall_count<span style="color: #7388D6;">()</span>;
+    lua_pushvalue<span style="color: #7388D6;">(</span>G-&gt;L, DRAWFRAME_FUNCTION<span style="color: #7388D6;">)</span>;
+    call<span style="color: #7388D6;">(</span>G-&gt;L, <span style="color: #D0372D;">0</span>, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    lua_settop<span style="color: #7388D6;">(</span>G-&gt;L, TOP_FUNCTION<span style="color: #7388D6;">)</span>;
+    shader_flush<span style="color: #7388D6;">()</span>;
+    label_flush<span style="color: #7388D6;">()</span>;
+    <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">int cnt = drawcall_count();</span>
+    <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">printf("-&gt; %d\n", cnt);</span>
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 </div>
@@ -982,12 +982,12 @@ OpenGL本身是个3D图形API，其所有的概念都是针对三维世界的。
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #2aa1ae; background-color: #292e34;">/*</span>
-<span style="color: #2aa1ae; background-color: #292e34;">*&#21069;&#20004;&#20010;&#21442;&#25968;&#25351;&#23450;&#20102;&#24179;&#25130;&#22836;&#20307;&#30340;&#24038;&#21491;&#22352;&#26631;&#65292;&#31532;&#19977;&#21644;&#31532;&#22235;&#21442;&#25968;&#25351;&#23450;&#20102;&#24179;&#25130;&#22836;&#20307;&#30340;&#24213;&#37096;&#21644;&#39030;&#37096;&#12290;</span>
-<span style="color: #2aa1ae; background-color: #292e34;">*&#36890;&#36807;&#36825;&#22235;&#20010;&#21442;&#25968;&#25105;&#20204;&#23450;&#20041;&#20102;&#36817;&#24179;&#38754;&#21644;&#36828;&#24179;&#38754;&#30340;&#22823;&#23567;&#65292;&#28982;&#21518;&#31532;&#20116;&#21644;&#31532;&#20845;&#20010;&#21442;&#25968;&#21017;&#23450;&#20041;&#20102;&#36817;&#24179;&#38754;&#21644;&#36828;&#24179;&#38754;&#30340;&#36317;&#31163;&#12290;</span>
-<span style="color: #2aa1ae; background-color: #292e34;">*&#36825;&#20010;&#25237;&#24433;&#30697;&#38453;&#20250;&#23558;&#22788;&#20110;&#36825;&#20123;x&#65292;y&#65292;z&#20540;&#33539;&#22260;&#20869;&#30340;&#22352;&#26631;&#21464;&#25442;&#20026;&#26631;&#20934;&#21270;&#35774;&#22791;&#22352;&#26631;&#12290;</span>
-<span style="color: #2aa1ae; background-color: #292e34;">*/</span>
-<span style="color: #a45bad;">glm</span>::<span style="color: #ce537a; font-weight: bold;">mat4</span> <span style="color: #7590db;">projection</span> = <span style="color: #a45bad;">glm</span>::ortho<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">0.0f</span>, <span style="color: #a45bad;">800.0f</span>, <span style="color: #a45bad;">600.0f</span>, <span style="color: #a45bad;">0.0f</span>, -<span style="color: #a45bad;">1.0f</span>, <span style="color: #a45bad;">1.0f</span><span style="color: #4f97d7;">)</span>;
+<pre class="src src-c++"><span style="color: #8D8D84;">/*</span>
+<span style="color: #8D8D84; font-style: italic;">*&#21069;&#20004;&#20010;&#21442;&#25968;&#25351;&#23450;&#20102;&#24179;&#25130;&#22836;&#20307;&#30340;&#24038;&#21491;&#22352;&#26631;&#65292;&#31532;&#19977;&#21644;&#31532;&#22235;&#21442;&#25968;&#25351;&#23450;&#20102;&#24179;&#25130;&#22836;&#20307;&#30340;&#24213;&#37096;&#21644;&#39030;&#37096;&#12290;</span>
+<span style="color: #8D8D84; font-style: italic;">*&#36890;&#36807;&#36825;&#22235;&#20010;&#21442;&#25968;&#25105;&#20204;&#23450;&#20041;&#20102;&#36817;&#24179;&#38754;&#21644;&#36828;&#24179;&#38754;&#30340;&#22823;&#23567;&#65292;&#28982;&#21518;&#31532;&#20116;&#21644;&#31532;&#20845;&#20010;&#21442;&#25968;&#21017;&#23450;&#20041;&#20102;&#36817;&#24179;&#38754;&#21644;&#36828;&#24179;&#38754;&#30340;&#36317;&#31163;&#12290;</span>
+<span style="color: #8D8D84; font-style: italic;">*&#36825;&#20010;&#25237;&#24433;&#30697;&#38453;&#20250;&#23558;&#22788;&#20110;&#36825;&#20123;x&#65292;y&#65292;z&#20540;&#33539;&#22260;&#20869;&#30340;&#22352;&#26631;&#21464;&#25442;&#20026;&#26631;&#20934;&#21270;&#35774;&#22791;&#22352;&#26631;&#12290;</span>
+<span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">mat4</span> <span style="color: #BA36A5;">projection</span> = <span style="color: #D0372D;">glm</span>::ortho<span style="color: #707183;">(</span><span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">800.0f</span>, <span style="color: #D0372D;">600.0f</span>, <span style="color: #D0372D;">0.0f</span>, -<span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">1.0f</span><span style="color: #707183;">)</span>;
 </pre>
 </div>
 
@@ -1003,7 +1003,7 @@ OpenGL本身是个3D图形API，其所有的概念都是针对三维世界的。
 
 <div class="org-src-container">
 
-<pre class="src src-c++">gl_Position = projection * model * vec4<span style="color: #4f97d7;">(</span>vertex.xy, <span style="color: #a45bad;">0.0</span>, <span style="color: #a45bad;">1.0</span><span style="color: #4f97d7;">)</span>;
+<pre class="src src-c++">gl_Position = projection * model * vec4<span style="color: #707183;">(</span>vertex.xy, <span style="color: #D0372D;">0.0</span>, <span style="color: #D0372D;">1.0</span><span style="color: #707183;">)</span>;
 </pre>
 </div>
 </div>
@@ -1018,27 +1018,27 @@ OpenGL本身是个3D图形API，其所有的概念都是针对三维世界的。
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">SpriteRenderer</span> <span style="color: #4f97d7;">{</span>
-    <span style="color: #a45bad;">glm</span>::<span style="color: #ce537a; font-weight: bold;">vec2</span> <span style="color: #7590db;">position</span>;
-    <span style="color: #a45bad;">glm</span>::<span style="color: #ce537a; font-weight: bold;">vec2</span> <span style="color: #7590db;">size</span>;
-    <span style="color: #a45bad;">glm</span>::<span style="color: #ce537a; font-weight: bold;">vec3</span> <span style="color: #7590db;">color</span>;
-    <span style="color: #ce537a; font-weight: bold;">GLfloat</span> <span style="color: #7590db;">rotate</span>;
+<pre class="src src-c++"><span style="color: #0000FF;">class</span> <span style="color: #6434A3;">SpriteRenderer</span> <span style="color: #707183;">{</span>
+    <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">position</span>;
+    <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">size</span>;
+    <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">color</span>;
+    <span style="color: #6434A3;">GLfloat</span> <span style="color: #BA36A5;">rotate</span>;
 
-    <span style="color: #ce537a; font-weight: bold;">GLuint</span> <span style="color: #7590db;">vao</span>;
-    <span style="color: #ce537a; font-weight: bold;">GLuint</span> <span style="color: #7590db;">shader</span>;
-    <span style="color: #ce537a; font-weight: bold;">GLuint</span> <span style="color: #7590db;">texture2d</span>;
+    <span style="color: #6434A3;">GLuint</span> <span style="color: #BA36A5;">vao</span>;
+    <span style="color: #6434A3;">GLuint</span> <span style="color: #BA36A5;">shader</span>;
+    <span style="color: #6434A3;">GLuint</span> <span style="color: #BA36A5;">texture2d</span>;
 
-<span style="color: #4f97d7; font-weight: bold;">public</span>:
-    <span style="color: #bc6ec5; font-weight: bold;">SpriteRenderer</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">glm</span>::<span style="color: #ce537a; font-weight: bold;">vec2</span> <span style="color: #7590db;">p</span> = <span style="color: #a45bad;">glm</span>::<span style="color: #7590db;">vec2</span><span style="color: #2d9574;">(</span><span style="color: #a45bad;">0.0f</span><span style="color: #2d9574;">)</span>,
-                   <span style="color: #a45bad;">glm</span>::<span style="color: #ce537a; font-weight: bold;">vec2</span> <span style="color: #7590db;">s</span> = <span style="color: #a45bad;">glm</span>::<span style="color: #7590db;">vec2</span><span style="color: #2d9574;">(</span><span style="color: #a45bad;">1.0f</span><span style="color: #2d9574;">)</span>,
-                   <span style="color: #7590db;">GLfloat</span> r = <span style="color: #a45bad;">0.0f</span>,
-                   <span style="color: #a45bad;">glm</span>::<span style="color: #ce537a; font-weight: bold;">vec3</span> <span style="color: #7590db;">c</span> = <span style="color: #a45bad;">glm</span>::<span style="color: #7590db;">vec3</span><span style="color: #2d9574;">(</span><span style="color: #a45bad;">1.0f</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
-    ~<span style="color: #bc6ec5; font-weight: bold;">SpriteRenderer</span><span style="color: #bc6ec5;">()</span>;
-    <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">draw</span><span style="color: #bc6ec5;">()</span>;
+<span style="color: #0000FF;">public</span>:
+    <span style="color: #006699;">SpriteRenderer</span><span style="color: #7388D6;">(</span><span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">p</span> = <span style="color: #D0372D;">glm</span>::<span style="color: #BA36A5;">vec2</span><span style="color: #909183;">(</span><span style="color: #D0372D;">0.0f</span><span style="color: #909183;">)</span>,
+                   <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">s</span> = <span style="color: #D0372D;">glm</span>::<span style="color: #BA36A5;">vec2</span><span style="color: #909183;">(</span><span style="color: #D0372D;">1.0f</span><span style="color: #909183;">)</span>,
+                   <span style="color: #BA36A5;">GLfloat</span> r = <span style="color: #D0372D;">0.0f</span>,
+                   <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">c</span> = <span style="color: #D0372D;">glm</span>::<span style="color: #BA36A5;">vec3</span><span style="color: #909183;">(</span><span style="color: #D0372D;">1.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    ~<span style="color: #006699;">SpriteRenderer</span><span style="color: #7388D6;">()</span>;
+    <span style="color: #6434A3;">void</span> <span style="color: #006699;">draw</span><span style="color: #7388D6;">()</span>;
 
-    <span style="color: #2aa1ae; background-color: #292e34;">/* </span><span style="color: #2aa1ae; background-color: #292e34;">other method */</span>
+    <span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">other method */</span>
 
-<span style="color: #4f97d7;">}</span>;
+<span style="color: #707183;">}</span>;
 </pre>
 </div>
 
@@ -1049,39 +1049,39 @@ SpriteRenderer本质上就是由两个三角形构成的矩形块。所以回想
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #a45bad;">SpriteRenderer</span>::<span style="color: #bc6ec5; font-weight: bold;">SpriteRenderer</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">glm</span>::<span style="color: #ce537a; font-weight: bold;">vec2</span> <span style="color: #7590db;">p</span>, <span style="color: #a45bad;">glm</span>::<span style="color: #ce537a; font-weight: bold;">vec2</span> <span style="color: #7590db;">s</span>, <span style="color: #7590db;">GLfloat</span> r, <span style="color: #a45bad;">glm</span>::<span style="color: #ce537a; font-weight: bold;">vec3</span> <span style="color: #7590db;">c</span><span style="color: #4f97d7;">)</span>:
-    position<span style="color: #4f97d7;">(</span>p<span style="color: #4f97d7;">)</span>,
-    size<span style="color: #4f97d7;">(</span>s<span style="color: #4f97d7;">)</span>,
-    rotate<span style="color: #4f97d7;">(</span>r<span style="color: #4f97d7;">)</span>,
-    color<span style="color: #4f97d7;">(</span>c<span style="color: #4f97d7;">)</span>,
-    vao<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">)</span>,
-    shader<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">)</span>,
-    texture2d<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
-    <span style="color: #ce537a; font-weight: bold;">GLuint</span> <span style="color: #7590db;">vbo</span>;
-    <span style="color: #ce537a; font-weight: bold;">GLfloat</span> <span style="color: #7590db;">vertices</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #bc6ec5;">{</span>
-        <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">pos        //texture</span>
-        <span style="color: #a45bad;">0.0f</span>, <span style="color: #a45bad;">1.0f</span>,  <span style="color: #a45bad;">0.0f</span>, <span style="color: #a45bad;">1.0f</span>,
-        <span style="color: #a45bad;">1.0f</span>, <span style="color: #a45bad;">0.0f</span>,  <span style="color: #a45bad;">1.0f</span>, <span style="color: #a45bad;">0.0f</span>,
-        <span style="color: #a45bad;">0.0f</span>, <span style="color: #a45bad;">0.0f</span>,  <span style="color: #a45bad;">0.0f</span>, <span style="color: #a45bad;">0.0f</span>,
+<pre class="src src-c++"><span style="color: #D0372D;">SpriteRenderer</span>::<span style="color: #006699;">SpriteRenderer</span><span style="color: #707183;">(</span><span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">p</span>, <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">s</span>, <span style="color: #BA36A5;">GLfloat</span> r, <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">c</span><span style="color: #707183;">)</span>:
+    position<span style="color: #707183;">(</span>p<span style="color: #707183;">)</span>,
+    size<span style="color: #707183;">(</span>s<span style="color: #707183;">)</span>,
+    rotate<span style="color: #707183;">(</span>r<span style="color: #707183;">)</span>,
+    color<span style="color: #707183;">(</span>c<span style="color: #707183;">)</span>,
+    vao<span style="color: #707183;">(</span><span style="color: #D0372D;">0</span><span style="color: #707183;">)</span>,
+    shader<span style="color: #707183;">(</span><span style="color: #D0372D;">0</span><span style="color: #707183;">)</span>,
+    texture2d<span style="color: #707183;">(</span><span style="color: #D0372D;">0</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">GLuint</span> <span style="color: #BA36A5;">vbo</span>;
+    <span style="color: #6434A3;">GLfloat</span> <span style="color: #BA36A5;">vertices</span><span style="color: #7388D6;">[]</span> = <span style="color: #7388D6;">{</span>
+        <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">pos        //texture</span>
+        <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">1.0f</span>,  <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">1.0f</span>,
+        <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">0.0f</span>,  <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">0.0f</span>,
+        <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">0.0f</span>,  <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">0.0f</span>,
 
-        <span style="color: #a45bad;">0.0f</span>, <span style="color: #a45bad;">1.0f</span>,  <span style="color: #a45bad;">0.0f</span>, <span style="color: #a45bad;">1.0f</span>,
-        <span style="color: #a45bad;">1.0f</span>, <span style="color: #a45bad;">1.0f</span>,  <span style="color: #a45bad;">1.0f</span>, <span style="color: #a45bad;">1.0f</span>,
-        <span style="color: #a45bad;">1.0f</span>, <span style="color: #a45bad;">0.0f</span>,  <span style="color: #a45bad;">1.0f</span>, <span style="color: #a45bad;">0.0f</span>,
-    <span style="color: #bc6ec5;">}</span>;
+        <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">1.0f</span>,  <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">1.0f</span>,
+        <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">1.0f</span>,  <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">1.0f</span>,
+        <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">0.0f</span>,  <span style="color: #D0372D;">1.0f</span>, <span style="color: #D0372D;">0.0f</span>,
+    <span style="color: #7388D6;">}</span>;
 
-    glGenVertexArrays<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">1</span>, &amp;<span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;vao<span style="color: #bc6ec5;">)</span>;
-    glGenBuffers<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">1</span>, &amp;vbo<span style="color: #bc6ec5;">)</span>;
+    glGenVertexArrays<span style="color: #7388D6;">(</span><span style="color: #D0372D;">1</span>, &amp;<span style="color: #0000FF;">this</span>-&gt;vao<span style="color: #7388D6;">)</span>;
+    glGenBuffers<span style="color: #7388D6;">(</span><span style="color: #D0372D;">1</span>, &amp;vbo<span style="color: #7388D6;">)</span>;
 
-    glBindBuffer<span style="color: #bc6ec5;">(</span>GL_ARRAY_BUFFER, vbo<span style="color: #bc6ec5;">)</span>;
-    glBufferData<span style="color: #bc6ec5;">(</span>GL_ARRAY_BUFFER, <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #2d9574;">(</span>vertices<span style="color: #2d9574;">)</span>, vertices, GL_STATIC_DRAW<span style="color: #bc6ec5;">)</span>;
+    glBindBuffer<span style="color: #7388D6;">(</span>GL_ARRAY_BUFFER, vbo<span style="color: #7388D6;">)</span>;
+    glBufferData<span style="color: #7388D6;">(</span>GL_ARRAY_BUFFER, <span style="color: #0000FF;">sizeof</span><span style="color: #909183;">(</span>vertices<span style="color: #909183;">)</span>, vertices, GL_STATIC_DRAW<span style="color: #7388D6;">)</span>;
 
-    glBindVertexArray<span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;vao<span style="color: #bc6ec5;">)</span>;
-    glEnableVertexAttribArray<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
-    glVertexAttribPointer<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span>, <span style="color: #a45bad;">4</span>, GL_FLOAT, GL_FALSE, <span style="color: #a45bad;">4</span>*<span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #2d9574;">(</span>GLfloat<span style="color: #2d9574;">)</span>, <span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">GLfloat</span>*<span style="color: #2d9574;">)</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
-    glBindBuffer<span style="color: #bc6ec5;">(</span>GL_ARRAY_BUFFER, <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
-    glBindVertexArray<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+    glBindVertexArray<span style="color: #7388D6;">(</span><span style="color: #0000FF;">this</span>-&gt;vao<span style="color: #7388D6;">)</span>;
+    glEnableVertexAttribArray<span style="color: #7388D6;">(</span><span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    glVertexAttribPointer<span style="color: #7388D6;">(</span><span style="color: #D0372D;">0</span>, <span style="color: #D0372D;">4</span>, GL_FLOAT, GL_FALSE, <span style="color: #D0372D;">4</span>*<span style="color: #0000FF;">sizeof</span><span style="color: #909183;">(</span>GLfloat<span style="color: #909183;">)</span>, <span style="color: #909183;">(</span><span style="color: #6434A3;">GLfloat</span>*<span style="color: #909183;">)</span><span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    glBindBuffer<span style="color: #7388D6;">(</span>GL_ARRAY_BUFFER, <span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+    glBindVertexArray<span style="color: #7388D6;">(</span><span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
@@ -1122,33 +1122,33 @@ SpriteRenderer本质上就是由两个三角形构成的矩形块。所以回想
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #a45bad;">SpriteRenderer</span>::<span style="color: #bc6ec5; font-weight: bold;">draw</span><span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
-    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">create model-view matrix</span>
-    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">(transformations are: scale happens first, then rotation and then finall translation happens; reversed order)</span>
-    <span style="color: #a45bad;">glm</span>::<span style="color: #ce537a; font-weight: bold;">mat4</span> <span style="color: #7590db;">model</span>;
-    model = <span style="color: #a45bad;">glm</span>::translate<span style="color: #bc6ec5;">(</span>model, <span style="color: #a45bad;">glm</span>::vec3<span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;position, <span style="color: #a45bad;">0.0f</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
+<pre class="src src-c++"><span style="color: #6434A3;">void</span> <span style="color: #D0372D;">SpriteRenderer</span>::<span style="color: #006699;">draw</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">create model-view matrix</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">(transformations are: scale happens first, then rotation and then finall translation happens; reversed order)</span>
+    <span style="color: #D0372D;">glm</span>::<span style="color: #6434A3;">mat4</span> <span style="color: #BA36A5;">model</span>;
+    model = <span style="color: #D0372D;">glm</span>::translate<span style="color: #7388D6;">(</span>model, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;position, <span style="color: #D0372D;">0.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
 
-    model = <span style="color: #a45bad;">glm</span>::translate<span style="color: #bc6ec5;">(</span>model, <span style="color: #a45bad;">glm</span>::vec3<span style="color: #2d9574;">(</span><span style="color: #a45bad;">0.5f</span>*<span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;size.x, <span style="color: #a45bad;">0.5f</span>*<span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;size.y, <span style="color: #a45bad;">0.0f</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
-    model = <span style="color: #a45bad;">glm</span>::rotate<span style="color: #bc6ec5;">(</span>model, <span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;rotate, <span style="color: #a45bad;">glm</span>::vec3<span style="color: #2d9574;">(</span><span style="color: #a45bad;">0.0f</span>, <span style="color: #a45bad;">0.0f</span>, <span style="color: #a45bad;">1.0f</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
-    model = <span style="color: #a45bad;">glm</span>::translate<span style="color: #bc6ec5;">(</span>model, <span style="color: #a45bad;">glm</span>::vec3<span style="color: #2d9574;">(</span>-<span style="color: #a45bad;">0.5f</span>*<span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;size.x,  -<span style="color: #a45bad;">0.5f</span>*<span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;size.y, <span style="color: #a45bad;">0.0f</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
+    model = <span style="color: #D0372D;">glm</span>::translate<span style="color: #7388D6;">(</span>model, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.x, <span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.y, <span style="color: #D0372D;">0.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    model = <span style="color: #D0372D;">glm</span>::rotate<span style="color: #7388D6;">(</span>model, <span style="color: #0000FF;">this</span>-&gt;rotate, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">0.0f</span>, <span style="color: #D0372D;">1.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    model = <span style="color: #D0372D;">glm</span>::translate<span style="color: #7388D6;">(</span>model, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span>-<span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.x,  -<span style="color: #D0372D;">0.5f</span>*<span style="color: #0000FF;">this</span>-&gt;size.y, <span style="color: #D0372D;">0.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
 
-    model = <span style="color: #a45bad;">glm</span>::scale<span style="color: #bc6ec5;">(</span>model, <span style="color: #a45bad;">glm</span>::vec3<span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;size, <span style="color: #a45bad;">1.0f</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
+    model = <span style="color: #D0372D;">glm</span>::scale<span style="color: #7388D6;">(</span>model, <span style="color: #D0372D;">glm</span>::vec3<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;size, <span style="color: #D0372D;">1.0f</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
 
-    glUseProgram<span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;shader<span style="color: #bc6ec5;">)</span>;
-    glUniformMatrix4fv<span style="color: #bc6ec5;">(</span>glGetUniformLocation<span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;shader, <span style="color: #2d9574;">"model"</span><span style="color: #2d9574;">)</span>, <span style="color: #a45bad;">1</span>, GL_FALSE, <span style="color: #a45bad;">glm</span>::value_ptr<span style="color: #2d9574;">(</span>model<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
-    glUniform3f<span style="color: #bc6ec5;">(</span>glGetUniformLocation<span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;shader, <span style="color: #2d9574;">"scolor"</span><span style="color: #2d9574;">)</span>, <span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;color.x, <span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;color.y, <span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;color.z<span style="color: #bc6ec5;">)</span>;
+    glUseProgram<span style="color: #7388D6;">(</span><span style="color: #0000FF;">this</span>-&gt;shader<span style="color: #7388D6;">)</span>;
+    glUniformMatrix4fv<span style="color: #7388D6;">(</span>glGetUniformLocation<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;shader, <span style="color: #008000;">"model"</span><span style="color: #909183;">)</span>, <span style="color: #D0372D;">1</span>, GL_FALSE, <span style="color: #D0372D;">glm</span>::value_ptr<span style="color: #909183;">(</span>model<span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    glUniform3f<span style="color: #7388D6;">(</span>glGetUniformLocation<span style="color: #909183;">(</span><span style="color: #0000FF;">this</span>-&gt;shader, <span style="color: #008000;">"scolor"</span><span style="color: #909183;">)</span>, <span style="color: #0000FF;">this</span>-&gt;color.x, <span style="color: #0000FF;">this</span>-&gt;color.y, <span style="color: #0000FF;">this</span>-&gt;color.z<span style="color: #7388D6;">)</span>;
 
-    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;texture2d != <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">){</span>
-        glActiveTexture<span style="color: #2d9574;">(</span>GL_TEXTURE0<span style="color: #2d9574;">)</span>;
-        glBindTexture<span style="color: #2d9574;">(</span>GL_TEXTURE_2D, <span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;texture2d<span style="color: #2d9574;">)</span>;
-        glUniform1i<span style="color: #2d9574;">(</span>glGetUniformLocation<span style="color: #67b11d;">(</span><span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;shader, <span style="color: #2d9574;">"image"</span><span style="color: #67b11d;">)</span>, <span style="color: #a45bad;">0</span><span style="color: #2d9574;">)</span>;
-    <span style="color: #bc6ec5;">}</span>
+    <span style="color: #0000FF;">if</span><span style="color: #7388D6;">(</span><span style="color: #0000FF;">this</span>-&gt;texture2d != <span style="color: #D0372D;">0</span><span style="color: #7388D6;">){</span>
+        glActiveTexture<span style="color: #909183;">(</span>GL_TEXTURE0<span style="color: #909183;">)</span>;
+        glBindTexture<span style="color: #909183;">(</span>GL_TEXTURE_2D, <span style="color: #0000FF;">this</span>-&gt;texture2d<span style="color: #909183;">)</span>;
+        glUniform1i<span style="color: #909183;">(</span>glGetUniformLocation<span style="color: #709870;">(</span><span style="color: #0000FF;">this</span>-&gt;shader, <span style="color: #008000;">"image"</span><span style="color: #709870;">)</span>, <span style="color: #D0372D;">0</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
 
-    glBindVertexArray<span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">this</span>-&gt;vao<span style="color: #bc6ec5;">)</span>;
-    glDrawArrays<span style="color: #bc6ec5;">(</span>GL_TRIANGLES, <span style="color: #a45bad;">0</span>, <span style="color: #a45bad;">6</span><span style="color: #bc6ec5;">)</span>;
-    glBindVertexArray<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+    glBindVertexArray<span style="color: #7388D6;">(</span><span style="color: #0000FF;">this</span>-&gt;vao<span style="color: #7388D6;">)</span>;
+    glDrawArrays<span style="color: #7388D6;">(</span>GL_TRIANGLES, <span style="color: #D0372D;">0</span>, <span style="color: #D0372D;">6</span><span style="color: #7388D6;">)</span>;
+    glBindVertexArray<span style="color: #7388D6;">(</span><span style="color: #D0372D;">0</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
@@ -1162,36 +1162,36 @@ SpriteRenderer本质上就是由两个三角形构成的矩形块。所以回想
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #bc6ec5;">#version</span> <span style="color: #a45bad;">330</span> core
-layout <span style="color: #4f97d7;">(</span>location = <span style="color: #a45bad;">0</span><span style="color: #4f97d7;">)</span> in <span style="color: #ce537a; font-weight: bold;">vec4</span> <span style="color: #7590db;">vertex</span>; <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">&lt;vec2 position, vec2 texCoords&gt;</span>
+<pre class="src src-c++"><span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
+layout <span style="color: #707183;">(</span>location = <span style="color: #D0372D;">0</span><span style="color: #707183;">)</span> in <span style="color: #6434A3;">vec4</span> <span style="color: #BA36A5;">vertex</span>; <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">&lt;vec2 position, vec2 texCoords&gt;</span>
 
-out <span style="color: #ce537a; font-weight: bold;">vec2</span> <span style="color: #7590db;">TexCoords</span>;
+out <span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">TexCoords</span>;
 
-uniform <span style="color: #ce537a; font-weight: bold;">mat4</span> <span style="color: #7590db;">model</span>;
-uniform <span style="color: #ce537a; font-weight: bold;">mat4</span> <span style="color: #7590db;">projection</span>;
+uniform <span style="color: #6434A3;">mat4</span> <span style="color: #BA36A5;">model</span>;
+uniform <span style="color: #6434A3;">mat4</span> <span style="color: #BA36A5;">projection</span>;
 
-<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
     TexCoords = vertex.zw;
-    gl_Position = projection * model * vec4<span style="color: #bc6ec5;">(</span>vertex.xy, <span style="color: #a45bad;">0.0</span>, <span style="color: #a45bad;">1.0</span><span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+    gl_Position = projection * model * vec4<span style="color: #7388D6;">(</span>vertex.xy, <span style="color: #D0372D;">0.0</span>, <span style="color: #D0372D;">1.0</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
 
-<pre class="src src-c++"><span style="color: #bc6ec5;">#version</span> <span style="color: #a45bad;">330</span> core
-in <span style="color: #ce537a; font-weight: bold;">vec2</span> <span style="color: #7590db;">TexCoords</span>;
-out <span style="color: #ce537a; font-weight: bold;">vec4</span> <span style="color: #7590db;">color</span>;
+<pre class="src src-c++"><span style="color: #808080;">#version</span> <span style="color: #D0372D;">330</span> core
+in <span style="color: #6434A3;">vec2</span> <span style="color: #BA36A5;">TexCoords</span>;
+out <span style="color: #6434A3;">vec4</span> <span style="color: #BA36A5;">color</span>;
 
-uniform <span style="color: #ce537a; font-weight: bold;">sampler2D</span> <span style="color: #7590db;">image</span>;
-uniform <span style="color: #ce537a; font-weight: bold;">vec3</span> <span style="color: #7590db;">scolor</span>;
+uniform <span style="color: #6434A3;">sampler2D</span> <span style="color: #BA36A5;">image</span>;
+uniform <span style="color: #6434A3;">vec3</span> <span style="color: #BA36A5;">scolor</span>;
 
-<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
-    color = vec4<span style="color: #bc6ec5;">(</span>scolor, <span style="color: #a45bad;">1.0</span><span style="color: #bc6ec5;">)</span> * texture<span style="color: #bc6ec5;">(</span>image, TexCoords<span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span><span style="color: #707183;">()</span>
+<span style="color: #707183;">{</span>
+    color = vec4<span style="color: #7388D6;">(</span>scolor, <span style="color: #D0372D;">1.0</span><span style="color: #7388D6;">)</span> * texture<span style="color: #7388D6;">(</span>image, TexCoords<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 </div>
@@ -1200,7 +1200,7 @@ uniform <span style="color: #ce537a; font-weight: bold;">vec3</span> <span style
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: keyring</p>
-<p class="date">Created: 2016-12-02 周五 14:51</p>
+<p class="date">Created: 2016-12-02 周五 14:55</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
