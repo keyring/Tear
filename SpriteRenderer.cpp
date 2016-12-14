@@ -10,7 +10,12 @@ namespace Tear {
         color(c),
         vao(0),
         shader(0),
-        texture2d(0)
+        texture2d(0),
+        framestart(0.0),
+        frametimer(0.033),
+        curframe(0),
+        totalframes(1),
+        stepframes(1)
     {
 
 		GLuint vbo;
@@ -50,39 +55,21 @@ namespace Tear {
         glDeleteVertexArrays(1, &this->vao);
     }
 
-    void SpriteRenderer::setPos(glm::vec2 p)
+    void SpriteRenderer::update(double dt)
     {
-        this->position = p;
+        this->animate(dt);
     }
 
-    void SpriteRenderer::setSize(glm::vec2 s)
+    void SpriteRenderer::animate(double dt)
     {
-        this->size = s;
-    }
+        framestart += dt;
+        while(framestart > frametimer){
+            framestart -= frametimer;
+            curframe += framesteps;
 
-    void SpriteRenderer::setColor(glm::vec3 c)
-    {
-        this->color = c;
-    }
-
-    void SpriteRenderer::setRotate(GLfloat r)
-    {
-        this->rotate = r;
-    }
-
-	void SpriteRenderer::setVao(GLuint v)
-	{
-		this->vao = v;
-	}
-
-    void SpriteRenderer::setShader(GLuint s)
-    {
-        this->shader = s;
-    }
-
-    void SpriteRenderer::setTexture(GLuint t)
-    {
-        this->texture2d = t;
+            if(curframe < 0){ curframe = totalframes-1; }
+            if(curframe > totalframes-1){ curframe = 0; }
+        }
     }
 
     void SpriteRenderer::draw()
