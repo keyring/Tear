@@ -39,7 +39,7 @@ namespace Tear {
 		void setVao(GLuint v){ this->vao = v; };
         void setShader(GLuint s){ this->shader = s; };
         void setTexture(GLuint t){ this->texture2d = t; };
-        void setFrameTimer(double dt){ this->frametimer = dt > 0.0 ? dt : FRAME_INTERVAL ; }
+        void setFrameTimer(double dt){ this->frametimer = dt > 0.0 ? dt : 0.016 ; }
         
     };
 };

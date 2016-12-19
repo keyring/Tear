@@ -1,16 +1,18 @@
 #ifndef __TEAR_H__
-#define __TEAR_H__
+#define __TEAR_H__ 1
+
+#define UPDATE_INTERVAL 0.01  // 10ms
+#define FRAME_INTERVAL 0.016 // 16ms
 
 #include <iostream>
 #include <GL/glew.h>
 
+#ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
+#endif // !STB_IMAGE_IMPLEMENTATION
 
 #include "SpriteRenderer.h"
-
-#define UPDATE_INTERVAL 0.01  // 10ms
-#define FRAME_INTERVAL 0.016 // 16ms
 
 extern bool game_load();
 extern bool game_init();
@@ -23,7 +25,7 @@ namespace Tear{
         
         int m_window_width;
         int m_window_height;
-        float m_update_interval;
+        double m_update_interval;
 
     public:
         Engine();

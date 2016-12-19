@@ -65,7 +65,7 @@ namespace Tear {
         framestart += dt;
         while(framestart > frametimer){
             framestart -= frametimer;
-            curframe += framesteps;
+            curframe += stepframes;
 
             if(curframe < 0){ curframe = totalframes-1; }
             if(curframe > totalframes-1){ curframe = 0; }
