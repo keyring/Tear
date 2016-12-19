@@ -1,5 +1,5 @@
 #ifndef __TEAR_H__
-#define __TEAR_H__ 1
+#define __TEAR_H__
 
 #define UPDATE_INTERVAL 0.01  // 10ms
 #define FRAME_INTERVAL 0.016 // 16ms
@@ -7,10 +7,10 @@
 #include <iostream>
 #include <GL/glew.h>
 
-#ifndef STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_IMPLEMENTATION
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 #include "stb/stb_image.h"
-#endif // !STB_IMAGE_IMPLEMENTATION
 
 #include "SpriteRenderer.h"
 

@@ -1,5 +1,6 @@
 
-#include "Window.h"
+#include "Tear.h"
+#include <GLFW/glfw3.h>
 
 Tear::Engine *g_tear_engine;
 
