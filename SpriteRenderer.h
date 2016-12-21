@@ -17,6 +17,8 @@ namespace Tear {
 
         double framestart, frametimer;
         int curframe, totalframes, stepframes;
+		int colframes, rowframes;
+		GLfloat dx, dy;
 
 
     public:
@@ -37,6 +39,8 @@ namespace Tear {
         void setShader(GLuint s){ this->shader = s; };
         void setTexture(GLuint t){ this->texture2d = t; };
         void setFrameTimer(double dt){ this->frametimer = dt > 0.0 ? dt : 0.016 ; }
+		void setTotalFrames(int f) { this->totalframes = f > 1 ? f : 1; }
+		void setColFrames(int c);
         
     };
 };

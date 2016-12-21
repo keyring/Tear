@@ -5,6 +5,7 @@
 #define FRAME_INTERVAL 0.016 // 16ms
 
 #include <iostream>
+#include <cmath>
 #include <GL/glew.h>
 
 #include "glm/glm.hpp"

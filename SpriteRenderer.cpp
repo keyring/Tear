@@ -15,7 +15,11 @@ namespace Tear {
         frametimer(0.033),
         curframe(0),
         totalframes(1),
-        stepframes(1)
+        stepframes(1),
+		colframes(1),
+		rowframes(1),
+		dx(1.0f),
+		dy(1.0f)
     {
 
 		GLuint vbo;
@@ -90,9 +94,12 @@ namespace Tear {
         glUniform3f(glGetUniformLocation(this->shader, "scolor"), this->color.x, this->color.y, this->color.z);
 
         if(this->texture2d != 0){
+			GLfloat x0 = (curframe%colframes)*0.1f;
+			GLfloat y0 = static_cast<GLfloat>(floor((curframe / colframes)) / rowframes);
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, this->texture2d);
             glUniform1i(glGetUniformLocation(this->shader, "image"), 0);
+			glUniform4f(glGetUniformLocation(this->shader, "frameOffset"), x0, y0, dx, dy);
         }
 
         glBindVertexArray(this->vao);
@@ -100,4 +107,11 @@ namespace Tear {
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);  // no index buffer
         glBindVertexArray(0);
     }
+	void SpriteRenderer::setColFrames(int c)
+	{
+		this->colframes = c > 1 ? c : 1; 
+		this->rowframes = static_cast<int>(ceil(this->totalframes / this->colframes));
+		this->dx = 1.0f / this->colframes;
+		this->dy = 1.0f / this->rowframes;
+	}
 }
