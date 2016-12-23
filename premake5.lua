@@ -51,3 +51,12 @@ workspace "TearEngine"
               "pthread",
               "dl"
             }
+
+            configuration "macosx"
+            links{
+              "glfw3",
+              "GLEW",
+              "OpenGL.framework",
+              "m",
+              "dl"
+            }
