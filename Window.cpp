@@ -98,11 +98,6 @@ int main(void)
 
     }
 
-    // Properly de-allocate all resources once they've outlived their purpose
-    // glDeleteVertexArrays(1, &VAO);
-    // glDeleteBuffers(1, &VBO);
-    // glDeleteBuffers(1, &EBO);
-
     g_tear_engine->close();
     delete g_tear_engine;
 

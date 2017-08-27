@@ -26,6 +26,7 @@ const GLchar* fragmentShaderSource = "#version 330 core\n"
 #define WINDOW_HEIGHT 600
 
 Tear::SpriteRenderer *sprite;
+Tear::SpriteRenderer *animate_sprite;
 
 
 bool game_load()
@@ -39,7 +40,7 @@ bool game_init()
 {
     GLuint shaderProgram = g_tear_engine->_shader_create(vertexShaderSource, fragmentShaderSource);
     GLuint texture1 = g_tear_engine->_texture_create("../../media/cat.png");
-    GLuint texture2 = g_tear_engine->_texture_create("../../media/logo.png");
+    GLuint texture2 = g_tear_engine->_texture_create("../../media/animation.png");
 
 	glUseProgram(shaderProgram);
 	glm::mat4 projection = glm::ortho(0.f, 1.f*WINDOW_WIDTH, 1.f*WINDOW_HEIGHT, 0.f, -1.0f, 1.0f);
@@ -52,20 +53,32 @@ bool game_init()
 	sprite->setSize(glm::vec2(180.0f, 180.0f));
 	sprite->setColor(glm::vec3(1.0f, 0.0f, 0.0f));
 
+    animate_sprite = new Tear::SpriteRenderer();
+    animate_sprite->setShader(shaderProgram);
+    animate_sprite->setTexture(texture2);
+    animate_sprite->setPos(glm::vec2(400, 100));
+    animate_sprite->setSize(glm::vec2(132, 94));
+    animate_sprite->setTotalFrames(16);
+    animate_sprite->setColFrames(4);
+    animate_sprite->setFrameTimer(0.3);
+
     return true;
 }
 
 void game_update(double dt)
 {
 	sprite->update(dt);
+    animate_sprite->update(dt);
 }
 
 void game_render()
 {
     sprite->draw();
+    animate_sprite->draw();
 }
 
 void game_end()
 {
     delete sprite;
+    delete animate_sprite;
 }

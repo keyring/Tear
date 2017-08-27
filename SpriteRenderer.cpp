@@ -94,7 +94,7 @@ namespace Tear {
         glUniform3f(glGetUniformLocation(this->shader, "scolor"), this->color.x, this->color.y, this->color.z);
 
         if(this->texture2d != 0){
-			GLfloat x0 = (curframe%colframes)*0.1f;
+			GLfloat x0 = (curframe%colframes)*1.0f/colframes;
 			GLfloat y0 = static_cast<GLfloat>(floor((curframe / colframes)) / rowframes);
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, this->texture2d);
