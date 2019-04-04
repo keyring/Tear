@@ -572,6 +572,10 @@ ejoy2d_game_drawframe(struct game *G) {
 }
 
 #+END_SRC
+
+** reference
+   - [[https://gafferongames.com/post/fix_your_timestep/][Fix Your Timestep!]]
+
 * Sprite
   我们使用 *Sprite* 来表示一个2D渲染对象。特意注明2D，是因为渲染Sprite不需要像3D渲染那样根据摄像机的视角计算出透视坐标和光照来展现三维物体的表面。Sprite只需要最基本的 ~position~ ~scale~ ~rotation~ ~shader~ 即可渲染在屏幕上（就像之前我们做的所有渲染尝试）。
 
